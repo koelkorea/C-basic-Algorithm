@@ -15,37 +15,54 @@
 //         struct ListNode* link;       <- 다음 리스트 요소가 위치한 주소
 //     } ListNode;
 
-//  # 연결리스트의 구성요소
+//  # 연결리스트의 구성요소 : 
 //    - 머리(Head) : 연결 리스트에서 첫번째 노드의 주소를 저장한 포인터 (= 연결리스트를 시작하려면, 일단 헤드의 주소값에 위치한 값을 역참조해야 함)
 //    - 노드(Node) : 연결 리스트의 요소
 //    - 값(Value)  : 노드에 저장된 데이터
-//    - 연결(Link) : 다른 노드로 연결을 위한 포인터
+//    - 연결(Link) : 다른 노드로 연결을 위한 포인터 -> (중요!) 마지막 노드의 link = NULL
 
 //  # 연결리스트의 종류
 //   1. 단순 연결 리스트(Singly Linked List)
-//      : 각 노드의 link에 다음 노드의 주소가 있음. 마지막 노드의 link는 NULL 값.
+//      : 각 노드의 link에 다음 노드의 주소가 있음. 
+//        -> Head : 1번째노드 주소값 -> 1번쨰 node(value, link :  1번째노드 주소값) -> .... -> n번쨰 node(value, link : Null)
 
+//      # 단순 연결 리스트(Singly Linked List)의 [마지막 노드의 link = NULL]
 
 //   2. 원형 연결 리스트(Circular Linked List)
-//      : 각 노드의 link에 다음 노드의 주소가 있다. 마지막 노드의 link는 헤드의 주소값.
+//      : 각 노드의 link에 다음 노드의 주소가 있어, 단방향이지만 모든 노드가 형으로 연결되어 있는 리스트
+//        -> Head : 1번째노드 주소값 -> 1번쨰 node(value, link :  1번째노드 주소값) -> .... -> n번쨰 node(value, link : Head의 주소값)
+
+//      # 원형 연결 리스트(Circular Linked List)의 [마지막 노드의 link =  head의 주소값]
+
+//   3. 더블 원형 연결 리스트(Double Circular Linked List)
+//      : head를 포함해서 각 노드의 link가 전노드link와 후노드link로 분화되어, 양방향으로 모든 노드가 원형으로 연결되어 있는 리스트
+//        -> Head : 1번째노드 주소값 -> 1번쨰 node(value, link :  1번째노드 주소값) -> .... -> n번쨰 node(value, link : Head의 주소값)
+
+//      # 더블 원형 연결 리스트(Double Circular Linked List)의 [마지막 노드의 후노드 link = head의 주소값]
+//                                                             [head의 전노드 link = 마지막노드의 주소값]
 
 
 //  # 연결 리스트 ADT(Abstract data type(추상적 데이터 유형) = 자료 구조를 어떻게 다룰지, 기능적 측면을 서술하고 구체화 과정)
-//    - insert_first(list, item) : 맨 앞에 Node 추가
-//    - delete_first(list) 맨 앞에 Node 제거
-//    - search(list, item) : item이 list 안에 있는지 확인
-//    - concat(list1, list2) : list1과 list2를 연결
-//    - reverse(list1) : list1의 요소 전부를 반대로 연결
-//    - display(list) : 리스트의 모든 요소를 표시
-//    - insert_last(list, item) : 맨 뒤에 Node 추가
-//    - delete_lsat(list) 맨 뒤에 Node 제거
+//    - insert_first(list*, item) : 해당 list의 맨 앞에 Node 추가
+//    - insert_last(list*, item)  : 해당 list의 맨 뒤에 Node 추가
+//    - insert_sort(list*, item)  : 해당 list에서 item에 해당하는 값을 추가하는데, 오름차순에 맞는 순서로 Node에 추가
+//    - delete_first(list*)  : 해당 list의 맨 앞에 Node 제거
+//    - delete_last(list*)   : 해당 list의 맨 뒤에 Node 제거
+//    - delete_search(list*, value) : 해당 list에서 item에 해당하는 값을 가진 노드를 찾아 삭제하고, 성공 실패값 리턴
+//    - search(list*, item)  : item이 list 안에 있는지 확인
+//    - concat(list1*, list2*) : list1과 list2를 연결
+//    - reverse(list*) : list1의 요소 전부를 반대로 연결
+//    - display(list*) : 해당 list의 모든 value를 연속적으로 모두 표시
+//    - freelist(list*) : 해당 list를 위해 할당된 메모리 주소를 해제하기
 
 // 연결 리스트 ADT 전부 구현해보자
 #include <stdio.h>
 #include <stdlib.h>				//	srand(), rand() 함수 사용 가능하게 함
 
+// int명칭 재정의용
 typedef int list_element;
 
+// 연결리스트 개별 노드를 구성하는 존재 (value, link)
 typedef struct ListNode {
 
     list_element data;
@@ -80,75 +97,87 @@ void display(ListNode* head);                                // done
 // 해당 노드포인터의 메모리를 해제하는 함수
 void freelist(ListNode* head);
 
-
 int main(void) {
 
     srand((unsigned int)time(NULL));
 
-    ListNode* head1 = NULL, * head2 = NULL, * head3 = NULL, * head1_2 = NULL;
-
-    ListNode* search_address = NULL;
-
+    // head1 : insert_first, delete_first, concat의 파리미터로 테스트예정
+    ListNode* head1 = NULL;
+    
+    // head2 : insert_first, insert_last, delete_search, concat의 파리미터로 테스트예정
+    ListNode* head2 = NULL;
+    
+    // head3 : insert_sort 테스트 예정
+    ListNode* head3 = NULL;
+    
+    // head1 채우기 : insert_first
     for (int i = 100; i > 0; i -= 10) {
 
         head1 = insert_first(head1, i);
     }
     display(head1);
 
+    // head1 지우기 : delete_first
     for (int i = 100; i > 20; i -= 10) {
 
         head1 = delete_first(head1);
         display(head1);
     }
 
+    // head2 채우기 : insert_first
     for (int i = 1; i <= 1000; i += 100) {
 
         head2 = insert_first(head2, i);
     }
 
+    // head2 채우기 : insert_last로 890916라는 값을 value로 하는 노드를 맨 끝에 붙이기
     head2 = insert_last(head2, 890916);
-
     display(head2);
 
+    // head2 지우기 : delete_search로 890916라는 값을 value로 하는 노드를 찾아 지우고, 결과값을 리턴
     if (delete_search(head2, 890916) == 0) {
 
         printf("[검색 삭제 성공]\n");
         display(head2);
-
     }
 
-    // concat (연결) 실행
-    head1_2 = concat(head1, head2);
+    
+    // head1_2 : delete_last, concat, reverse, search의 파라미터 테스트예정
+    
+    // head1_2 만들기 : concat (연결) 실행해서, head1과 head2를 연결
+    ListNode* head1_2 = concat(head1, head2);
+    
+    // head1_2 지우기 : delete_last
     head1_2 = delete_last(head1_2);
     display(head1_2);
 
-    // reverse (역순) 실행
+    // head1_2 연결순서 바꾸기 : reverse (역순) 실행
     head1_2 = reverse(head1_2);
     display(head1_2);
 
-    // search (검색) 실행
-    search_address = search(head1_2, 100);
+    // search_address : search (검색) 실행 테스트 예정(결과값 받을 용도)
+    ListNode* search_address = search(head1_2, 100);
 
-    // insert_sort(정렬 추가) 실행 
+    // head3 : insert_sort(정렬 추가) 실행 테스트 예정 
     for (int i = 1; i <= 10; i += 1) {
 
+        // 랜덤으로 생성된 10이하의 값을 노드를 만들어 채울때마다, 그 위치를 오름차순에 맞는 순서로 놓기
         head3 = insert_sort(head3, rand() % 10);
         display(head3);
     }
 
-
     return 0;
 }
 
-// 맨 앞에 Node 추가(전에 만든 녀석은 뒤로 밀리는 방식)
+// insert_first : 맨 앞에 Node 추가(전에 만든 녀석은 뒤로 밀리는 방식)
 ListNode* insert_first(ListNode* head, list_element item) {
 
+    printf_s("\n\n------------------------------[insert_first로 %d 넣기 시작!]------------------------------\n", item);
+    
     // 새로운 맨 앞의 노드의 데이터를 넣을 주소값이 어딘지 알기 위해, ListNode의 포인트변수의 메모리를 할당함
     ListNode* Newnode = (ListNode*)malloc(sizeof(ListNode));
 
-    printf_s("\n\n------------------------------[insert_first로 %d 넣기 시작!]------------------------------\n", item);
-
-    // 노드를 만들 공간이 없다면?? 에러 띄우기
+    // 노드를 만들 메모리 공간이 없다면?? 에러 띄우기
     if (Newnode == NULL) {
         printf("메모리 부족");
         return NULL;
