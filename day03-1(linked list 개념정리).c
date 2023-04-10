@@ -249,50 +249,76 @@ ListNode* insert_sort(ListNode* head, list_element item) {
         return NULL;
     }
 
-    // (case1 : 연결리스트에 아무것도 안 들어있다? = Newnode의 주소를 head와 연결해줘야 함 = insert_first) 
-    //   -> head가 가르키는 주소값이 없다면? 
+    // ---------------------(case1) : 연결리스트에 아무것도 안 들어있다?-------------------------------------
+    //  => Newnode의 주소를 head와 연결해줘야 함 = insert_first를 실행하고 그 주소값 리턴
+    
+    // head가 가르키는 주소값이 없다면? 
     if (insert_arrivial_link_address == NULL) {
 
         // 1번 노드에 입장시키기
         return insert_first(head, item);
     }
+    //----------------------------------------------------------------------------------------------------
 
+    // head가 가르키는 주소값이 있다면?
+    //  검사중인 노드의 data값이 끼어들어갈 노드의 기준이 되는 위치값인 insert_arrivial_link_address가 null (= 마지막 노드의 위치에 다다를때까지) 이 나올때까지 반복
     while (insert_arrivial_link_address != NULL) {
+        
+        // ---------------------(case2) : Newnode의 item값이 연결리스트의 모든 노드의 값보다 작은게 판정(= 가장 작은 값인 1번쨰 값과 비교했을때 작음)?------------------
+        //  => Newnode의 주소를 head와 연결해줘야 함 = insert_first를 실행하고 그 주소값 리턴
+        
+        // @입력되는 item값이 현재 가장 작은 값인지 확인하는 방법
+        // 1. 현재 검사중인 노드의 주고값이 head가 가르키는 주소값인 1번쨰 노드의 주소값 일치
+        // 2. 1번에서 확인한 현재 검사중인 노드의 주소값(head)의 value값이 item보다 큰 경우
+        if (insert_arrivial_link_address == head && insert_arrivial_link_address->data >= item) {
 
-        // (case3 : 연결리스트의 노드의 값중 Newnode의 item값보다 큰게 존재한다? = Newnode의 link값을 해당 노드의 주소값(해당 노드전의 노드의 link가 가진 원래값)과 연결 +  Newnode의 주소를 해당 노드전의 노드의 link와 연결) 
+            printf_s("\n검색값 %d은 가장 작은 노드의 값 %d 보다 작음", item, insert_arrivial_link_address->data);
+            return insert_first(head, item);
+        }
+        //--------------------------------------------------------------------------------------------------------------------------------------------------
+
+        // ---------------------(case3) : 연결리스트의 노드의 값중 Newnode의 item값보다 큰게 존재한다?-------------------------------------------------
+        //   => Newnode의 link값을 해당 노드의 주소값(해당 노드전의 노드의 link가 가진 원래값)과 연결 +  Newnode의 주소를 해당 노드전의 노드의 link와 연결
+        
+        // 현재 검사중인 노드의 주소값의 value값이 item보다 큰 경우
         if (insert_arrivial_link_address->data >= item) {
-            
-
-            // (case4 : Newnode의 item값이 연결리스트의 모든 노드의 값보다 작은게 판정? = Newnode의 주소를 head와 연결해줘야 함 = insert_first) 
-            if (insert_arrivial_link_address == head) {
-
-                printf_s("\n검색값 %d은 가장 작은 노드의 값 %d 보다 작음", item, insert_arrivial_link_address->data);
-                return insert_first(head, item);
-            }
 
             printf_s("\n검색값 %d보다 크거나 같은 비교 노드 요소값 %d 발견", item, insert_arrivial_link_address->data);
 
+            // 끼워넣을 Newnode의 data는 item대입
             Newnode->data = item;
+            
+            // 끼워넣을 Newnode의 다음 노드의 주소값을 나타내는 link의 값 = 찾아낸 끼워넣을 기준 노드의 주소값 insert_arrivial_link_address으로 넣기
             Newnode->link = insert_arrivial_link_address;
+            
+            // 현재 검사중인 노드의 이전 노드의 주소값을 저장한 insert_arrivial_link_address의 다음 노드의 주소값을 나타내는 link의 값 = 끼워넣을 노드 Newnode의 주소값으로 넣기
             insert_front_link_address->link = Newnode;
+            
             return head;
         }
+        //--------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-
-        // (case2 : Newnode의 item값이 연결리스트의 모든 노드의 값보다 크거나 같다? = Newnode의 주소를 마지막 노드의 link와 연결해줘야 함 insert_last) 
+        // ---------------------------(case4) : Newnode의 item값이 연결리스트의 모든 노드의 값보다 크거나 같다?------------------------------------------
+        //   => Newnode의 주소를 마지막 노드의 link와 연결해줘야 함 insert_last를 실행하고 그 주소값 리턴
+        
+        // @입력되는 item값이 현재 가장 작은 값인지 확인하는 방법
+        //  -> 현재 검사중인 노드의 다음 노드의 주소값을 나타내는 link값이 없으면 됨
         if (insert_arrivial_link_address->link == NULL) {
 
             return insert_last(head, item);
         }
+        //--------------------------------------------------------------------------------------------------------------------------------------------------
 
+        // case234에 안 걸리면?
+        
+        // 현재 끼어넣을 기준이 되는 노드의 주소값을 찾는 insert_front_link_address의 주소값을 insert_front_link_address라는 끼워넣을 노드를 앞에서 연결해줄 노드값에 
         insert_front_link_address = insert_arrivial_link_address;
+        
+        // 끼어넣을 기준이 되는 노드의 주소값을 찾는 insert_front_link_address는 그가 역참조하는 link값으로 갱신하여, 끼어놓을 위치를 갱신해서 다시 item과 value의 관계를비교하는 로직을 탄다
         insert_arrivial_link_address = insert_arrivial_link_address->link;
     }
 
-
 }
-
 
 // 맨 앞의 Node 삭제
 ListNode* delete_first(ListNode* head) {
@@ -391,7 +417,7 @@ ListNode* search(ListNode* head, list_element item) {
         if (head->data == item) {
 
             address = head;
-            printf_s("----------------------------[검색어 %d 찾기 완료] : 메모리주소 %d에 존재-----------------------------------\n", item, address);
+            printf_s("*******************[검색어 %d 찾기 완료] : 메모리주소 %d에 존재****************\n", item, address);
             break;
         }
         else {
@@ -403,59 +429,92 @@ ListNode* search(ListNode* head, list_element item) {
     return address;
 }
 
-// list1과 list2를 연결
+// concat : list1과 list2를 연결
 ListNode* concat(ListNode* head1, ListNode* head2) {
 
     printf_s("\n\n------------------------------[concat 시작! : head1, head2 연결시작]------------------------------\n\n");
 
-    printf_s("\nhead1시작.. %d\n", head1);
+    printf_s("\nhead1 시작위치 : %d\n", head1);
+    printf_s("\nhead2 시작위치 : %d\n", head2);
 
+    // 1번 연결리스트의 head가 나타내는 1번째노드의 주소값이 없다면 (= 연결리스트 자체가 없음)?
+    //  -> 2번 연결리스트의 head기 나타내는 1번째노드의 주소값을 출력 (NULL이던 주소값이 있던 상관없음)
     if (head1 == NULL) {
-        return head2;
+        return head2; 
     }
-
+    
+    // 1번 연결리스트의 head가 나타내는 1번째노드의 주소값이 있는데? 2번 연결리스트의 head가 나타내는 1번째노드의 주소값이 없다면 (= 연결리스트 자체가 없음)?
+    //  -> 1번 연결리스트의 head기 나타내는 1번째노드의 주소값을 출력 (NULL이던 주소값이 있던 상관없음)
     if (head2 == NULL) {
         return head1;
     }
+    
+    // (중요!) 1번 연결리스트의 head가 나타내는 1번째노드의 주소값 + 2번 연결리스트의 head가 나타내는 1번째노드의 주소값이 모두 null이 아니면 concat개시
+    
+    // current_head1_index : 1번 연결리스트의 마지막 노드의 주소를 알아내기 위한 ListNode의 주소값을 받는 포인터변수
+    ListNode* current_head1_index = head1;
 
-    ListNode* head1_index = head1;
+    // current_head1_index(현재의 노드 주소값)에 위치한 link가 null이 나올때까지(= current_head1_index가 마지막 노드의 주소값을 나타낼떄까지)... 계속 수행
+    while (current_head1_index->link != NULL) {
 
-    while (head1_index->link != NULL) {
-
-        printf_s("다음주소.. %d -> %d로..\n", head1_index, head1_index->link);
-        head1_index = head1_index->link;
+        printf_s("다음주소.. %d -> %d로..\n", current_head1_index, current_head1_index->link);
+        
+        // current_head1_index(현재의 노드 주소값)에 위치한 link이 null이 아니면, 다음 노드의 주소값을 의미하는 current_head1_index->link가 current_head1_index의 값으로 갱신
+        current_head1_index = current_head1_index->link;
     }
 
-    head1_index->link = head2;
+    // null이었던 current_head1_index(현재의 노드 주소값)에 위치한 link값을 2번 연결리스트의 head가 나타내는 1번째노드의 주소값인 head2로 대입
+    current_head1_index->link = head2;
 
-    printf_s("----------------------------[concat 붙이기 완료] : head1의 마지막 link값 = %d -> %d(%d)로.. 변경-----------------------------\n", head1_index, head1_index->link, (head2));
+    printf_s("----------------------------[concat 붙이기 완료] : head1의 마지막 link값 = %d -> %d(%d)로.. 변경-----------------------------\n", current_head1_index, current_head1_index->link, (head2));
 
+    // 1번, 2번 연결이 완료된 연결리스트의 시작점인 1번 연결리스트의 헤드값 리턴
     return head1;
 
 }
 
-// list1의 요소 전부를 반대로 연결
+// reverse : list1의 요소 전부를 반대로 연결
 ListNode* reverse(ListNode* head) {
 
-    ListNode* already_changed;
-    ListNode* should_be_changed = NULL;
-    ListNode* target_address = head;
-
+    // 애초에 연결리스트의 노드가 없다면, null을반환
     if (head == NULL) {
         return NULL;
     }
+    
+    // 연결리스트의 노드가 하나라도 있다면, head에 저장된 1번쨰 노드의 값을 target노드로 연속리스트 방향 역행시작
+    
+    // target_address : 현재 위치하는 중인 노드로.. head에서 시작하고, 작업이 끝나면 자신이 저장하는 주소값에 노드의 다음 노드의 주소를 저장한 link로 갱신됨
+    ListNode* target_address = head;
+    
+    // already_reversed_node : 이미 역행처리가 완료된 노드로 시작값은 존재하지 않음
+    ListNode* already_reversed_node;
+    
+    // should_be_reversed_node : 역행처리를 현재 수행해야할 노드의 주소로 시작값은 NULL
+    ListNode* should_be_reversed_node = NULL;
 
+
+    // 현재 역행작업 중인 노드의 주소값이 null (= 이 녀석이 역행한 연결리스트의 마지막 노드라는 의미)이 될떄까지 반복
     while (target_address != NULL) {
 
-        already_changed = should_be_changed;
-        should_be_changed = target_address;
+        // 이미 역행처리가 완료된 노드의 주소값 already_reversed_node을 앞선 차례에 변경한 노드의 주소값 should_be_reversed_node으로 갱신해서 저장 
+        // -> 처음에는 역행완료된게 없으니 null
+        already_reversed_node = should_be_reversed_node;
+        
+        // 역행처리를 현재 수행해야할 노드의 주소값 should_be_reversed_node을 현재 위치할 노드의 주소 target_address값으로 갱신해서 저장
+        should_be_reversed_node = target_address;
 
+        // 아직 작업안한 뒤의 노드의 주소를 타겟으로 갱신해줌
         target_address = target_address->link;
-        should_be_changed->link = already_changed;
-
+        
+        // 현재 역행처리를 현재 수행할 노드의 다음 노드의 주소값을 저장하는 should_be_reversed_node의 link값을 이미 변경된 노드의 주소값 already_reversed_node으로 변경
+        //  -> 처음에는 기존에 역행처리 완료된 노드가 없으니 당연히 null이 들어감 (= 처음 작업하는 노드는 결국 역행된 리스트에서는 끝번쨰 노드를 의미)
+        should_be_reversed_node->link = already_reversed_node;
     }
 
-    return should_be_changed;
+    // 역행작업이 끝나고 나면, 현재 역행작업을 마친 노드의 주소값을 리턴
+    // head = should_be_reversed_node;
+    // return head;
+    return should_be_reversed_node;
 }
 
 // 리스트의 모든 요소를 표시
