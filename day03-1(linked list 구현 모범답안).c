@@ -1,39 +1,60 @@
+// [ëª¨ë²”ë‹µì•ˆ] ì—°ê²° ë¦¬ìŠ¤íŠ¸ ADT (ë‚˜ ì™€ì˜ ì°¨ì´ì )
+//  1. 2ì¤‘ í¬ì¸í„°ë³€ìˆ˜ ì ê·¹ í™œìš©
+//     - &í¬ì¸í„°ë³€ìˆ˜ ê¹Œì§€ë„ ì‚¬ìš©í•¨
+//     - freelistêµ¬í˜„ì‹œ íŒŒë¼ë¯¸í„°ì— ListNode** headë¥¼ íˆ¬ì…
+//  2. í•´ë‹¹ ì—°ê²°ë¦¬ìŠ¤íŠ¸ë¥¼ ìš”ì†Œê°’ì˜ ì˜¤ë¦„ì°¨ìˆœìœ¼ë¡œ ì—°ê²°ì‹œì¼œì£¼ëŠ” ListSortë¥¼ ìš”ì†Œê°’ë§Œ ìˆœì°¨ì •ë ¬ ì•Œê³ ë¦¬ì¦˜ ì‚¬ìš©í•´ì„œ ê°’ì„ êµí™˜í•´ í•´ê²°
+//  3.  
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #define swap(type,a,b) {type t=a;a=b;b=t;}
+
 typedef int list_element;
 typedef struct ListNode {
+    
     list_element data;
     struct ListNode* link;
 } ListNode;
-// ³ëµå ¸Ç ¾Õ »ı¼º
+
+// ë…¸ë“œ ë§¨ ì• ìƒì„±
 ListNode* insert_first(ListNode* head, list_element value);
-// ³ëµå ¸Ç µÚ »ı¼º
+
+// ë…¸ë“œ ë§¨ ë’¤ ìƒì„±
 ListNode* insert_last(ListNode* head, list_element value);
-// ³ëµå Á¤·Ä »ı¼º
+
+// ë…¸ë“œ ì •ë ¬ ìƒì„±
 ListNode* insert_sort(ListNode* head, list_element value);
-// ³ëµå ¸Ç ¾Õ »èÁ¦
+
+// ë…¸ë“œ ë§¨ ì• ì‚­ì œ
 ListNode* delete_first(ListNode* head);
-// ³ëµå ¸Ç µÚ »èÁ¦
+
+// ë…¸ë“œ ë§¨ ë’¤ ì‚­ì œ
 ListNode* delete_last(ListNode* head);
-// ³ëµå °Ë»ö »èÁ¦
-// ¹İÈ¯ °ª = »èÁ¦ ¼º°ø : 0, »èÁ¦ ½ÇÆĞ : -1
-// ¸Å°³º¯¼ö ListNode** head = List HeadÀÇ ÁÖ¼Ò
-// ¸Å°³º¯¼ö list_element value = »èÁ¦ ¿ä¼Ò
+
+// ë…¸ë“œ ê²€ìƒ‰ ì‚­ì œ
+// ë°˜í™˜ ê°’ = ì‚­ì œ ì„±ê³µ : 0, ì‚­ì œ ì‹¤íŒ¨ : -1
+// ë§¤ê°œë³€ìˆ˜ ListNode** head = List Headì˜ ì£¼ì†Œ
+// ë§¤ê°œë³€ìˆ˜ list_element value = ì‚­ì œ ìš”ì†Œ
 int delete_search(ListNode** head, list_element value);
-// ³ëµå °Ë»ö
+
+// ë…¸ë“œ ê²€ìƒ‰
 ListNode* search(ListNode* head, list_element x);
-// ¸®½ºÆ® °áÇÕ head1 + head2
+
+// ë¦¬ìŠ¤íŠ¸ ê²°í•© head1 + head2
 ListNode* concat(ListNode* head1, ListNode* head2);
-// ¸®½ºÆ® ¿ª¼ø ¿¬°á
+
+// ë¦¬ìŠ¤íŠ¸ ì—­ìˆœ ì—°ê²°
 ListNode* reverse(ListNode* head);
-// ³ëµå Á¤·Ä
+
+// ë…¸ë“œ ì •ë ¬
 ListNode* ListSort(ListNode* head);
-// ¸®½ºÆ® Ãâ·Â
+
+// ë¦¬ìŠ¤íŠ¸ ì¶œë ¥
 void print_list(ListNode* head);
-// ¸®½ºÆ® ¸Ş¸ğ¸® ÇØÁ¦
-// ¸Å°³º¯¼ö ListNode** head = List HeadÀÇ ÁÖ¼Ò
+
+// ë¦¬ìŠ¤íŠ¸ ë©”ëª¨ë¦¬ í•´ì œ
+// ë§¤ê°œë³€ìˆ˜ ListNode** head = List Headì˜ ì£¼ì†Œ
 void freelist(ListNode** head);
 
 int main() {
@@ -46,124 +67,209 @@ int main() {
         printf("list 1 ");
         print_list(list_head1);
     }
+    
     for (int i = 0; i <= 50; i += 20) {
-        if (delete_search(&list_head1, i) == 0) printf("%4d »èÁ¦ ¼º°ø  ", i);
-        else printf("%4d »èÁ¦ ½ÇÆĞ  ", i);
+        
+        if (delete_search(&list_head1, i) == 0){
+            printf("%4d ì‚­ì œ ì„±ê³µ  ", i);
+        }else{
+            printf("%4d ì‚­ì œ ì‹¤íŒ¨  ", i);
+        }
+        
         printf("list 1 ");
         print_list(list_head1);
     }
+    
     for (int i = 0; i < 50; i += 10) {
         list_head2 = insert_sort(list_head2, rand() % 5000);
         printf("list 2 ");
         print_list(list_head2);
     }
+    
     for (int i = 0; i < 2; i++) {
         list_head1 = delete_first(list_head1);
         list_head1 = delete_last(list_head1);
         printf("list 1 ");
         print_list(list_head1);
     }
+    
     ListNode* concat_list = concat(list_head1, list_head2);
     list_head1 = list_head2 = NULL;
+    
     printf("list concat ");  print_list(concat_list);
+    
     concat_list = reverse(concat_list);
     printf("list concat ");  print_list(concat_list);
+    
     ListNode* p = search(concat_list, 80);
-    if (p != NULL) printf("Å½»ö ¼º°ø : %d\n", p->data);
-    else printf("Å½»ö ½ÇÆĞ\n");
+    
+    if (p != NULL) {
+        printf("íƒìƒ‰ ì„±ê³µ : %d\n", p->data);
+    }else {
+        printf("íƒìƒ‰ ì‹¤íŒ¨\n");
+    }
+    
     ListSort(concat_list);
     printf("list concat ");  print_list(concat_list);
+    
     freelist(&concat_list);
     return 0;
 }
 
+// í•´ë‹¹ ì—°ê²°ë¦¬ìŠ¤íŠ¸ì˜ 1ë²ˆì¨° ë…¸ë“œì— ì¶”ê°€ (= ê°™ì€ ë°©ë²• êµ¬í˜„)
 ListNode* insert_first(ListNode* head, list_element value) {
+    
     ListNode* NewNode = (ListNode*)malloc(sizeof(ListNode));
-    if (NewNode == NULL) { printf("»õ ³ëµå µ¿Àû ÇÒ´ç ½ÇÆĞ!\n"), exit(1); }
+    
+    if (NewNode == NULL) {
+        printf("ìƒˆ ë…¸ë“œ ë™ì  í• ë‹¹ ì‹¤íŒ¨!\n"), exit(1); 
+    }
+    
     NewNode->data = value;
     NewNode->link = head;
+    
     return NewNode;
 }
 
+// í•´ë‹¹ ì—°ê²°ë¦¬ìŠ¤íŠ¸ì˜ ë§ˆì§€ë§‰ ë…¸ë“œì— ì¶”ê°€ (= ê°™ì€ ë°©ë²• êµ¬í˜„)
 ListNode* insert_last(ListNode* head, list_element value) {
+    
     ListNode* NewNode = (ListNode*)malloc(sizeof(ListNode));
-    if (NewNode == NULL) { printf("»õ ³ëµå µ¿Àû ÇÒ´ç ½ÇÆĞ!\n"), exit(1); }
+    
+    if (NewNode == NULL) {
+        printf("ìƒˆ ë…¸ë“œ ë™ì  í• ë‹¹ ì‹¤íŒ¨!\n"), exit(1); 
+    }
+    
     NewNode->data = value;
     NewNode->link = NULL;
-    if (head == NULL) { head = NewNode; return head; }
+    
+    if (head == NULL) {
+        head = NewNode; 
+        return head;
+    }
+    
     ListNode* LastNode = head;
-    while (LastNode->link != NULL) LastNode = LastNode->link;
+    
+    while (LastNode->link != NULL){
+        LastNode = LastNode->link;
+    }
+    
     LastNode->link = NewNode;
+    
     return head;
 }
 
+// ë¦¬ìŠ¤íŠ¸ì— itemì˜ ê°’ì´ ë…¸ë“œì˜ ìœ„ì¹˜ìƒ ì„ íƒì •ë ¬ ë˜ë„ë¡ ì•Œë§ì€ ë…¸ë“œ ìœ„ì¹˜ë¥¼ ì„ ì • í›„ ê°’ ì¶”ê°€ (<-> ì¼€ì´ìŠ¤ë¥¼ 4ê°œë¡œ ë‚˜ëˆˆ ë‚´ ë°©ë²•ì´ë‘ ë‹¤ë¥´ê²Œ ì¢€ ë‹¨ìˆœí™”.. ëŒ€ì‹  linkê°’ì´ ìˆ˜ì‹œë¡œ ë°”ë€Œê²Œ ë¨)
 ListNode* insert_sort(ListNode* head, list_element value) {
+    
     ListNode* NewNode = (ListNode*)malloc(sizeof(ListNode));
-    if (NewNode == NULL) { printf("»õ ³ëµå µ¿Àû ÇÒ´ç ½ÇÆĞ!\n"), exit(1); }
+    
+    if (NewNode == NULL) {
+        printf("ìƒˆ ë…¸ë“œ ë™ì  í• ë‹¹ ì‹¤íŒ¨!\n"), exit(1); 
+    }
+    
     NewNode->data = value;
     NewNode->link = NULL;
-    if (head == NULL) return NewNode; // Node ¾øÀ½
-    ListNode* forward = head, * rear = NULL; //NewNode ±âÁØ ¾Õ, µÚ ³ëµå À§Ä¡ Ã£±â
+    
+    // case1 ë…¸ë“œê°€ ì—†ëŠ” ê²½ìš° (1ë²ˆì¨° ë…¸ë“œí–‰)
+    if (head == NULL) {
+        return NewNode; // Node ì—†ìŒ
+    }
+    
+    //NewNode ê¸°ì¤€ rear : ì•ë…¸ë“œ, forward : ë’¤ë…¸ë“œ(headê°€ ì´ˆê¸°ê°’) 
+    ListNode* forward = head, * rear = NULL; 
+    
+    // ë’· ë…¸ë“œì˜ ì£¼ì†Œê°’ì´ ìˆìœ¼ë©´ ê³„ì† ì§„í–‰ 
     while (forward != NULL) {
-        if (forward->data > value)break;
+        
+        // ë„ì¤‘ì— itemê°’ë³´ë‹¤ í° ë…¸ë“œì˜ ê°’ì„ ì°¾ìœ¼ë©´ ê±°ê¸°ì„œ ì•ë…¸ë“œì™€ ë’·ë…¸ë“œë¥¼ ê²°ì •(breakë¬¸ìœ¼ë¡œ íƒˆì¶œ)
+        if (forward->data > value){
+            break;
+        }
+        // ì–´ì œì˜ ì•ë…¸ë“œê°€ ë‚´ì¼ì˜ ë’¤ë…¸ë“œ, ì–´ì œì˜ ë’¤ë…¸ë“œ linkê°€ ë‚´ì¼ì˜ ë’·ë…¸ë“œ
         rear = forward;
         forward = forward->link;
     }
-    if (forward == head) { // »õ ³ëµå À§Ä¡°¡ ¸Ç ¾Õ
+    
+    // case2 ìƒˆ ë…¸ë“œ ìœ„ì¹˜ê°€ ë§¨ ì•(= itemì´ ë¦¬ìŠ¤íŠ¸ì—ì„œ ê°€ì¥ ì‘ì€ ê°’)
+    if (forward == head) { 
         NewNode->link = forward;
         return NewNode;
     }
-    else { // »õ ³ëµå À§Ä¡°¡ Áß°£, ¸Ç µÚ
-        NewNode->link = forward;
-        rear->link = NewNode;
+    // case3 ìƒˆ ë…¸ë“œ ìœ„ì¹˜ê°€ ì¤‘ê°„, ë§¨ ë’¤
+    else { 
+        NewNode->link = forward; // ì´ë ‡ê²Œ ë˜ë©´ forwardì˜ ì£¼ì†Œê°’ì´ NULLë¡œ ë“¤ì–´ì˜¬ ë–„ê°€ ì¡´ì¬ (=ê¸°ì¡´ ë§¨ ë’¤ ê°’ì˜ linkê°€ NULL)
+        rear->link = NewNode; 
     }
+    
     return head;
 }
 
+// 1ë²ˆì¨° ë…¸ë“œ ì‚­ì œ(= ê°™ì€ ë°©ë²• êµ¬í˜„)
 ListNode* delete_first(ListNode* head) {
 
-    if (head == NULL) return NULL; // Node ¾øÀ½
+    // Node ì—†ìŒ
+    if (head == NULL) {
+        return NULL; 
+    }
 
     ListNode* DeleteNode = head;
-    head = head->link; // »èÁ¦ ³ëµå ´ÙÀ½ ÁÖ¼Ò
+    head = head->link; // ì‚­ì œ ë…¸ë“œ ë‹¤ìŒ ì£¼ì†Œ
     free(DeleteNode);
 
     return head;
 }
 
+// ë§ˆì§€ë§‰ ë…¸ë“œ ì‚­ì œ (<-> ë…¸ë“œê°€ í•œê°œë§Œ ìˆì„ë•Œë¥¼ ë‚œ ìƒì •í•˜ì§€ ì•ŠìŒ..)
 ListNode* delete_last(ListNode* head) {
-    if (head == NULL) return NULL; // Node ¾øÀ½
+    
+    // Node ì—†ëŠ” ê²½ìš°
+    if (head == NULL) {
+        return NULL;
+    } 
+    
     ListNode* DeleteNode = head, * LastNode = NULL;
+    
     while (DeleteNode->link != NULL) {
         LastNode = DeleteNode;
         DeleteNode = DeleteNode->link;
     }
-    if (DeleteNode != head) LastNode->link = NULL; // Node 2°³ ÀÌ»ó
-    else /* DeleteNode == head */ head = NULL; // ÀüÃ¼ Node 1°³ °æ¿ì
+    
+    // case1. í•´ë‹¹ ì—°ê²°ë¦¬ìŠ¤íŠ¸ì— Node 2ê°œ ì´ìƒì¸ ê²½ìš°
+    if (DeleteNode != head) {
+        LastNode->link = NULL;
+    }
+    // case2. í•´ë‹¹ ì—°ê²°ë¦¬ìŠ¤íŠ¸ì— Nodeì „ì²´ Node 1ê°œ ê²½ìš° -> í•´ë‹¹ ì—°ê²°ë¦¬ìŠ¤íŠ¸ì˜ headê¹Œì§€ ì‚­ì œ...
+    else {
+        /* DeleteNode == head */ 
+        head = NULL; // 
+    }
+    
     free(DeleteNode);
+    
     return head;
 }
 
 int delete_search(ListNode** head, list_element value) {
 
-    if (*head == NULL) return 1; // »èÁ¦ ½ÇÆĞ (Node ¾øÀ½)
+    if (*head == NULL) return 1; // ì‚­ì œ ì‹¤íŒ¨ (Node ì—†ìŒ)
 
     ListNode* DeleteNode = *head, * rear = NULL;
 
-    while (DeleteNode != NULL) { // »èÁ¦ ³ëµå Ã£±â
+    while (DeleteNode != NULL) { // ì‚­ì œ ë…¸ë“œ ì°¾ê¸°
         if (DeleteNode->data == value) break;
         rear = DeleteNode;
         DeleteNode = DeleteNode->link;
     }
 
-    if (DeleteNode != NULL) { // »èÁ¦ ³ëµå ¹ß°ß
-        if (DeleteNode == *head) *head = DeleteNode->link;// »èÁ¦ ³ëµå = ¸Ç ¾Õ ³ëµå
-        else rear->link = DeleteNode->link; // »èÁ¦ ³ëµå = Áß°£, ¸Ç µÚ ³ëµå
+    if (DeleteNode != NULL) { // ì‚­ì œ ë…¸ë“œ ë°œê²¬
+        if (DeleteNode == *head) *head = DeleteNode->link;// ì‚­ì œ ë…¸ë“œ = ë§¨ ì• ë…¸ë“œ
+        else rear->link = DeleteNode->link; // ì‚­ì œ ë…¸ë“œ = ì¤‘ê°„, ë§¨ ë’¤ ë…¸ë“œ
         free(DeleteNode);
-        return 0; // »èÁ¦ ¼º°ø
+        return 0; // ì‚­ì œ ì„±ê³µ
     }
 
-    else /* DeleteNode == NULL */ return 1; // »èÁ¦ ½ÇÆĞ
+    else /* DeleteNode == NULL */ return 1; // ì‚­ì œ ì‹¤íŒ¨
 }
 
 ListNode* search(ListNode* head, list_element item) {
@@ -183,12 +289,12 @@ ListNode* concat(ListNode* head1, ListNode* head2) {
     }
 }
 
-ListNode* reverse(ListNode* head) { // ¿¬°á ¹æÇâ ¹Ù²Ù±â
+ListNode* reverse(ListNode* head) { // ì—°ê²° ë°©í–¥ ë°”ê¾¸ê¸°
     ListNode* forward = head, * pNode = NULL, * rear = NULL;
     while (forward != NULL) {
-        rear = pNode; // rear : ÀÌ¹Ì ¿ª¼øÀ¸·Î º¯°æÇÑ ³ëµå
-        pNode = forward; // pNode : ¿ª¼øÀ¸·Î ¸¸µé ³ëµå
-        forward = forward->link; // forward : ´ÙÀ½ ³ëµå
+        rear = pNode; // rear : ì´ë¯¸ ì—­ìˆœìœ¼ë¡œ ë³€ê²½í•œ ë…¸ë“œ
+        pNode = forward; // pNode : ì—­ìˆœìœ¼ë¡œ ë§Œë“¤ ë…¸ë“œ
+        forward = forward->link; // forward : ë‹¤ìŒ ë…¸ë“œ
         pNode->link = rear;
     }
     return pNode;
@@ -196,8 +302,12 @@ ListNode* reverse(ListNode* head) { // ¿¬°á ¹æÇâ ¹Ù²Ù±â
 
 ListNode* ListSort(ListNode* head) {
     for (ListNode* SortNode = head; SortNode != NULL; SortNode = SortNode->link) {
+        
         for (ListNode* CompareNode = SortNode->link; CompareNode != NULL; CompareNode = CompareNode->link) {
-            if (SortNode->data > CompareNode->data) swap(list_element, SortNode->data, CompareNode->data);
+            
+            if (SortNode->data > CompareNode->data) {
+                swap(list_element, SortNode->data, CompareNode->data);
+            }
         }
     }
     return head;
@@ -211,11 +321,14 @@ void print_list(ListNode* head) {
 }
 
 void freelist(ListNode** head) {
+    
     ListNode* DeleteNode = NULL;
+    
     while (*head) {
         DeleteNode = *head;
         *head = (*head)->link;
         free(DeleteNode);
     }
+    
     *head = NULL;
 }
