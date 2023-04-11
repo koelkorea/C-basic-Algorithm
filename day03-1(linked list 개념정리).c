@@ -202,6 +202,17 @@ ListNode* insert_first(ListNode* head, list_element item) {
 ListNode* insert_last(ListNode* head, list_element item) {
 
     printf_s("\n\n------------------------------[insert_last로 %d 넣기 시작!]------------------------------\n", item);
+    
+    // 만약 head가 가르키는 주소값이 없다면(= 1번째 노드가 없다면)?
+    //  -> insert_first를 수행후 리턴 (동적할당도 거기서 함)
+    if (head == NULL) {
+        return insert_first(head, item);
+    }
+    
+    // 1개 이상의 노드가 해당 연결리스트에 있다면? 
+    //  -> 새로운 맨 뒤의 노드의 데이터를 넣을 주소값이 어딘지 알기 위해, ListNode의 포인트변수의 메모리를 할당함
+    ListNode* Newnode = (ListNode*)malloc(sizeof(ListNode));
+    ListNode* insert_address = head;
 
     // 노드를 만들 공간이 없다면?? 에러 띄우기
     if (Newnode == NULL) {
@@ -209,14 +220,6 @@ ListNode* insert_last(ListNode* head, list_element item) {
         return NULL;
     }
     
-    if (head == NULL) {
-        return insert_first(head, item);
-    }
-    
-    // 새로운 맨 뒤의 노드의 데이터를 넣을 주소값이 어딘지 알기 위해, ListNode의 포인트변수의 메모리를 할당함
-    ListNode* Newnode = (ListNode*)malloc(sizeof(ListNode));
-    ListNode* insert_address = head;
-
     while (insert_address->link != NULL) {
 
         printf_s("\n비교 노드 요소값 : %d", insert_address->data);
