@@ -201,10 +201,6 @@ ListNode* insert_first(ListNode* head, list_element item) {
 // 맨 뒤에 Node 추가(전에 만든 녀석은 뒤로 밀리는 방식)
 ListNode* insert_last(ListNode* head, list_element item) {
 
-    // 새로운 맨 뒤의 노드의 데이터를 넣을 주소값이 어딘지 알기 위해, ListNode의 포인트변수의 메모리를 할당함
-    ListNode* Newnode = (ListNode*)malloc(sizeof(ListNode));
-    ListNode* insert_address = head;
-
     printf_s("\n\n------------------------------[insert_last로 %d 넣기 시작!]------------------------------\n", item);
 
     // 노드를 만들 공간이 없다면?? 에러 띄우기
@@ -212,6 +208,14 @@ ListNode* insert_last(ListNode* head, list_element item) {
         printf("메모리 부족");
         return NULL;
     }
+    
+    if (head == NULL) {
+        return insert_first(head, item);
+    }
+    
+    // 새로운 맨 뒤의 노드의 데이터를 넣을 주소값이 어딘지 알기 위해, ListNode의 포인트변수의 메모리를 할당함
+    ListNode* Newnode = (ListNode*)malloc(sizeof(ListNode));
+    ListNode* insert_address = head;
 
     while (insert_address->link != NULL) {
 
