@@ -1,13 +1,13 @@
-// ÀÌÁß ¿¬°á ¸®½ºÆ®(Doubly Linked List)
-//  : head¸¦ Æ÷ÇÔÇØ¼­ °¢ ³ëµåÀÇ link°¡ ¿ŞÂÊ ¸µÅ©(Llink)¿Í ¿À¸¥ÂÊ ¸µÅ©(Rlink)¸¦ °¡Áø ±¸Á¶, ¾ç¹æÇâÀ¸·Î ¸ğµç ³ëµå°¡ ¿øÇüÀ¸·Î ¿¬°áµÇ¾î ÀÖ´Â ¸®½ºÆ®
+// ì´ì¤‘ ì—°ê²° ë¦¬ìŠ¤íŠ¸(Doubly Linked List)
+//  : headë¥¼ í¬í•¨í•´ì„œ ê° ë…¸ë“œì˜ linkê°€ ì™¼ìª½ ë§í¬(Llink)ì™€ ì˜¤ë¥¸ìª½ ë§í¬(Rlink)ë¥¼ ê°€ì§„ êµ¬ì¡°, ì–‘ë°©í–¥ìœ¼ë¡œ ëª¨ë“  ë…¸ë“œê°€ ì›í˜•ìœ¼ë¡œ ì—°ê²°ë˜ì–´ ìˆëŠ” ë¦¬ìŠ¤íŠ¸
 
-//  # ¿À¸¥ÂÊ ¸µÅ©´Â ¼±Çà, ¿À¸¥ÂÊ ¸µÅ©´Â ÈÄ¼Ó ³ëµå¸¦ °¡Áü
-//  # Çì´õ ¶ÇÇÑ link¸¦ °¡Áø ³ëµå·Î ±¸¼º (value = null) <-> linked listÀÇ head Æ÷ÀÎÅÍ
+//  # ì˜¤ë¥¸ìª½ ë§í¬ëŠ” ì„ í–‰, ì˜¤ë¥¸ìª½ ë§í¬ëŠ” í›„ì† ë…¸ë“œë¥¼ ê°€ì§
+//  # í—¤ë” ë˜í•œ linkë¥¼ ê°€ì§„ ë…¸ë“œë¡œ êµ¬ì„± (value = null) <-> linked listì˜ head í¬ì¸í„°
 
-//  # Double list ±¸Á¶Ã¼ ( ±¸¼º ¿ä¼Ò )
+//  # Double list êµ¬ì¡°ì²´ ( êµ¬ì„± ìš”ì†Œ )
 
 //		typedef int DlistElement;
-	 
+
 //		typedef struct DlistNode {
 // 
 //		    DlistElement data;
@@ -15,18 +15,18 @@
 //		    struct DlistNode* Rlink;
 //		} DlistNode;
 
-//  # ÀÌÁß ¿¬°á ¸®½ºÆ®(Doubly Linked List) ADT
-//    - DoubleListNode* DoubleInitial(DoubleListNode* head) : ÃÊ±âÈ­
-//    - DoubleListNode* DoubleInsertFirst(DoubleListNode* head, DoubleListElement item) : ³ëµå »ı¼º
-//    - void DoubleDeleteFirst(DoubleListNode* head) : ³ëµå »èÁ¦
-//    - DoubleListNode* DoubleConcat(DoubleListNode* head1, DoubleListNode* head2) : °áÇÕ list1 + list2
-//    - void DoubleDisplay(DoubleListNode * head)       :  Á¤¹æÇâ Ãâ·Â
-//    - void DoubleDisplayReverse(DoubleListNode* head) : ¿ª¹æÇâ Ãâ·Â
-//    - void FreeDoubleList(DoubleListNode* head)       : ¸®½ºÆ® ÀüÃ¼ »èÁ¦
+//  # ì´ì¤‘ ì—°ê²° ë¦¬ìŠ¤íŠ¸(Doubly Linked List) ADT
+//    - DoubleListNode* DoubleInitial(DoubleListNode* head) : ì´ˆê¸°í™”
+//    - DoubleListNode* DoubleInsertFirst(DoubleListNode* head, DoubleListElement item) : ë…¸ë“œ ìƒì„±
+//    - void DoubleDeleteFirst(DoubleListNode* head) : ë…¸ë“œ ì‚­ì œ
+//    - DoubleListNode* DoubleConcat(DoubleListNode* head1, DoubleListNode* head2) : ê²°í•© list1 + list2
+//    - void DoubleDisplay(DoubleListNode * head)       :  ì •ë°©í–¥ ì¶œë ¥
+//    - void DoubleDisplayReverse(DoubleListNode* head) : ì—­ë°©í–¥ ì¶œë ¥
+//    - void FreeDoubleList(DoubleListNode* head)       : ë¦¬ìŠ¤íŠ¸ ì „ì²´ ì‚­ì œ
 
-// ´õºí ¿¬°á ¸®½ºÆ® ADT ÀüºÎ ±¸ÇöÇØº¸ÀÚ
+// ë”ë¸” ì—°ê²° ë¦¬ìŠ¤íŠ¸ ADT ì „ë¶€ êµ¬í˜„í•´ë³´ì
 #include <stdio.h>
-#include <stdlib.h>				//	srand(), rand() ÇÔ¼ö »ç¿ë °¡´ÉÇÏ°Ô ÇÔ
+#include <stdlib.h>				//	srand(), rand() í•¨ìˆ˜ ì‚¬ìš© ê°€ëŠ¥í•˜ê²Œ í•¨
 
 typedef int DoublelistElement;
 typedef struct DlistNode {
@@ -36,13 +36,13 @@ typedef struct DlistNode {
     struct DoublelistNode* Rlink;
 } DoubleListNode;
 
-DoubleListNode* DoubleInitial(DoubleListNode* head);
-DoubleListNode* DoubleInsertFirst(DoubleListNode* head, DoublelistElement item);
-void DoubleDeleteFirst(DoubleListNode* head);
-DoubleListNode* DoubleConcat(DoubleListNode* head1, DoubleListNode* head2);
-void DoubleDisplay(DoubleListNode * head);
-void DoubleDisplayReverse(DoubleListNode* head);
-void FreeDoubleList(DoubleListNode* head);
+DoubleListNode* DoubleInitial(DoubleListNode* head);                              // done
+DoubleListNode* DoubleInsertFirst(DoubleListNode* head, DoublelistElement item);  // done
+void DoubleDeleteFirst(DoubleListNode* head);                                     // done
+DoubleListNode* DoubleConcat(DoubleListNode* head1, DoubleListNode* head2);       // done
+void DoubleDisplay(DoubleListNode* head);                                         // done 
+void DoubleDisplayReverse(DoubleListNode* head);                                  // done
+void FreeDoubleList(DoubleListNode* head);                                        // done
 
 int main(void) {
 
@@ -54,6 +54,7 @@ int main(void) {
 
     double_list1 = DoubleInitial(double_list1);
     double_list2 = DoubleInitial(double_list2);
+
     DoubleDisplay(double_list1);
 
     for (int i = 1; i <= 10; i++) {
@@ -61,6 +62,7 @@ int main(void) {
         double_list2 = DoubleInsertFirst(double_list2, rand() % 10);
     }
     DoubleDisplay(double_list1);
+    DoubleDisplayReverse(double_list1);
 
     DoubleDeleteFirst(double_list1);
     DoubleDeleteFirst(double_list1);
@@ -70,42 +72,45 @@ int main(void) {
 
     double_concat_list = DoubleConcat(double_list1, double_list2);
     DoubleDisplay(double_concat_list);
+    DoubleDisplayReverse(double_concat_list);
+
+    FreeDoubleList(double_concat_list);
 
     return 0;
 }
 
-// ´õºí¸µÅ©µå ¸®½ºÆ® head ³ëµå »ı¼º(= »ç½Ç»ó ÀÔ·ÂÀıÂ÷)
+// ë”ë¸”ë§í¬ë“œ ë¦¬ìŠ¤íŠ¸ head ë…¸ë“œ ìƒì„±(= ì‚¬ì‹¤ìƒ ì…ë ¥ì ˆì°¨)
 DoubleListNode* DoubleInitial(DoubleListNode* head) {
 
     DoubleListNode* head_node = (DoubleListNode*)malloc(sizeof(DoubleListNode));
 
-    // ÇìµåÀÇ µ¥ÀÌÅÍ °ªÀº ³ëµåÀÇ ÃÑ ³ëµå¼ö (¸¸µé¶§´Â ´ç¿¬È÷ ÃÑ ³ëµå¼ö´Â 0)
+    // í—¤ë“œì˜ ë°ì´í„° ê°’ì€ ë…¸ë“œì˜ ì´ ë…¸ë“œìˆ˜ (ë§Œë“¤ë•ŒëŠ” ë‹¹ì—°íˆ ì´ ë…¸ë“œìˆ˜ëŠ” 0)
     head_node->data = 0;
     head_node->Llink = head_node;
     head_node->Rlink = head_node;
 
-    printf_s("(dl »ı¼º ÃÊ±âÈ­) : %d¿¡ ´õºí¸µÅ©µå ¸®½ºÆ®ÀÇ Çìµå³ëµå°¡ Ãß°¡µÇ¾ú½À´Ï´Ù. ÇØ´ç ÁÖ¼Ò°ªÀº %d¿¡ À§Ä¡¿¡ ±â·ÏµÇ¾î ÀÖ½À´Ï´Ù. \n", head_node, &head);
+    printf_s("(dl ìƒì„± ì´ˆê¸°í™”) : %dì— ë”ë¸”ë§í¬ë“œ ë¦¬ìŠ¤íŠ¸ì˜ í—¤ë“œë…¸ë“œê°€ ì¶”ê°€ë˜ì—ˆìŠµë‹ˆë‹¤. í•´ë‹¹ ì£¼ì†Œê°’ì€ %dì— ìœ„ì¹˜ì— ê¸°ë¡ë˜ì–´ ìˆìŠµë‹ˆë‹¤. \n", head_node, &head);
 
     head = head_node;
 
     return head;
 }
 
-// ÇØ´ç head°¡ °¡¸£Å°´Â ´õºí¸µÅ©µå ¸®½ºÆ®ÀÇ 1¹øÂ° ³ëµå·Î item°ª Ãß°¡
+// í•´ë‹¹ headê°€ ê°€ë¥´í‚¤ëŠ” ë”ë¸”ë§í¬ë“œ ë¦¬ìŠ¤íŠ¸ì˜ 1ë²ˆì§¸ ë…¸ë“œë¡œ itemê°’ ì¶”ê°€
 DoubleListNode* DoubleInsertFirst(DoubleListNode* head, DoublelistElement item) {
 
     DoubleListNode* insert_first_node = (DoubleListNode*)malloc(sizeof(DoubleListNode));
 
     if (insert_first_node == NULL) {
-        printf("¸Ş¸ğ¸® ºÎÁ·");
+        printf("ë©”ëª¨ë¦¬ ë¶€ì¡±");
         return NULL;
     }
 
     insert_first_node->data = item;
     insert_first_node->Llink = head;
 
-    // (case1) ÇöÀç ¸®½ºÆ®¿¡ Á¸ÀçÇÏ´Â ³ëµå°¡ Çì´õ³ëµå È¥ÀÚÀÏ °æ¿ì? (= Çì´õ³ëµåÀÇ ¾çlink°¡ ½º½º·Î¸¦ °¡¸®Å´)
-    //  -> Çì´õ³ëµåÀÇ ¾ç linkÀÇ °ªÀ» insert_first_nodeÀÇ ÁÖ¼Ò°ªÀ¸·Î + insert_first_node ¿À¸¥ÂÊ ÁÖ¼Òµµ head¸¦ °¡¸®Å°°Ô ÇÔ
+    // (case1) í˜„ì¬ ë¦¬ìŠ¤íŠ¸ì— ì¡´ì¬í•˜ëŠ” ë…¸ë“œê°€ í—¤ë”ë…¸ë“œ í˜¼ìì¼ ê²½ìš°? (= í—¤ë”ë…¸ë“œì˜ ì–‘linkê°€ ìŠ¤ìŠ¤ë¡œë¥¼ ê°€ë¦¬í‚´)
+    //  -> í—¤ë”ë…¸ë“œì˜ ì–‘ linkì˜ ê°’ì„ insert_first_nodeì˜ ì£¼ì†Œê°’ìœ¼ë¡œ + insert_first_node ì˜¤ë¥¸ìª½ ì£¼ì†Œë„ headë¥¼ ê°€ë¦¬í‚¤ê²Œ í•¨
     if (head->Llink == head && head->Rlink == head) {
 
         head->Llink = insert_first_node;
@@ -114,82 +119,86 @@ DoubleListNode* DoubleInsertFirst(DoubleListNode* head, DoublelistElement item) 
         insert_first_node->Rlink = head;
     }
 
-    // (case2) ÇØ´ç ´õºí¸µÅ©µå ¸®½ºÆ®¿¡ ´Ù¸¥ ³ëµåµéÀÌ ÀÖ´Â °æ¿ì (= Çìµå³ëµåÀÇ ¿À¸¥ÂÊlink°¡ ´Ù¸¥ ³ëµå¸¦ °¡¸£Å³°æ¿ì)
-    //  -> insert_first_node ¿À¸¥ÂÊ ÁÖ¼Ò°¡ headÀÇ ¿À¸¥ÂÊlink¸¦ °¡Áö°Ô ÇÔ + Çì´õ³ëµåÀÇ ¿À¸¥ÂÊ link°ªÀ» insert_first_node·Î º¯°æ
+    // (case2) í•´ë‹¹ ë”ë¸”ë§í¬ë“œ ë¦¬ìŠ¤íŠ¸ì— ë‹¤ë¥¸ ë…¸ë“œë“¤ì´ ìˆëŠ” ê²½ìš° (= í—¤ë“œë…¸ë“œì˜ ì˜¤ë¥¸ìª½linkê°€ ë‹¤ë¥¸ ë…¸ë“œë¥¼ ê°€ë¥´í‚¬ê²½ìš°)
+    //  -> insert_first_node ì˜¤ë¥¸ìª½ ì£¼ì†Œê°€ headì˜ ì˜¤ë¥¸ìª½linkë¥¼ ê°€ì§€ê²Œ í•¨ + í—¤ë”ë…¸ë“œì˜ ì˜¤ë¥¸ìª½ linkê°’ì„ insert_first_nodeë¡œ ë³€ê²½ + ê¸°ì¡´ 1ë²ˆì§¸ë…¸ë“œì˜ ì™¼ìª½ Linkê°’ì„ insert_first_nodeì˜ ì£¼ì†Œê°’ìœ¼ë¡œ ìˆ˜ì •
     if (head->Rlink != head) {
 
+        // ê¸°ì¡´ì— 1ë²ˆì§¸ ë…¸ë“œì˜€ë˜ ë…¸ë“œì˜ ì£¼ì†Œê°’(= êµ´ëŸ¬ë“¤ì–´ì˜¨ ë…¸ë“œì— ì˜í•´ 2ë²ˆì§¸ë¡œ ë°€ë ¤ë‚  ì˜ˆì •)
+        DoubleListNode* move_to_2nd_node = head->Rlink;
+
         insert_first_node->Rlink = head->Rlink;
+        move_to_2nd_node->Llink = insert_first_node;
         head->Rlink = insert_first_node;
     }
 
-    // ÇìµåÀÇ µ¥ÀÌÅÍ °ªÀº ³ëµåÀÇ ÃÑ ³ëµå¼ö
+    // í—¤ë“œì˜ ë°ì´í„° ê°’ì€ ë…¸ë“œì˜ ì´ ë…¸ë“œìˆ˜
     head->data++;
 
     return head;
 }
 
-// ÇØ´ç head°¡ °¡¸£Å°´Â ´õºí¸µÅ©µå ¸®½ºÆ®ÀÇ 1¹øÂ° ³ëµå »èÁ¦
+// í•´ë‹¹ headê°€ ê°€ë¥´í‚¤ëŠ” ë”ë¸”ë§í¬ë“œ ë¦¬ìŠ¤íŠ¸ì˜ 1ë²ˆì§¸ ë…¸ë“œ ì‚­ì œ
 void DoubleDeleteFirst(DoubleListNode* head) {
 
     DoubleListNode* delete_node = head->Rlink;
 
-    printf_s("\n\n------------------------------[DoubleDeleteFirst ½ÃÀÛ!]------------------------------\n\n");
+    printf_s("\n\n------------------------------[DoubleDeleteFirst ì‹œì‘!]------------------------------\n\n");
 
-    // (case1) ÇöÀç ¸®½ºÆ®¿¡ Á¸ÀçÇÏ´Â ³ëµå°¡ Çì´õ³ëµå È¥ÀÚÀÏ °æ¿ì? (= Çì´õ³ëµåÀÇ ¾çlink°¡ ½º½º·Î¸¦ °¡¸®Å´)
-    //  -> °æ°í¸¦ ³¡³»±â
+    // (case1) í˜„ì¬ ë¦¬ìŠ¤íŠ¸ì— ì¡´ì¬í•˜ëŠ” ë…¸ë“œê°€ í—¤ë”ë…¸ë“œ í˜¼ìì¼ ê²½ìš°? (= í—¤ë”ë…¸ë“œì˜ ì–‘linkê°€ ìŠ¤ìŠ¤ë¡œë¥¼ ê°€ë¦¬í‚´)
+    //  -> ê²½ê³ ë¥¼ ëë‚´ê¸°
     if (head->Llink == head && head->Rlink == head && head->data == 0) {
 
-        printf_s("(°æ°í) : ÇØ´ç ´õºí¸µÅ©µå ¸®½ºÆ®¿¡´Â Çìµå ¿Ü¿¡ ´Ù¸¥ ³ëµå°¡ ¾ø¾î¼­ »èÁ¦°¡ ºÒ°¡´ÉÇÕ´Ï´Ù.\n");
+        printf_s("(ê²½ê³ ) : í•´ë‹¹ ë”ë¸”ë§í¬ë“œ ë¦¬ìŠ¤íŠ¸ì—ëŠ” í—¤ë“œ ì™¸ì— ë‹¤ë¥¸ ë…¸ë“œê°€ ì—†ì–´ì„œ ì‚­ì œê°€ ë¶ˆê°€ëŠ¥í•©ë‹ˆë‹¤.\n");
     }
-    // (case2) ÇØ´ç ´õºí¸µÅ©µå ¸®½ºÆ®¿¡ 1¹øÂ° ³ëµå¸¸ ÀÖ´Â °æ¿ì (= Çìµå³ëµåÀÇ ¿À¸¥ÂÊlink°¡ head°¡ ÀúÀåÇÏ´Â ÁÖ¼Ò°ªÀ» °¡¸£Å³°æ¿ì or headÀÇ data°¡ 1)
-    //  -> headÀÇ Rlink°¡ ±âÁ¸ÀÇ 1¹øÂ° ³ëµåÀÇ headÀÇ ÁÖ¼Ò°ªÀ» ¹ŞÀ¸¸é µÊ
+    // (case2) í•´ë‹¹ ë”ë¸”ë§í¬ë“œ ë¦¬ìŠ¤íŠ¸ì— 1ë²ˆì§¸ ë…¸ë“œë§Œ ìˆëŠ” ê²½ìš° (= í—¤ë“œë…¸ë“œì˜ ì˜¤ë¥¸ìª½linkê°€ headê°€ ì €ì¥í•˜ëŠ” ì£¼ì†Œê°’ì„ ê°€ë¥´í‚¬ê²½ìš° or headì˜ dataê°€ 1)
+    //  -> headì˜ Rlinkê°€ ê¸°ì¡´ì˜ 1ë²ˆì§¸ ë…¸ë“œì˜ headì˜ ì£¼ì†Œê°’ì„ ë°›ìœ¼ë©´ ë¨
     else if (delete_node->Rlink == head && head->data == 1) {
         head->Rlink = head;
 
-        printf_s("ÇØ´ç ¸®½ºÆ®ÀÇ ÁÖ¼Ò %d¿¡ À§Ä¡ÇÑ 1¹øÂ° ³ëµåÀÇ data°ª %d »èÁ¦¿Ï·á! \n", delete_node, delete_node->data);
+        printf_s("í•´ë‹¹ ë¦¬ìŠ¤íŠ¸ì˜ ì£¼ì†Œ %dì— ìœ„ì¹˜í•œ 1ë²ˆì§¸ ë…¸ë“œì˜ dataê°’ %d ì‚­ì œì™„ë£Œ! \n", delete_node, delete_node->data);
         free(delete_node);
     }
 
-    // (case3) ÇØ´ç ´õºí¸µÅ©µå ¸®½ºÆ®¿¡ 2°³ ÀÌ»óÀÇ ³ëµå Á¸Àç (= 1¹øÂ°³ëµåÀÇ ¿À¸¥ÂÊlink°¡ head¸¦ °¡¸£Å³°æ¿ì or headÀÇ data°¡ 1ÃÊ°ú)
-    //  -> headÀÇ Rlink°¡ ±âÁ¸ÀÇ 1¹øÂ° ³ëµåÀÇ RlinkÀÇ ÁÖ¼Ò°ªÀ» ¹ŞÀ¸¸é µÊ
+    // (case3) í•´ë‹¹ ë”ë¸”ë§í¬ë“œ ë¦¬ìŠ¤íŠ¸ì— 2ê°œ ì´ìƒì˜ ë…¸ë“œ ì¡´ì¬ (= 1ë²ˆì§¸ë…¸ë“œì˜ ì˜¤ë¥¸ìª½linkê°€ headë¥¼ ê°€ë¥´í‚¬ê²½ìš° or headì˜ dataê°€ 1ì´ˆê³¼)
+    //  -> headì˜ Rlinkê°€ ê¸°ì¡´ì˜ 1ë²ˆì§¸ ë…¸ë“œì˜ Rlinkì˜ ì£¼ì†Œê°’ì„ ë°›ìœ¼ë©´ ë¨
     else if (delete_node->Rlink != head && head->data > 1) {
         head->Rlink = delete_node->Rlink;
 
-        printf_s("ÇØ´ç ¸®½ºÆ®ÀÇ ÁÖ¼Ò %d¿¡ À§Ä¡ÇÑ 1¹øÂ° ³ëµåÀÇ data°ª %d »èÁ¦¿Ï·á! \n", delete_node, delete_node->data);
+        printf_s("í•´ë‹¹ ë¦¬ìŠ¤íŠ¸ì˜ ì£¼ì†Œ %dì— ìœ„ì¹˜í•œ 1ë²ˆì§¸ ë…¸ë“œì˜ dataê°’ %d ì‚­ì œì™„ë£Œ! \n", delete_node, delete_node->data);
         free(delete_node);
     }
 
-    // ÇìµåÀÇ µ¥ÀÌÅÍ °ªÀº ³ëµåÀÇ ÃÑ ³ëµå¼ö
+    // í—¤ë“œì˜ ë°ì´í„° ê°’ì€ ë…¸ë“œì˜ ì´ ë…¸ë“œìˆ˜
     head->data--;
-    printf_s("ÇØ´ç ¸®½ºÆ®ÀÇ ÁÖ¼Ò %d¿¡ À§Ä¡ÇÑ ³ëµå ÃÑ °³¼ö : %d \n", head, head->data);
+    printf_s("í•´ë‹¹ ë¦¬ìŠ¤íŠ¸ì˜ ì£¼ì†Œ %dì— ìœ„ì¹˜í•œ ë…¸ë“œ ì´ ê°œìˆ˜ : %d \n", head, head->data);
 }
 
-// µÎ°³ÀÇ ´õºí¸µÅ©µå ¸®½ºÆ® head1, head2 °áÇÕ
+// ë‘ê°œì˜ ë”ë¸”ë§í¬ë“œ ë¦¬ìŠ¤íŠ¸ head1, head2 ê²°í•©
 DoubleListNode* DoubleConcat(DoubleListNode* head1, DoubleListNode* head2) {
 
-    // (case1) 1¹øÂ° ´õºí¸µÅ©µå ¸®½ºÆ®ÀÇ ³ëµå°¡ Çì´õ¹Û¿¡ ¾ø´Ù¸é?
-    // -> concatÇìµåÀÇ ÁÖÃ¼´Â head2·Î °íÁ¤ (head2µµ ¸¶Âù°¡Áö¶óµµ »ó°üÀÌ ¾øÀ½)
+    // (case1) 1ë²ˆì§¸ ë”ë¸”ë§í¬ë“œ ë¦¬ìŠ¤íŠ¸ì˜ ë…¸ë“œê°€ í—¤ë”ë°–ì— ì—†ë‹¤ë©´?
+    // -> concatí—¤ë“œì˜ ì£¼ì²´ëŠ” head2ë¡œ ê³ ì • (head2ë„ ë§ˆì°¬ê°€ì§€ë¼ë„ ìƒê´€ì´ ì—†ìŒ)
     if (head1->data == 0) {
         return head2;
     }
 
-    // (case2) 2¹øÂ° ´õºí¸µÅ©µå ¸®½ºÆ®ÀÇ ³ëµå°¡ Çì´õ¹Û¿¡ ¾ø´Ù¸é?
-    // -> concatÇìµåÀÇ ÁÖÃ¼´Â head1·Î °íÁ¤
+    // (case2) 2ë²ˆì§¸ ë”ë¸”ë§í¬ë“œ ë¦¬ìŠ¤íŠ¸ì˜ ë…¸ë“œê°€ í—¤ë”ë°–ì— ì—†ë‹¤ë©´?
+    // -> concatí—¤ë“œì˜ ì£¼ì²´ëŠ” head1ë¡œ ê³ ì •
     if (head2->data == 0) {
         return head1;
     }
 
-    // (Áß¿ä!) 1¹ø ¿¬°á¸®½ºÆ®ÀÇ headÀÇ data¿¡ Ç¥±âµÈ ³ëµåÀÇ ¼ıÀÚ + 2¹ø ¿¬°á¸®½ºÆ®ÀÇ headÀÇ  data¿¡ Ç¥±âµÈ ³ëµåÀÇ ¼ıÀÚ°¡ µÑ ´Ù 0ÀÌ ¾Æ´Ï¸é concat°³½Ã
+    // (ì¤‘ìš”!) 1ë²ˆ ì—°ê²°ë¦¬ìŠ¤íŠ¸ì˜ headì˜ dataì— í‘œê¸°ëœ ë…¸ë“œì˜ ìˆ«ì + 2ë²ˆ ì—°ê²°ë¦¬ìŠ¤íŠ¸ì˜ headì˜  dataì— í‘œê¸°ëœ ë…¸ë“œì˜ ìˆ«ìê°€ ë‘˜ ë‹¤ 0ì´ ì•„ë‹ˆë©´ concatê°œì‹œ
 
-    // current_head1_index : 1¹ø ¿¬°á¸®½ºÆ®ÀÇ ¸¶Áö¸· ³ëµåÀÇ ÁÖ¼Ò¸¦ ¾Ë¾Æ³»±â À§ÇÑ ListNodeÀÇ ÁÖ¼Ò°ªÀ» ¹Ş´Â Æ÷ÀÎÅÍº¯¼ö
+    // current_head1_index : 1ë²ˆ ì—°ê²°ë¦¬ìŠ¤íŠ¸ì˜ ë§ˆì§€ë§‰ ë…¸ë“œì˜ ì£¼ì†Œë¥¼ ì•Œì•„ë‚´ê¸° ìœ„í•œ ListNodeì˜ ì£¼ì†Œê°’ì„ ë°›ëŠ” í¬ì¸í„°ë³€ìˆ˜
     DoubleListNode* current_head1_index = head1;
 
-    // current_head1_index(ÇöÀçÀÇ ³ëµå ÁÖ¼Ò°ª)¿¡ À§Ä¡ÇÑ link°¡ nullÀÌ ³ª¿Ã¶§±îÁö(= current_head1_index°¡ ¸¶Áö¸· ³ëµåÀÇ ÁÖ¼Ò°ªÀ» ³ªÅ¸³¾‹š±îÁö)... °è¼Ó ¼öÇà
+    // current_head1_index(í˜„ì¬ì˜ ë…¸ë“œ ì£¼ì†Œê°’)ì— ìœ„ì¹˜í•œ linkê°€ nullì´ ë‚˜ì˜¬ë•Œê¹Œì§€(= current_head1_indexê°€ ë§ˆì§€ë§‰ ë…¸ë“œì˜ ì£¼ì†Œê°’ì„ ë‚˜íƒ€ë‚¼Â‹Âšê¹Œì§€)... ê³„ì† ìˆ˜í–‰
     for (int i = 1; i <= head1->data; i++) {
 
-        printf_s("´ÙÀ½ÁÖ¼Ò.. %d -> %d·Î..\n", current_head1_index, current_head1_index->Rlink);
+        printf_s("ë‹¤ìŒì£¼ì†Œ.. %d -> %dë¡œ..\n", current_head1_index, current_head1_index->Rlink);
 
-        // current_head1_index(ÇöÀçÀÇ ³ëµå ÁÖ¼Ò°ª)¿¡ À§Ä¡ÇÑ Rlink°¡ head1ÀÇ ÁÖ¼Ò°ªÀ» °¡¸£Å°Áö ¾Ê´ÂÀÌ»ó current_head1_index->Rlink¸¦ current_head1_indexÀÇ °ªÀ¸·Î °»½Å
+        // current_head1_index(í˜„ì¬ì˜ ë…¸ë“œ ì£¼ì†Œê°’)ì— ìœ„ì¹˜í•œ Rlinkê°€ head1ì˜ ì£¼ì†Œê°’ì„ ê°€ë¥´í‚¤ì§€ ì•ŠëŠ”ì´ìƒ current_head1_index->Rlinkë¥¼ current_head1_indexì˜ ê°’ìœ¼ë¡œ ê°±ì‹ 
         if (current_head1_index->Rlink == head1) {
             break;
         }
@@ -198,15 +207,15 @@ DoubleListNode* DoubleConcat(DoubleListNode* head1, DoubleListNode* head2) {
         }
     }
 
-    // current_head2_index : 2¹ø ¿¬°á¸®½ºÆ®ÀÇ ¸¶Áö¸· ³ëµåÀÇ ÁÖ¼Ò¸¦ ¾Ë¾Æ³»±â À§ÇÑ ListNodeÀÇ ÁÖ¼Ò°ªÀ» ¹Ş´Â Æ÷ÀÎÅÍº¯¼ö
+    // current_head2_index : 2ë²ˆ ì—°ê²°ë¦¬ìŠ¤íŠ¸ì˜ ë§ˆì§€ë§‰ ë…¸ë“œì˜ ì£¼ì†Œë¥¼ ì•Œì•„ë‚´ê¸° ìœ„í•œ ListNodeì˜ ì£¼ì†Œê°’ì„ ë°›ëŠ” í¬ì¸í„°ë³€ìˆ˜
     DoubleListNode* current_head2_index = head2;
 
-    // current_head2_index(ÇöÀçÀÇ ³ëµå ÁÖ¼Ò°ª)¿¡ À§Ä¡ÇÑ link°¡ nullÀÌ ³ª¿Ã¶§±îÁö(= current_head1_index°¡ ¸¶Áö¸· ³ëµåÀÇ ÁÖ¼Ò°ªÀ» ³ªÅ¸³¾‹š±îÁö)... °è¼Ó ¼öÇà
+    // current_head2_index(í˜„ì¬ì˜ ë…¸ë“œ ì£¼ì†Œê°’)ì— ìœ„ì¹˜í•œ linkê°€ nullì´ ë‚˜ì˜¬ë•Œê¹Œì§€(= current_head1_indexê°€ ë§ˆì§€ë§‰ ë…¸ë“œì˜ ì£¼ì†Œê°’ì„ ë‚˜íƒ€ë‚¼Â‹Âšê¹Œì§€)... ê³„ì† ìˆ˜í–‰
     for (int i = 1; i <= head2->data; i++) {
 
-        printf_s("´ÙÀ½ÁÖ¼Ò.. %d -> %d·Î..\n", current_head2_index, current_head2_index->Rlink);
+        printf_s("ë‹¤ìŒì£¼ì†Œ.. %d -> %dë¡œ..\n", current_head2_index, current_head2_index->Rlink);
 
-        // current_head1_index(ÇöÀçÀÇ ³ëµå ÁÖ¼Ò°ª)¿¡ À§Ä¡ÇÑ Rlink°¡ head1ÀÇ ÁÖ¼Ò°ªÀ» °¡¸£Å°Áö ¾Ê´ÂÀÌ»ó current_head1_index->Rlink¸¦ current_head1_indexÀÇ °ªÀ¸·Î °»½Å
+        // current_head1_index(í˜„ì¬ì˜ ë…¸ë“œ ì£¼ì†Œê°’)ì— ìœ„ì¹˜í•œ Rlinkê°€ head1ì˜ ì£¼ì†Œê°’ì„ ê°€ë¥´í‚¤ì§€ ì•ŠëŠ”ì´ìƒ current_head1_index->Rlinkë¥¼ current_head1_indexì˜ ê°’ìœ¼ë¡œ ê°±ì‹ 
         if (current_head2_index->Rlink == head2) {
             break;
         }
@@ -215,51 +224,52 @@ DoubleListNode* DoubleConcat(DoubleListNode* head1, DoubleListNode* head2) {
         }
     }
 
-    // head1ÀÌ¾ú´ø current_head1_index(ÇöÀçÀÇ ³ëµå ÁÖ¼Ò°ª)¿¡ À§Ä¡ÇÑ link°ªÀ» 2¹ø ¿¬°á¸®½ºÆ®ÀÇ head°¡ ³ªÅ¸³»´Â 1¹øÂ°³ëµåÀÇ ÁÖ¼Ò°ªÀÎ head2->Rlink·Î ´ëÀÔ
+    // [ë³€ê²½í•´ì¤˜ì•¼ í•  ë…€ì„ë“¤]
+    // 
+    // 1. head1ì´ì—ˆë˜ current_head1_index(í˜„ì¬ì˜ ë…¸ë“œ ì£¼ì†Œê°’)ì— ìœ„ì¹˜í•œ linkê°’ì„ 2ë²ˆ ì—°ê²°ë¦¬ìŠ¤íŠ¸ì˜ headê°€ ë‚˜íƒ€ë‚´ëŠ” 1ë²ˆì§¸ë…¸ë“œì˜ ì£¼ì†Œê°’ì¸ head2->Rlinkë¡œ ëŒ€ì…
     current_head1_index->Rlink = head2->Rlink;
 
+    // 2. head2ì˜ 1ë²ˆì§¸ ë…¸ë“œì˜ Llinkê°’ë„ headì˜ ë§ˆì§€ë§‰ ë…¸ë“œì˜ ì£¼ì†Œê°’ìœ¼ë¡œ ê°±ì‹ 
     DoubleListNode* second_dlist_1st_node = head2->Rlink;
-
-    // head2ÀÇ 1¹øÂ° ³ëµåÀÇ Llink°ªµµ headÀÇ ¸¶Áö¸· ³ëµåÀÇ ÁÖ¼Ò°ªÀ¸·Î °»½Å
     second_dlist_1st_node->Llink = current_head1_index;
 
-    // 1¹ø ¿¬°á¸®½ºÆ®ÀÇ Çìµå ³ëµåÀÇ ¿ŞÂÊlink ÁÖ¼Ò°ªÀ» 2¹ø ¿¬°á¸®½ºÆ® ¸¶Áö¸·³ëµåÀÇ ÁÖ¼Ò·Î °»½Å
+    // 3. 1ë²ˆ ì—°ê²°ë¦¬ìŠ¤íŠ¸ì˜ í—¤ë“œ ë…¸ë“œì˜ ì™¼ìª½link ì£¼ì†Œê°’ì„ 2ë²ˆ ì—°ê²°ë¦¬ìŠ¤íŠ¸ ë§ˆì§€ë§‰ë…¸ë“œì˜ ì£¼ì†Œë¡œ ê°±ì‹ 
     head1->Llink = current_head2_index;
 
-    // 2¹ø ¿¬°á¸®½ºÆ® ¸¶Áö¸·³ëµåÀÇ ¿À¸¥ÂÊlink 1¹ø ¿¬°á¸®½ºÆ®ÀÇ Çìµå ³ëµåÀÇ ÁÖ¼Ò·Î °»½Å
+    // 4. 2ë²ˆ ì—°ê²°ë¦¬ìŠ¤íŠ¸ ë§ˆì§€ë§‰ë…¸ë“œì˜ ì˜¤ë¥¸ìª½link 1ë²ˆ ì—°ê²°ë¦¬ìŠ¤íŠ¸ì˜ í—¤ë“œ ë…¸ë“œì˜ ì£¼ì†Œë¡œ ê°±ì‹ 
     current_head2_index->Rlink = head1;
 
-    // ÃÑ ³ëµå¼ö °»½ÅÇÏ±â
+    // ì´ ë…¸ë“œìˆ˜ ê°±ì‹ í•˜ê¸°
     head1->data = head1->data + head2->data;
 
-    // ´õÀÌ»ó ¿¬°á´ë»óÀÇ ÀÌÀüÇìµå´Â »ç¿ë¾ÈÇÔ
+    // ë”ì´ìƒ ì—°ê²°ëŒ€ìƒì˜ ì´ì „í—¤ë“œëŠ” ì‚¬ìš©ì•ˆí•¨
     free(head2);
     head2 = NULL;
 
-    printf_s("----------------------------[concat ºÙÀÌ±â ¿Ï·á] : head1ÀÇ ¸¶Áö¸· link°ª = %d -> %d(%d)·Î.. º¯°æ-----------------------------\n", head1, current_head1_index->Rlink);
+    printf_s("----------------------------[concat ë¶™ì´ê¸° ì™„ë£Œ] : head1ì˜ ë§ˆì§€ë§‰ linkê°’ = %d -> %d(%d)ë¡œ.. ë³€ê²½-----------------------------\n", head1, current_head1_index->Rlink);
 
-    // 1¹ø, 2¹ø ¿¬°áÀÌ ¿Ï·áµÈ ¿¬°á¸®½ºÆ®ÀÇ ½ÃÀÛÁ¡ÀÎ 1¹ø ¿¬°á¸®½ºÆ®ÀÇ Çìµå°ªÀ» ¹ŞÀº concat_head¸®ÅÏ
+    // 1ë²ˆ, 2ë²ˆ ì—°ê²°ì´ ì™„ë£Œëœ ì—°ê²°ë¦¬ìŠ¤íŠ¸ì˜ ì‹œì‘ì ì¸ 1ë²ˆ ì—°ê²°ë¦¬ìŠ¤íŠ¸ì˜ í—¤ë“œê°’ì„ ë°›ì€ concat_headë¦¬í„´
     return head1;
 
 }
 
-// ´õºí¸µÅ©µå ¸®½ºÆ®ÀÇ ¸ğµç ³ëµåÀÇ data°ª ¼øÂ÷ÀûÀ¸·Î Ãâ·Â
+// ë”ë¸”ë§í¬ë“œ ë¦¬ìŠ¤íŠ¸ì˜ ëª¨ë“  ë…¸ë“œì˜ dataê°’ ìˆœì°¨ì ìœ¼ë¡œ ì¶œë ¥(Rlink ë”°ë¼ê°€ë©´ ë¨)
 void DoubleDisplay(DoubleListNode* head) {
 
-    printf_s("\n\n------------------------------[ÁÖ¼Ò°ª %d display ½ÃÀÛ!]------------------------------\n\n", head);
+    printf_s("\n\n------------------------------[ì£¼ì†Œê°’ %d DoubleDisplay ì‹œì‘!]------------------------------\n\n", head);
 
     if (head->data == 0) {
 
-        printf_s("(°æ°í) : ÇØ´ç ´õºí¸µÅ©µå ¸®½ºÆ®¿¡´Â Çìµå ¿Ü¿¡ ´Ù¸¥ ³ëµå°¡ ¾ø½À´Ï´Ù.\n");
+        printf_s("(ê²½ê³ ) : í•´ë‹¹ ë”ë¸”ë§í¬ë“œ ë¦¬ìŠ¤íŠ¸ì—ëŠ” í—¤ë“œ ì™¸ì— ë‹¤ë¥¸ ë…¸ë“œê°€ ì—†ìŠµë‹ˆë‹¤.\n");
 
     }
     else {
 
-        printf("ÇØ´ç dlist ³ëµå %dÀÇ °ªµé Ãâ·Â : ", head->data);
+        printf("í•´ë‹¹ dlistì˜ ë…¸ë“œê°œìˆ˜ %dê°œì¸ ë¦¬ìŠ¤íŠ¸ì˜ ê°’ë“¤ ì¶œë ¥ : ", head->data);
 
         DoubleListNode* current_node = head->Rlink;
 
-        printf("head\n");
+        printf("head -> ");
 
         for (int i = 1; i <= head->data; i++) {
 
@@ -269,4 +279,64 @@ void DoubleDisplay(DoubleListNode* head) {
 
         printf("head\n");
     }
+}
+
+// ë”ë¸”ë§í¬ë“œ ë¦¬ìŠ¤íŠ¸ì˜ ëª¨ë“  ë…¸ë“œì˜ dataê°’ ì—­ìˆœìœ¼ë¡œ ì¶œë ¥ (Llink ë”°ë¼ê°€ë©´ ë¨)
+void DoubleDisplayReverse(DoubleListNode* head) {
+
+    printf_s("\n\n------------------------------[ì£¼ì†Œê°’ %d DoubleDisplayReverse ì‹œì‘!]------------------------------\n\n", head);
+
+    if (head->data == 0) {
+
+        printf_s("(ê²½ê³ ) : í•´ë‹¹ ë”ë¸”ë§í¬ë“œ ë¦¬ìŠ¤íŠ¸ì—ëŠ” í—¤ë“œ ì™¸ì— ë‹¤ë¥¸ ë…¸ë“œê°€ ì—†ìŠµë‹ˆë‹¤.\n");
+
+    }
+    else {
+
+        printf("í•´ë‹¹ dlistì˜ ë…¸ë“œê°œìˆ˜ %dê°œì¸ ë¦¬ìŠ¤íŠ¸ì˜ ê°’ë“¤ ì¶œë ¥ : ", head->data);
+
+        DoubleListNode* current_node = head->Llink;
+
+        printf("head -> ");
+
+        for (int i = 1; i <= head->data; i++) {
+
+            printf("%3d -> ", current_node->data);
+            current_node = current_node->Llink;
+        }
+
+        printf("head\n");
+    }
+
+}
+
+// ë™ì í• ë‹¹í•œ ë”ë¸”ë§í¬ë“œ ë¦¬ìŠ¤íŠ¸ ë©”ëª¨ë¦¬ í• ë‹¹ í•´ì œ
+void FreeDoubleList(DoubleListNode* head) {
+
+    printf_s("\n\n------------------------------[ì£¼ì†Œê°’ %d FreeDoubleList ì‹œì‘!]------------------------------\n\n", head);
+
+    printf("(í•´ë‹¹ dlistì˜ ë…¸ë“œì˜ ê°œìˆ˜) : %dê°œ \n", head->data);
+
+    DoubleListNode* free_address = head;
+
+    // í•´ë‹¹ ë”ë¸”ë§í¬ë“œ ë¦¬ìŠ¤íŠ¸ì— í—¤ë” ì™¸ì˜ ë…¸ë“œê°€ í•˜ë‚˜ë¼ë„ ìˆë‹¤ë©´?
+    //  -> í•˜ë‚˜ì”© ë”°ë¼ê°€ë©° ê·¸ ê°œìˆ˜ì— í•´ë‹¹í•˜ëŠ” ë…¸ë“œ í•´ì œ
+    if (head->data != 0) {
+
+        free_address = free_address->Rlink;
+
+        for (int i = 1; i <= head->data; i++) {
+
+            DoubleListNode* next_address = free_address->Rlink;
+
+            printf("í•´ë‹¹ dlist %dë²ˆì§¸ ë…¸ë“œ í•´ì œ : ë…¸ë“œì˜ ê°’ì´ %dì´ë©° ì£¼ì†Œê°’ %dë¶€í„° ì‹œì‘í•˜ëŠ” í•´ë‹¹ ë…¸ë“œì— í• ë‹¹ëœ ë©”ëª¨ë¦¬ ì˜ì—­ì´ í•´ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n", i, free_address->data ,  free_address);
+
+            free(free_address);
+            free_address = next_address;
+        }
+    }
+
+    // í•´ë‹¹ ë”ë¸”ë§í¬ë“œ ë¦¬ìŠ¤íŠ¸ì— í—¤ë” ë°–ì— ë…¸ë“œê°€ ì—†ëŠ” ìƒíƒœë©´(í•´ì œë¥¼ í•˜ë˜, ì›ë˜ë¶€í„° ê·¸ë ‡ë˜), í—¤ë”ë…¸ë“œë„ í•´ì œ
+    printf("\n-----------------[FreeDoubleList ì™„ë£Œ] ì£¼ì†Œê°’ %dë¶€í„° ì‹œì‘í•˜ëŠ” í•´ë‹¹ ë”ë¸” dlistì˜ í—¤ë”ë…¸ë“œì— í• ë‹¹ëœ ë©”ëª¨ë¦¬ ì˜ì—­ì´ í•´ì œë˜ì—ˆìŠµë‹ˆë‹¤.---------------\n",  free_address);
+    free(free_address);
 }
