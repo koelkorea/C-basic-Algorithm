@@ -206,6 +206,7 @@ ListNode* insert_last(ListNode* head, list_element item) {
     // 만약 head가 가르키는 주소값이 없다면(= 1번째 노드가 없다면)?
     //  -> insert_first를 수행후 리턴 (동적할당도 거기서 함)
     if (head == NULL) {
+        printf_s("알고보니... 해당 head의 연결리스트에 노드가 없음 -> insert_first를 수행\n");
         return insert_first(head, item);
     }
     
