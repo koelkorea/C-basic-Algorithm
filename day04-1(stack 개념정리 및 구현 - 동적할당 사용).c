@@ -80,16 +80,16 @@ int main(void) {
 // stack 초기화
 StackType* init_stack(StackType* stack) {
 
-	// stack 구조체가 위치하는 메모리주소를 저장함
-	stack = (StackType*) malloc(sizeof(StackType));
+    // stack 구조체가 위치하는 메모리주소를 저장함
+    stack = (StackType*) malloc(sizeof(StackType));
 
-	// top : 스택 현재 보유 수량
-	stack->top = 0; 
-	// capacity : 스택 총 보유 가능 수량
-	stack->capacity = 5; 
-	// data : 스택에 넣은 값들이 위치하는 메모리 주소의 시작점 (= 이 포인터변수는 동적할당 메서드를 통해 return값을 받게 될 시... 그 위치를 저장하기 위한 용도)
-	stack->data = (stack_element*) malloc(stack->capacity * sizeof(stack_element));
-	// element data[s->capacity];
+    // top : 스택 현재 보유 수량
+    stack->top = 0; 
+    // capacity : 스택 총 보유 가능 수량
+    stack->capacity = 5; 
+    // data : 스택에 넣은 값들이 위치하는 메모리 주소의 시작점 (= 이 포인터변수는 동적할당 메서드를 통해 return값을 받게 될 시... 그 위치를 저장하기 위한 용도)
+    stack->data = (stack_element*) malloc(stack->capacity * sizeof(stack_element));
+    // element data[s->capacity];
 
     return stack;
 }
