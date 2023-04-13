@@ -154,18 +154,18 @@ void pop(StackType* stack) {
 	// 안 비었으면 값 
 	if (result == 0) {
 
-		// (중요) stack의 값이 위치하는 메모리 주소는 값이 추가된 후 top++가 된다는 점을 기억해야함 
-		// (= capacity가 3이라 치면, 마지막 값의 주소 = '시작주소' + capacity - 1 = '시작주소' + capacity - 1)
-		//  -> '시작주소' + capacity - 1 때문에 제거할 값을 찾기 위해서 먼저 top을 -1 처리해야 함
-		(stack->top)--;
-		printf("메모리 주소 %d부터 할당된 stack구조의 %d번째 공간의 값인 %d를 제거했습니다. \n", stack, stack->top, *(stack->data + stack->top));
-		
-		// 해당 위치에 존재하는 값을 제거할 목적으로 0대입 (어차피 top의 값이 이 위치의 접근가능 여부를 결정함 = push할떄 새로운 값으로 대입되므로 안 해줘도 됨)
-		*(stack->data + stack->top) = 0;
+        // (중요) stack의 값이 위치하는 메모리 주소는 값이 추가된 후 top++가 된다는 점을 기억해야함 
+        // (= capacity가 3이라 치면, 마지막 값의 주소 = '시작주소' + capacity - 1 = '시작주소' + capacity - 1)
+        //  -> '시작주소' + capacity - 1 때문에 제거할 값을 찾기 위해서 먼저 top을 -1 처리해야 함
+        (stack->top)--;
+        printf("메모리 주소 %d부터 할당된 stack구조의 %d번째 공간의 값인 %d를 제거했습니다. \n", stack, stack->top, *(stack->data + stack->top));
+        
+        // 해당 위치에 존재하는 값을 제거할 목적으로 0대입 (어차피 top의 값이 이 위치의 접근가능 여부를 결정함 = push할떄 새로운 값으로 대입되므로 안 해줘도 됨)
+        *(stack->data + stack->top) = 0;
 
-		// (보너스) realloc을 통해, 현재의 stack이 쓸데없이 메모리를 많이/적게 먹는 경우 알맞은 수준으로 메모리 할당을 변경 가능 (= 가변 할당을 통한 메모리 관리 가능)
-		//  -> push를 새로 할 때마다, stack요소를 저장하는데 쓸 메모리의 할당하는 양을 줄여서 할당하고 그 시작주소 재대입 
-		stack = realloc(stack, (sizeof(stack_element) * stack->top));
+        // (보너스) realloc을 통해, 현재의 stack이 쓸데없이 메모리를 많이/적게 먹는 경우 알맞은 수준으로 메모리 할당을 변경 가능 (= 가변 할당을 통한 메모리 관리 가능)
+        //  -> push를 새로 할 때마다, stack요소를 저장하는데 쓸 메모리의 할당하는 양을 줄여서 할당하고 그 시작주소 재대입 
+        stack = realloc(stack, (sizeof(stack_element) * stack->top));
     }
     else if (result == 1) {
 
