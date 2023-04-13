@@ -138,11 +138,11 @@ void push(StackType* stack, stack_element item) {
         // (보너스) realloc을 통해, 현재의 stack이 쓸데없이 메모리를 많이/적게 먹는 경우 알맞은 수준으로 메모리 할당을 변경 가능 (= 가변 할당을 통한 메모리 관리 가능)
         //  -> push를 새로 할 때마다, stack요소를 저장하는데 쓸 메모리의 할당하는 양을 늘려서 할당하고 그 시작주소 재대입 
         stack->data = (stack_element*) realloc(stack->data, (sizeof(stack_element) * stack->top));
-	}
-	else if (result == 1) {
+    }
+    else if (result == 1) {
 
-	    printf("(주의!) 메모리 주소 %d부터 할당된 stack은 이미 가지고 있는 %d개 공간을 전부 채웠습니다.\n", stack, stack->capacity);
-	}
+        printf("(주의!) 메모리 주소 %d부터 할당된 stack은 이미 가지고 있는 %d개 공간을 전부 채웠습니다.\n", stack, stack->capacity);
+    }
 }
 
 // stack에서 값을 제거 return값은 stack의 요소 (값이 있는 마지막 노드)
