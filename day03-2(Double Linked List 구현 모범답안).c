@@ -38,10 +38,18 @@ int main() {
 
     srand((unsigned)time(NULL));
 
-    int menu = 0, end = 0;
+    int menu = 0, list_num = 0;
 
     DoubleListElement value, select_1, select_2;
+
+    // 정적배열 형식
     DoubleListNode* head[5] = { 0 };
+
+    // 동적배열 형식
+    //DoubleListNode** head = NULL;
+    //printf("리스트 생성 개수 입력 : ");
+    //scanf_s("%d", &list_num);
+    //head = (DoubleListNode*)malloc(sizeof(DoubleListNode*) * list_num);
 
     for (int i = 0; i < 5; i++) {
 
@@ -180,7 +188,6 @@ void DoubleDeleteFirst(DoubleListNode* head) {
     if (DeleteNode == head) {
         return;
     }
-
     
     // 삭제대상 노드의 왼노드의 오른쪽 주소값을 삭제대상노드 오른노드의 주소값으로 변경
     DeleteNode->Llink->Rlink = DeleteNode->Rlink;
@@ -197,11 +204,11 @@ void DoubleDeleteFirst(DoubleListNode* head) {
 // 두 이중 연결리스트 head1, head2를 하나의 이중연결리스트로 결합 (<-> 내가 for문으로 각 리스트의 끝을 복잡하게 찾은거랑 달리, head->Rlink->Llink 이런식의 참조를 통해 나보다 더 간결하게 표현)
 DoubleListNode* DoubleConcat(DoubleListNode* head1, DoubleListNode* head2) {//list 1 + list 2 이어 붙이기
 
-    if (head1 == NULL) {
+    if (head1 == NULL || head1->Rlink == head1 ) {
 
         return head2;
 
-    }else if (head2 == NULL) {
+    }else if (head2 == NULL || head2->Rlink == head2) {
 
         return head1;
 
@@ -218,6 +225,10 @@ DoubleListNode* DoubleConcat(DoubleListNode* head1, DoubleListNode* head2) {//li
         
         // 4. head2의 마지막 노드의 오른노드 주소값을 head1의 주소값으로 변경
         head2->Llink->Rlink = head1;
+
+        //각 리스트의 노드의 수 변경
+        head1->data = head1->data + head2->data;
+        head2->data = 0;
 
         // head2의 헤드노드의 좌우노드 정보값을 헤드노드 스스로의 주소값으로 변경 (난 이거 안하고, 그냥 메모리 해제함)
         head2->Llink = head2;
