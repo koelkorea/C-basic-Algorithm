@@ -125,19 +125,19 @@ void push(StackType* stack, stack_element item) {
 	// stack 공간에 여유가 있다면? 값 추가진행
 	if (result == 0) {
 			
-		// (중요) stack의 값이 위치하는 메모리 주소는 값이 추가된 후 top++가 된다는 점을 기억해야함 
-		// (= capacity가 3이라 치면, 마지막 값의 주소 = '시작주소' + capacity - 1 = '시작주소' + capacity - 1)
-		
-		// stack에 넣고자 하는 값 item은 값들이 위치하는 메모리 주소의 시작값 data를 기준으로 stack에 존재하는 값들의 현 개수 - 1 를 더해서 얻은 메모리주소를 역참조한 값으로 둔다
-		*(stack->data + stack->top) = item;
-		printf("메모리 주소 %d부터 할당된 stack구조의 %d번째 공간의 값 = %d \n", stack, stack->top, *(stack->data + stack->top));
-		
-		// 새로운 값 메모리 주소위치 = data + top - 1인 이유가 top의 값이 item이 들어간 이후에 연산이 되는 이유
-		(stack->top)++;
-		
-		// (보너스) realloc을 통해, 현재의 stack이 쓸데없이 메모리를 많이/적게 먹는 경우 알맞은 수준으로 메모리 할당을 변경 가능 (= 가변 할당을 통한 메모리 관리 가능)
-		//  -> push를 새로 할 때마다, stack요소를 저장하는데 쓸 메모리의 할당하는 양을 늘려서 할당하고 그 시작주소 재대입 
-		stack->data = (stack_element*) realloc(stack->data, (sizeof(stack_element) * stack->top));
+	// (중요) stack의 값이 위치하는 메모리 주소는 값이 추가된 후 top++가 된다는 점을 기억해야함 
+	// (= capacity가 3이라 치면, 마지막 값의 주소 = '시작주소' + capacity - 1 = '시작주소' + capacity - 1)
+
+	// stack에 넣고자 하는 값 item은 값들이 위치하는 메모리 주소의 시작값 data를 기준으로 stack에 존재하는 값들의 현 개수 - 1 를 더해서 얻은 메모리주소를 역참조한 값으로 둔다
+	*(stack->data + stack->top) = item;
+	printf("메모리 주소 %d부터 할당된 stack구조의 %d번째 공간의 값 = %d \n", stack, stack->top, *(stack->data + stack->top));
+
+	// 새로운 값 메모리 주소위치 = data + top - 1인 이유가 top의 값이 item이 들어간 이후에 연산이 되는 이유
+	(stack->top)++;
+
+	// (보너스) realloc을 통해, 현재의 stack이 쓸데없이 메모리를 많이/적게 먹는 경우 알맞은 수준으로 메모리 할당을 변경 가능 (= 가변 할당을 통한 메모리 관리 가능)
+	//  -> push를 새로 할 때마다, stack요소를 저장하는데 쓸 메모리의 할당하는 양을 늘려서 할당하고 그 시작주소 재대입 
+	stack->data = (stack_element*) realloc(stack->data, (sizeof(stack_element) * stack->top));
 	}
 	else if (result == 1) {
 
