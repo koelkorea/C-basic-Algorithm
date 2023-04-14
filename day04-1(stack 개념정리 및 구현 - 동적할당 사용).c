@@ -59,7 +59,7 @@ int main(void) {
 
     StackType* stack_address1 = NULL;
     stack_address1 = init_stack(stack_address1);
-    
+
     for (int i = 1; i <= stack_address1->capacity; i++) {
 
         push(stack_address1, i * 3);
@@ -74,21 +74,21 @@ int main(void) {
 
     print(stack_address1);
 
-	return 0;
+    return 0;
 }
 
 // stack 초기화
 StackType* init_stack(StackType* stack) {
 
     // stack 구조체가 위치하는 메모리주소를 저장함
-    stack = (StackType*) malloc(sizeof(StackType));
+    stack = (StackType*)malloc(sizeof(StackType));
 
     // top : 스택 현재 보유 수량
-    stack->top = 0; 
+    stack->top = 0;
     // capacity : 스택 총 보유 가능 수량
-    stack->capacity = 5; 
+    stack->capacity = 5;
     // data : 스택에 넣은 값들이 위치하는 메모리 주소의 시작점 (= 이 포인터변수는 동적할당 메서드를 통해 return값을 받게 될 시... 그 위치를 저장하기 위한 용도)
-    stack->data = (stack_element*) malloc(stack->capacity * sizeof(stack_element));
+    stack->data = (stack_element*)malloc(stack->capacity * sizeof(stack_element));
     // element data[s->capacity];
 
     return stack;
@@ -107,8 +107,8 @@ int is_empty(StackType* stack) {
 // 해당 stack이 가득찼는지 여부 (여유 있으면 0, 가득찼으면 1)
 int is_full(StackType* stack) {
 
-	// (중요) stack의 값이 위치하는 메모리 주소는 값이 추가된 후 top++가 된다는 점을 기억해야함
-	// (= capacity가 3이라 치면, 마지막 값의 주소 = '시작주소' + capacity - 1 = '시작주소' + capacity - 1)
+    // (중요) stack의 값이 위치하는 메모리 주소는 값이 추가된 후 top++가 된다는 점을 기억해야함
+    // (= capacity가 3이라 치면, 마지막 값의 주소 = '시작주소' + capacity - 1 = '시작주소' + capacity - 1)
     if (stack->top >= stack->capacity) {
         return 1;
     }
@@ -124,7 +124,7 @@ void push(StackType* stack, stack_element item) {
 
     // stack 공간에 여유가 있다면? 값 추가진행
     if (result == 0) {
-			
+
         // (중요) stack의 값이 위치하는 메모리 주소는 값이 추가된 후 top++가 된다는 점을 기억해야함 
         // (= capacity가 3이라 치면, 마지막 값의 주소 = '시작주소' + capacity - 1 = '시작주소' + capacity - 1)
 
@@ -137,7 +137,7 @@ void push(StackType* stack, stack_element item) {
 
         // (보너스) realloc을 통해, 현재의 stack이 쓸데없이 메모리를 많이/적게 먹는 경우 알맞은 수준으로 메모리 할당을 변경 가능 (= 가변 할당을 통한 메모리 관리 가능)
         //  -> push를 새로 할 때마다, stack요소를 저장하는데 쓸 메모리의 할당하는 양을 늘려서 할당하고 그 시작주소 재대입 
-        stack->data = (stack_element*) realloc(stack->data, (sizeof(stack_element) * stack->top));
+        stack->data = (stack_element*)realloc(stack->data, (sizeof(stack_element) * stack->top));
     }
     else if (result == 1) {
 
@@ -154,18 +154,18 @@ void pop(StackType* stack) {
     // 안 비었으면 값 
     if (result == 0) {
 
-         // (중요) stack의 값이 위치하는 메모리 주소는 값이 추가된 후 top++가 된다는 점을 기억해야함 
-         // (= capacity가 3이라 치면, 마지막 값의 주소 = '시작주소' + capacity - 1 = '시작주소' + capacity - 1)
-         //  -> '시작주소' + capacity - 1 때문에 제거할 값을 찾기 위해서 먼저 top을 -1 처리해야 함
-         (stack->top)--;
-         printf("메모리 주소 %d부터 할당된 stack구조의 %d번째 공간의 값인 %d를 제거했습니다. \n", stack, stack->top, *(stack->data + stack->top));
-         
-         // 해당 위치에 존재하는 값을 제거할 목적으로 0대입 (어차피 top의 값이 이 위치의 접근가능 여부를 결정함 = push할떄 새로운 값으로 대입되므로 안 해줘도 됨)
-         *(stack->data + stack->top) = 0;
+        // (중요) stack의 값이 위치하는 메모리 주소는 값이 추가된 후 top++가 된다는 점을 기억해야함 
+        // (= capacity가 3이라 치면, 마지막 값의 주소 = '시작주소' + capacity - 1 = '시작주소' + capacity - 1)
+        //  -> '시작주소' + capacity - 1 때문에 제거할 값을 찾기 위해서 먼저 top을 -1 처리해야 함
+        (stack->top)--;
+        printf("메모리 주소 %d부터 할당된 stack구조의 %d번째 공간의 값인 %d를 제거했습니다. \n", stack, stack->top, *(stack->data + stack->top));
 
-         // (보너스) realloc을 통해, 현재의 stack이 쓸데없이 메모리를 많이/적게 먹는 경우 알맞은 수준으로 메모리 할당을 변경 가능 (= 가변 할당을 통한 메모리 관리 가능)
-         //  -> push를 새로 할 때마다, stack요소를 저장하는데 쓸 메모리의 할당하는 양을 줄여서 할당하고 그 시작주소 재대입 
-         stack = realloc(stack, (sizeof(stack_element) * stack->top));
+        // 해당 위치에 존재하는 값을 제거할 목적으로 0대입 (어차피 top의 값이 이 위치의 접근가능 여부를 결정함 = push할 새로운 값으로 대입되므로 안 해줘도 됨)
+        *(stack->data + stack->top) = 0;
+
+        // (보너스) realloc을 통해, 현재의 stack이 쓸데없이 메모리를 많이/적게 먹는 경우 알맞은 수준으로 메모리 할당을 변경 가능 (= 가변 할당을 통한 메모리 관리 가능)
+        //  -> push를 새로 할 때마다, stack요소를 저장하는데 쓸 메모리의 할당하는 양을 줄여서 할당하고 그 시작주소 재대입 
+        stack = realloc(stack, (sizeof(stack_element) * stack->top));
     }
     else if (result == 1) {
 
@@ -176,16 +176,16 @@ void pop(StackType* stack) {
 
 // stack 메모리 해제
 void free_stack(StackType* stack) {
-    
-	// 먼저 stack의 값이 위치한 주소의 메모리 할당 해제
+
+    // 먼저 stack의 값이 위치한 주소의 메모리 할당 해제
     free(stack->data);
-	// 그 다음 stack 구조체 위치의 메모리 해제
+    // 그 다음 stack 구조체 위치의 메모리 해제
     free(stack);
 }
 
 // stack 내용 확인
 void print(StackType* stack) {
-    
+
     int result = is_empty(stack);
 
     if (result == 0) {
@@ -201,7 +201,7 @@ void print(StackType* stack) {
         printf("\n");
 
     }
-    else{
+    else {
         printf("(주의!) 메모리 주소 %d부터 할당된 stack은 입력된 값이 없습니다.\n", stack);
     }
 
