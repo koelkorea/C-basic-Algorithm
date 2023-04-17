@@ -1,16 +1,16 @@
-// Å¥(Queue)
-//  : ¸ÕÀú µé¾î¿Â µ¥ÀÌÅÍ°¡ ¸ÕÀú ³ª°¡´Â ÀÚ·á±¸Á¶ 
-//    (= ¸ÕÀú ¿Â »ç¶÷ '´ë±â¹øÈ£'´ë·Î Ã³¸®ÇÏ´Â ´ë±â¿­ ±× ÀÚÃ¼)
+// í(Queue)
+//  : ë¨¼ì € ë“¤ì–´ì˜¨ ë°ì´í„°ê°€ ë¨¼ì € ë‚˜ê°€ëŠ” ìë£Œêµ¬ì¡° 
+//    (= ë¨¼ì € ì˜¨ ì‚¬ëŒ 'ëŒ€ê¸°ë²ˆí˜¸'ëŒ€ë¡œ ì²˜ë¦¬í•˜ëŠ” ëŒ€ê¸°ì—´ ê·¸ ìì²´)
 
-//  # ¼±ÀÔ¼±Ãâ FIFO
+//  # ì„ ì…ì„ ì¶œ FIFO
 //    : First-In, First-Out
 
-//  # QueueÀÇ Á¾·ù
-//    1. ¼±Çü Å¥(linear quere)   : ¼±Çü½Ä ±¸Á¶·Î ¸Ş¸ğ¸®¸¦ »ç¿ëÇÏ¿© Queue¸¦ ±¸Çö (= linked list(¿¬°á¸®½ºÆ®)·Î ±¸Çö)
-//    2. ¿øÇü Å¥(circliar queue) : ¿øÇü½Ä ±¸Á¶·Î ¸Ş¸ğ¸®¸¦ »ç¿ëÇÏ¿© Queue¸¦ ±¸Çö (= circular linked list(¿øÇü ¿¬°á¸®½ºÆ®), Á¤Àû¹è¿­·Î ±¸Çö)
-//       -> ´ëÃæ Ãâ·Â½Ã ¿Ã¶ó°¡´Â index, ÀÔ·Â½Ã ¿Ã¶ó°¡´Â index¸¦ º¯¼ö·Î µÎ°í Ã¼Å©ÇØ¼­ ÇÔ
+//  # Queueì˜ ì¢…ë¥˜
+//    1. ì„ í˜• í(linear quere)   : ì„ í˜•ì‹ êµ¬ì¡°ë¡œ ë©”ëª¨ë¦¬ë¥¼ ì‚¬ìš©í•˜ì—¬ Queueë¥¼ êµ¬í˜„ (= linked list(ì—°ê²°ë¦¬ìŠ¤íŠ¸)ë¡œ êµ¬í˜„)
+//    2. ì›í˜• í(circliar queue) : ì›í˜•ì‹ êµ¬ì¡°ë¡œ ë©”ëª¨ë¦¬ë¥¼ ì‚¬ìš©í•˜ì—¬ Queueë¥¼ êµ¬í˜„ (= circular linked list(ì›í˜• ì—°ê²°ë¦¬ìŠ¤íŠ¸), ì •ì ë°°ì—´ë¡œ êµ¬í˜„)
+//       -> ëŒ€ì¶© ì¶œë ¥ì‹œ ì˜¬ë¼ê°€ëŠ” index, ì…ë ¥ì‹œ ì˜¬ë¼ê°€ëŠ” indexë¥¼ ë³€ìˆ˜ë¡œ ë‘ê³  ì²´í¬í•´ì„œ í•¨
 
-//  # Queue ±¸Á¶Ã¼ ( ±¸¼º ¿ä¼Ò )
+//  # Queue êµ¬ì¡°ì²´ ( êµ¬ì„± ìš”ì†Œ )
 //    typedef int QueueElement;
 
 //    typedef struct QueueNode {
@@ -23,24 +23,25 @@
 //    } LinkedQueueType;
 
 //  # Queue ADT
-//    - void QueueInit(LinkedQueueType* queue); ÃÊ±âÈ­
-//    - int QueueIsEmpty(LinkedQueueType* queue); Node°¡ ¾ø´ÂÁö È®ÀÎ
-//    - void Enqueue(LinkedQueueType* queue, QueueElement data); Node »ı¼º
-//    - QueueElement Dequeue(LinkedQueueType* queue); Node »èÁ¦
-//    - void PrintQueue(LinkedQueueType* queue); Node Ãâ·Â
-//    - void FreeQueue(LinkedQueueType* queue); Queue »èÁ¦
+//    - void QueueInit(LinkedQueueType* queue); ì´ˆê¸°í™”
+//    - int QueueIsEmpty(LinkedQueueType* queue); Nodeê°€ ì—†ëŠ”ì§€ í™•ì¸
+//    - void Enqueue(LinkedQueueType* queue, QueueElement data); Node ìƒì„±
+//    - QueueElement Dequeue(LinkedQueueType* queue); Node ì‚­ì œ
+//    - void PrintQueue(LinkedQueueType* queue); Node ì¶œë ¥
+//    - void FreeQueue(LinkedQueueType* queue); Queue ì‚­ì œ
 
 
-// µ¦(deque) = double-ended queue
-//  : Å¥ÀÇ Àü´Ü(front)¿Í ÈÄ´Ü(rear)¿¡¼­ ¸ğµÎ »ğÀÔ°ú »èÁ¦°¡ °¡´ÉÇÑ Å¥ 
-//    (= stack°ú queueÀÇ ±â´É ÀüºÎ »ç¿ëÀÌ °¡´ÉÇÏ´Ù´Â ¸»..)
-//     -> ±¸Çö ÀÚÃ¼´Â double linked ¸®½ºÆ®·Î ±¸ÇöÀÌ ÆíÇÔ.. (µ¿ÀûÇÒ´çÀ¸·Îµµ °¡´ÉÀº ÇÑµ¥ ¸Ş¸ğ¸® ¤¸¤¤ ¿òÁ÷¿©¾ß ÇØ¼­ ½Ã°£È¿À²¼º °üÁ¡¿¡¼­ ºñÈ¿À²Àû)
+// ë±(deque) = double-ended queue
+//  : íì˜ ì „ë‹¨(front)ì™€ í›„ë‹¨(rear)ì—ì„œ ëª¨ë‘ ì‚½ì…ê³¼ ì‚­ì œê°€ ê°€ëŠ¥í•œ í 
+//    (= stackê³¼ queueì˜ ê¸°ëŠ¥ ì „ë¶€ ì‚¬ìš©ì´ ê°€ëŠ¥í•˜ë‹¤ëŠ” ë§..)
+//     -> êµ¬í˜„ ìì²´ëŠ” double linked ë¦¬ìŠ¤íŠ¸ë¡œ êµ¬í˜„ì´ í¸í•¨.. (ë™ì í• ë‹¹ìœ¼ë¡œë„ ê°€ëŠ¥ì€ í•œë° ë©”ëª¨ë¦¬ ã…ˆã„´ ì›€ì§ì—¬ì•¼ í•´ì„œ ì‹œê°„íš¨ìœ¨ì„± ê´€ì ì—ì„œ ë¹„íš¨ìœ¨ì )
 
-// ¼±ÇüÅ¥·Î Queue ADT ÀüºÎ ±¸ÇöÇØº¸ÀÚ (linked list »ç¿ëÇØ¼­..)
+// ì„ í˜•íë¡œ Queue ADT ì „ë¶€ êµ¬í˜„í•´ë³´ì (linked list ì‚¬ìš©í•´ì„œ..)
 #include <stdio.h>
-#include <stdlib.h>				//	srand(), rand() ÇÔ¼ö »ç¿ë °¡´ÉÇÏ°Ô ÇÔ
-#include <conio.h>		// (Çì´õ) conio.h (console and port I/0ÀÇ ¾àÀÚ) :  c¾ğ¾îÀÇ ÄÜ¼Ö ÀÔÃâ·Â ÇÔ¼ö¸¦ Á¦°ø
-
+#include <stdlib.h>		//	srand(), rand() í•¨ìˆ˜ ì‚¬ìš© ê°€ëŠ¥í•˜ê²Œ í•¨
+#include <conio.h>		// (í—¤ë”) conio.h (console and port I/0ì˜ ì•½ì) :  cì–¸ì–´ì˜ ì½˜ì†” ì…ì¶œë ¥ í•¨ìˆ˜ë¥¼ ì œê³µ
+#define FIRST 0
+#define LAST 1
 
 typedef int QueueElement;
 
@@ -49,33 +50,37 @@ typedef struct QueueNode {
     struct QueueNode* link;
 } QueueNode;
 
-// Queue ±¸Á¶Ã¼¿¡¼­ front, rear´Â °¢°¢ Å¥ÀÇ ¸Ç ¾Õ°ú ¸Ç µÚÀÇ ÁÖ¼Ò°ªÀ» ÀúÀåÇÏ´Â Æ÷ÀÎÅÍº¯¼ö
+// Queue êµ¬ì¡°ì²´ì—ì„œ front, rearëŠ” ê°ê° íì˜ ë§¨ ì•ê³¼ ë§¨ ë’¤ì˜ ì£¼ì†Œê°’ì„ ì €ì¥í•˜ëŠ” í¬ì¸í„°ë³€ìˆ˜
 typedef struct Queue {
     QueueNode* front, * rear;
 } LinkedQueueType;
 
 
-// Queue ÃÊ±âÈ­ 
+// Queue ì´ˆê¸°í™” 
 LinkedQueueType* QueueInit1(LinkedQueueType* queue);
 void QueueInit2(LinkedQueueType** queue);
 
-// ÇöÀçÀÇ Queue¿¡ Node°¡ ¾ø´ÂÁö È®ÀÎ
+// í˜„ì¬ì˜ Queueì— Nodeê°€ ì—†ëŠ”ì§€ í™•ì¸
 int QueueIsEmpty(LinkedQueueType* queue);
 
-// »õ·Î¿î ³ëµå »ı¼º ¹× Ãß°¡(= ¸Ç µÚ¿¡ Ãß°¡)
+// Queueì— ìƒˆë¡œìš´ ë…¸ë“œ ìƒì„± ë° ì¶”ê°€(= ë§¨ ë’¤ì— ì¶”ê°€)
 void Enqueue(LinkedQueueType* queue, QueueElement data);
 
-// ÇöÀçÀÇ Queue¿¡ ±âÁ¸¿¡ Á¸ÀçÇÑ Ã¹¹øÂ° Node »èÁ¦
+// í˜„ì¬ì˜ Queueì— ê¸°ì¡´ì— ì¡´ì¬í•œ ì²«ë²ˆì§¸ Node ì‚­ì œ
 QueueElement Dequeue(LinkedQueueType* queue);
 
-// ÇöÀçÀÇ Queue¿¡ Á¸ÀçÇÏ´Â ¸ğµç Node Ãâ·Â
-void PrintQueue(LinkedQueueType* queue); 
+// í˜„ì¬ì˜ Queueì— ì¡´ì¬í•˜ëŠ” ëª¨ë“  Node ì¶œë ¥
+void PrintQueue(LinkedQueueType* queue);
 
-// Queue¸¦ À§ÇØ ÇÒ´çµÈ ¸ğµç ¸Ş¸ğ¸® ÇÒ´ç ÇØÁ¦
-void FreeQueue(LinkedQueueType* queue); 
+// Queueë¥¼ ìœ„í•´ í• ë‹¹ëœ ëª¨ë“  ë©”ëª¨ë¦¬ í• ë‹¹ í•´ì œ
+void FreeQueue(LinkedQueueType* queue);
 
-// (º¸³Ê½º °úÁ¦ )Deque ±¸Çö
+// ------------------------------- (ë³´ë„ˆìŠ¤ ê³¼ì œ )Deque êµ¬í˜„ ----------------------------
+
+// DeQueueì— ìƒˆë¡œìš´ ë…¸ë“œ ìƒì„± ë° ì¶”ê°€(= int directionì˜ ë°©í–¥ì— ë”°ë¼ ë§¨ ì•, ë’¤ ì„ íƒ ê°€ëŠ¥)  
 void Endeque(LinkedQueueType* queue, QueueElement data, int direction);
+
+// í˜„ì¬ì˜ Queueì— ê¸°ì¡´ì— ì¡´ì¬í•œ ì²«ë²ˆì§¸ Node or ë§ˆì§€ë§‰ ë…¸ë“œ ì‚­ì œ (= int directionì˜ ë°©í–¥ì— ë”°ë¼ ë§¨ ì•, ë’¤ ì„ íƒ ê°€ëŠ¥)  
 QueueElement Dedeque(LinkedQueueType* queue, int direction);
 
 int main(void) {
@@ -102,16 +107,23 @@ int main(void) {
 
     PrintQueue(linear_queue);
 
-    for (int i = 0; i <= 3; i++) {
-        Enqueue(linear_queue, rand() % 50 + 1);
+    for (int i = 0; i <= 4; i++) {
+        Endeque(linear_queue, rand() % 50 + 1, i % 2);
     }
+
+    PrintQueue(linear_queue);
+
+    for (int i = 0; i <= 2; i++) {
+        Dedeque(linear_queue, i % 2);
+    }
+
     PrintQueue(linear_queue);
     FreeQueue(linear_queue);
 
     return 0;
 }
 
-// Queue ÃÊ±âÈ­ (call by reference)
+// Queue ì´ˆê¸°í™” (call by reference)
 LinkedQueueType* QueueInit1(LinkedQueueType* queue) {
 
     queue = (LinkedQueueType*)malloc(sizeof(LinkedQueueType));
@@ -122,7 +134,7 @@ LinkedQueueType* QueueInit1(LinkedQueueType* queue) {
     return queue;
 }
 
-// Queue ÃÊ±âÈ­ (call by reference)
+// Queue ì´ˆê¸°í™” (call by reference)
 void QueueInit2(LinkedQueueType** queue) {
 
     *queue = (LinkedQueueType*)malloc(sizeof(LinkedQueueType));
@@ -131,7 +143,7 @@ void QueueInit2(LinkedQueueType** queue) {
     (*queue)->rear = NULL;
 }
 
-// ÇöÀçÀÇ Queue¿¡ Node°¡ ¾ø´ÂÁö È®ÀÎ (queueÀÇ ¸Ç¾ÕÀÌ³ª µÚ¿¡ À§Ä¡ÇÑ ³ëµåÀÇ ÁÖ¼Ò°¡ ¾øÀ»°æ¿ì)
+// í˜„ì¬ì˜ Queueì— Nodeê°€ ì—†ëŠ”ì§€ í™•ì¸ (queueì˜ ë§¨ì•ì´ë‚˜ ë’¤ì— ìœ„ì¹˜í•œ ë…¸ë“œì˜ ì£¼ì†Œê°€ ì—†ì„ê²½ìš°)
 int QueueIsEmpty(LinkedQueueType* queue) {
 
     if (queue->front == NULL && queue->rear == NULL) {
@@ -141,69 +153,68 @@ int QueueIsEmpty(LinkedQueueType* queue) {
     return 1;
 }
 
-// ¸Ç µÚ¿¡ Node Ãß°¡(Àü¿¡ ¸¸µç ³à¼®Àº µÚ·Î ¹Ğ¸®´Â ¹æ½Ä)
+// ë§¨ ë’¤ì— Node ì¶”ê°€(ì „ì— ë§Œë“  ë…€ì„ì€ ë’¤ë¡œ ë°€ë¦¬ëŠ” ë°©ì‹)
 void Enqueue(LinkedQueueType* queue, QueueElement data) {
 
-    printf_s("\n\n------------------------------[queue¿¡ %d ³Ö±â ½ÃÀÛ!]------------------------------\n", data);
+    printf_s("\n\n------------------------------[queueì— %d ë„£ê¸° ì‹œì‘!]------------------------------\n", data);
 
     QueueNode* Newnode = (QueueNode*)malloc(sizeof(QueueNode));
 
-    // ³ëµå¸¦ ¸¸µé ¸Ş¸ğ¸® °ø°£ÀÌ ¾ø´Ù¸é?? ¿¡·¯ ¶ç¿ì±â
+    // ë…¸ë“œë¥¼ ë§Œë“¤ ë©”ëª¨ë¦¬ ê³µê°„ì´ ì—†ë‹¤ë©´?? ì—ëŸ¬ ë„ìš°ê¸°
     if (Newnode == NULL) {
-        printf("¸Ş¸ğ¸® ºÎÁ·");
+        printf("ë©”ëª¨ë¦¬ ë¶€ì¡±");
         return NULL;
     }
 
-    // Queue¸¦ ±¸¼ºÇÏ´Â 1¹øÂ° ³ëµå¿¡ °ª°ú ´ÙÀ½ÁÖ¼Ò ÀÚÁ¤
+    // Queueë¥¼ êµ¬ì„±í•˜ëŠ” 1ë²ˆì§¸ ë…¸ë“œì— ê°’ê³¼ ë‹¤ìŒì£¼ì†Œ ìì •
     Newnode->data = data;
     Newnode->link = NULL;
 
-    // queue¿¡ µé¾î°£ °ªÀÌ ÀÖ´ÂÁö È®ÀÎ
+    // queueì— ë“¤ì–´ê°„ ê°’ì´ ìˆëŠ”ì§€ í™•ì¸
     if (QueueIsEmpty(queue) == 0) {
 
-        printf_s("(¾È³»!) ÇöÀçÀÇ Queue¿¡ µé¾î°¡ ÀÖ´Â °ªÀÌ ¾øÀ¸¹Ç·Î 1¹øÂ° ³ëµå¸¦ ¸¸µê\n");
+        printf_s("(ì•ˆë‚´!) í˜„ì¬ì˜ Queueì— ë“¤ì–´ê°€ ìˆëŠ” ê°’ì´ ì—†ìœ¼ë¯€ë¡œ 1ë²ˆì§¸ ë…¸ë“œë¥¼ ë§Œë“¦\n");
 
-        // queueÀÇ °¡Àå ¾Õ°ú µŞ³ëµåÀÇ ÁÖ¼Ò°ªÀ» Newnode·Î ÁöÁ¤
+        // queueì˜ ê°€ì¥ ì•ê³¼ ë’·ë…¸ë“œì˜ ì£¼ì†Œê°’ì„ Newnodeë¡œ ì§€ì •
         queue->front = Newnode;
         queue->rear = Newnode;
 
-        printf_s("queueÀÇ Ã³À½ÀÌÀÚ ¸¶Áö¸· °ªÀÎ %dÀ» ÀÔ·Â¿Ï·á\n", queue->rear->data);
+        printf_s("queueì˜ ì²˜ìŒì´ì ë§ˆì§€ë§‰ ê°’ì¸ %dì„ ì…ë ¥ì™„ë£Œ\n", queue->rear->data);
     }
     else if (QueueIsEmpty(queue) == 1) {
 
-        // ±âÁ¸ ¸¶Áö¸· ³ëµåÀÇ rear°ª Newnode·Î °»½Å
+        // ê¸°ì¡´ ë§ˆì§€ë§‰ ë…¸ë“œì˜ rearê°’ Newnodeë¡œ ê°±ì‹ 
         queue->rear->link = Newnode;
 
-        // queueÀÇ µŞ³ëµåÀÇ ÁÖ¼Ò¸¸ »õ·Î ¸¸µé¾îÁø Newnode·Î ÁöÁ¤
+        // queueì˜ ë’·ë…¸ë“œì˜ ì£¼ì†Œë§Œ ìƒˆë¡œ ë§Œë“¤ì–´ì§„ Newnodeë¡œ ì§€ì •
         queue->rear = Newnode;
 
-        printf_s("queueÀÇ ¸¶Áö¸· °ªÀÎ %dÀ» ÀÔ·Â¿Ï·á\n", queue->rear->data);
+        printf_s("queueì˜ ë§ˆì§€ë§‰ ê°’ì¸ %dì„ ì…ë ¥ì™„ë£Œ\n", queue->rear->data);
     }
 
 }
 
-
-// ÇöÀçÀÇ Queue¿¡ ±âÁ¸¿¡ Á¸ÀçÇÑ Ã¹¹øÂ° Node »èÁ¦
+// í˜„ì¬ì˜ Queueì— ê¸°ì¡´ì— ì¡´ì¬í•œ ì²«ë²ˆì§¸ Node ì‚­ì œ
 QueueElement Dequeue(LinkedQueueType* queue) {
 
-    printf_s("\n\n------------------------------[delete_first·Î Ã¹¹øÂ° ³ëµå »èÁ¦ ½ÃÀÛ!]------------------------------\n");
+    printf_s("\n\n------------------------------[Dequeueë¡œ ì²«ë²ˆì§¸ ë…¸ë“œ ì‚­ì œ ì‹œì‘!]------------------------------\n");
 
-    // queue¿¡ µé¾î°£ °ªÀÌ ÀÖ´ÂÁö È®ÀÎ
+    // queueì— ë“¤ì–´ê°„ ê°’ì´ ìˆëŠ”ì§€ í™•ì¸
     if (QueueIsEmpty(queue) == 0) {
 
-        printf_s("(°æ°í!) ÇöÀçÀÇ Queue¿¡ µé¾î°¡ ÀÖ´Â °ªÀÌ ¾øÀ¸¹Ç·Î °ªÀº Áö¿ï ¼ö ¾ø½À´Ï´Ù.\n");
+        printf_s("(ê²½ê³ !) í˜„ì¬ì˜ Queueì— ë“¤ì–´ê°€ ìˆëŠ” ê°’ì´ ì—†ìœ¼ë¯€ë¡œ ê°’ì€ ì§€ìš¸ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\n");
 
-        return 1;
+        return -1;
     }
     else if (QueueIsEmpty(queue) == 1) {
 
-        // ¾ø¾Ù ³ëµå = ÇöÀç °¡Àå 1¹øÂ° ³ëµå
+        // ì—†ì•¨ ë…¸ë“œ = í˜„ì¬ ê°€ì¥ 1ë²ˆì§¸ ë…¸ë“œ
         QueueNode* deleteNode = queue->front;
 
-        // queueÀÇ °¡Àå ¾Õ³ëµåÀÇ ÁÖ¼Ò°ªÀ» ±âÁ¸ 2¹øÂ° ³ëµåÀÇ °ªÀ¸·Î º¯°æ
+        // queueì˜ ê°€ì¥ ì•ë…¸ë“œì˜ ì£¼ì†Œê°’ì„ ê¸°ì¡´ 2ë²ˆì§¸ ë…¸ë“œì˜ ê°’ìœ¼ë¡œ ë³€ê²½
         queue->front = queue->front->link;
 
-        printf_s("queueÀÇ Ã³À½ °ªÀÎ %dÀ» »èÁ¦¿Ï·á\n", queue->front->data);
+        printf_s("queueì˜ ì²˜ìŒ ê°’ì¸ %dì„ ì‚­ì œì™„ë£Œ\n", queue->front->data);
         free(deleteNode);
 
         return 0;
@@ -211,14 +222,14 @@ QueueElement Dequeue(LinkedQueueType* queue) {
 
 }
 
-// ÇöÀçÀÇ Queue¿¡ Á¸ÀçÇÏ´Â ¸ğµç Node Ãâ·Â
+// í˜„ì¬ì˜ Queueì— ì¡´ì¬í•˜ëŠ” ëª¨ë“  Node ì¶œë ¥
 void PrintQueue(LinkedQueueType* queue) {
 
-    printf_s("\n\n------------------------------[ÁÖ¼Ò°ª %d¿¡ À§Ä¡ÇÑ queueÀÇ linked list ÁÖ¼Ò°ª¿¡ ±â¹İ PrintQueue ½ÃÀÛ!]------------------------------\n\n", queue);
+    printf_s("\n\n------------------------------[ì£¼ì†Œê°’ %dì— ìœ„ì¹˜í•œ queueì˜ linked list ì£¼ì†Œê°’ì— ê¸°ë°˜ PrintQueue ì‹œì‘!]------------------------------\n\n", queue);
 
     QueueNode* printed_index = queue->front;
 
-    printf("queue Ãâ·Â : ");
+    printf("queue ì¶œë ¥ : ");
 
     while (printed_index != NULL) {
         printf("%3d", printed_index->data);
@@ -231,7 +242,7 @@ void PrintQueue(LinkedQueueType* queue) {
     }
 }
 
-// Queue¸¦ À§ÇØ ÇÒ´çµÈ ¸ğµç ¸Ş¸ğ¸® ÇÒ´ç ÇØÁ¦
+// Queueë¥¼ ìœ„í•´ í• ë‹¹ëœ ëª¨ë“  ë©”ëª¨ë¦¬ í• ë‹¹ í•´ì œ
 void FreeQueue(LinkedQueueType* queue) {
 
     QueueNode* free_index = queue->front;
@@ -247,4 +258,126 @@ void FreeQueue(LinkedQueueType* queue) {
     queue->rear = NULL;
 
     free(queue);
+}
+
+
+// ------------------------------- (ë³´ë„ˆìŠ¤ ê³¼ì œ )Deque êµ¬í˜„ ----------------------------
+
+// DeQueueì— ìƒˆë¡œìš´ ë…¸ë“œ ìƒì„± ë° ì¶”ê°€(= int directionì˜ ë°©í–¥ì— ë”°ë¼ ë§¨ ì•, ë’¤ ì„ íƒ ê°€ëŠ¥)  
+void Endeque(LinkedQueueType* queue, QueueElement data, int direction) {
+
+    printf_s("\n\n------------------------------[Endequeì— %d ë„£ê¸° ì‹œì‘!]------------------------------\n", data);
+
+    QueueNode* Newnode = (QueueNode*)malloc(sizeof(QueueNode));
+
+    // ë…¸ë“œë¥¼ ë§Œë“¤ ë©”ëª¨ë¦¬ ê³µê°„ì´ ì—†ë‹¤ë©´?? ì—ëŸ¬ ë„ìš°ê¸°
+    if (Newnode == NULL) {
+        printf("ë©”ëª¨ë¦¬ ë¶€ì¡±");
+        return NULL;
+    }
+    // Queueë¥¼ êµ¬ì„±í•˜ëŠ” 1ë²ˆì§¸ ë…¸ë“œì— ê°’ê³¼ ë‹¤ìŒì£¼ì†Œ ìì •
+    Newnode->data = data;
+    Newnode->link = NULL;
+
+    // queueì— ë“¤ì–´ê°„ ê°’ì´ ìˆëŠ”ì§€ í™•ì¸
+    if (QueueIsEmpty(queue) == 0) {
+
+        printf_s("(ì•ˆë‚´!) í˜„ì¬ì˜ Queueì— ë“¤ì–´ê°€ ìˆëŠ” ê°’ì´ ì—†ìœ¼ë¯€ë¡œ 1ë²ˆì§¸ ë…¸ë“œë¥¼ ë§Œë“¦\n");
+
+        // queueì˜ ê°€ì¥ ì•ê³¼ ë’·ë…¸ë“œì˜ ì£¼ì†Œê°’ì„ Newnodeë¡œ ì§€ì •
+        queue->front = Newnode;
+        queue->rear = Newnode;
+
+        printf_s("queueì˜ ì²˜ìŒì´ì ë§ˆì§€ë§‰ ê°’ì¸ %dì„ ì…ë ¥ì™„ë£Œ\n", queue->rear->data);
+
+    }
+    else if (QueueIsEmpty(queue) == 1) {
+
+        // ë°©í–¥ì„ 1ë²ˆì§¸ ì¶”ê°€ë¡œ ì¡ì„ ê²½ìš°
+        if (direction == FIRST) {
+
+            // ì¶”ê°€ë˜ëŠ” ë…¸ë“œì˜ linkê°’ì„ ê¸°ì¡´ 1ë²ˆì§¸ ë…¸ë“œì˜ ì£¼ì†Œê°’ìœ¼ë¡œ ì§€ì •
+            Newnode->link = queue->front;
+
+            // queueì˜ ì•ë…¸ë“œì˜ ì£¼ì†Œë§Œ ìƒˆë¡œ ë§Œë“¤ì–´ì§„ Newnodeë¡œ ì§€ì •
+            queue->front = Newnode;
+
+            printf_s("DeQueueì˜ ì²«ë²ˆì§¸ ê°’ì¸ %dì„ ì…ë ¥ì™„ë£Œ\n", queue->front->data);
+
+        }
+        // ë°©í–¥ì„ ë§ˆì§€ë§‰ ì¶”ê°€ë¡œ ì¡ì„ ê²½ìš°
+        else if (direction == LAST) {
+
+            // ê¸°ì¡´ ë§ˆì§€ë§‰ ë…¸ë“œì˜ rearê°’ Newnodeë¡œ ê°±ì‹ 
+            queue->rear->link = Newnode;
+
+            // queueì˜ ë’·ë…¸ë“œì˜ ì£¼ì†Œë§Œ ìƒˆë¡œ ë§Œë“¤ì–´ì§„ Newnodeë¡œ ì§€ì •
+            queue->rear = Newnode;
+
+            printf_s("queueì˜ ë§ˆì§€ë§‰ ê°’ì¸ %dì„ ì…ë ¥ì™„ë£Œ\n", queue->rear->data);
+
+        }
+
+    }
+
+}
+
+// í˜„ì¬ì˜ Queueì— ê¸°ì¡´ì— ì¡´ì¬í•œ ì²«ë²ˆì§¸ Node or ë§ˆì§€ë§‰ ë…¸ë“œ ì‚­ì œ (= int directionì˜ ë°©í–¥ì— ë”°ë¼ ë§¨ ì•, ë’¤ ì„ íƒ ê°€ëŠ¥)  
+QueueElement Dedeque(LinkedQueueType* queue, int direction) {
+
+    printf_s("\n\n------------------------------[Dequeueë¡œ ì²«ë²ˆì§¸ ë…¸ë“œ ì‚­ì œ ì‹œì‘!]------------------------------\n");
+
+    // queueì— ë“¤ì–´ê°„ ê°’ì´ ìˆëŠ”ì§€ í™•ì¸
+    if (QueueIsEmpty(queue) == 0) {
+
+        printf_s("(ê²½ê³ !) í˜„ì¬ì˜ Queueì— ë“¤ì–´ê°€ ìˆëŠ” ê°’ì´ ì—†ìœ¼ë¯€ë¡œ ê°’ì€ ì§€ìš¸ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\n");
+
+        return -1;
+    }
+    else if (QueueIsEmpty(queue) == 1) {
+
+        QueueNode* deleteNode = NULL;
+
+        // ë°©í–¥ì„ 1ë²ˆì§¸ ì¶”ê°€ë¡œ ì¡ì„ ê²½ìš°
+        if (direction == FIRST) {
+
+            // ì—†ì•¨ ë…¸ë“œ = í˜„ì¬ ê°€ì¥ 1ë²ˆì§¸ ë…¸ë“œ
+            deleteNode = queue->front;
+
+            printf_s("queueì˜ ì²˜ìŒ ê°’ì¸ %dì„ ì‚­ì œì™„ë£Œ\n", queue->front->data);
+
+            // queueì˜ ê°€ì¥ ì•ë…¸ë“œì˜ ì£¼ì†Œê°’ì„ ê¸°ì¡´ 2ë²ˆì§¸ ë…¸ë“œì˜ ê°’ìœ¼ë¡œ ë³€ê²½
+            queue->front = queue->front->link;
+
+        }
+        // ë°©í–¥ì„ ë§ˆì§€ë§‰ ì¶”ê°€ë¡œ ì¡ì„ ê²½ìš°
+        else if (direction == LAST) {
+
+            // ì—†ì•¨ ë…¸ë“œ = í˜„ì¬ ê°€ì¥ ë§ˆì§€ë§‰ ë…¸ë“œ
+            deleteNode = queue->rear;
+
+            // ìƒˆë¡­ê²Œ ë§ˆì§€ë§‰ ë…¸ë“œê°€ ë  ë…€ì„ì´ ë  ë³€ìˆ˜
+            QueueNode* newLastNode = queue->front;
+
+           // ì œê±° í›„ ë§ˆì§€ë§‰ ë…¸ë“œê°€ ë  ë…€ì„ì„ ì°¾ê¸° ìœ„í•œ whileë¬¸ (linkê°€ ê°€ë¥´í‚¤ëŠ” ë…€ì„ì´ deleteNodeì˜ ì£¼ì†Œê°’ì¸ ë…¸ë“œì˜ ì£¼ì†Œ)
+            while (newLastNode->link != deleteNode) {
+
+                newLastNode = newLastNode->link;
+            }
+
+            printf_s("queueì˜ ë§ˆì§€ë§‰ ê°’ì¸ %dì„ ì‚­ì œì™„ë£Œ\n", queue->rear->data);
+
+            // queueì˜ ëë…¸ë“œì˜ ì£¼ì†Œê°’ì„ ê¸°ì¡´ ë§ˆì§€ë§‰ì—ì„œ 2ë²ˆì§¸ ë…¸ë“œì˜ ê°’ìœ¼ë¡œ ë³€ê²½
+            queue->rear = newLastNode;
+
+            // ê¸°ì¡´ ë§ˆì§€ë§‰ì—ì„œ 2ë²ˆì§¸ ë…¸ë“œì˜ linkê°’ë„ NULLë¡œ ë³€ê²½
+            newLastNode->link = NULL;
+
+        }
+
+        free(deleteNode);
+
+        return 0;
+    }
+
 }
