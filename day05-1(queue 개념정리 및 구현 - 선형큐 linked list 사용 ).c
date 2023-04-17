@@ -74,6 +74,9 @@ void PrintQueue(LinkedQueueType* queue);
 // Queue를 위해 할당된 모든 메모리 할당 해제
 void FreeQueue(LinkedQueueType* queue); 
 
+// (보너스 과제 )Deque 구현
+void Endeque(LinkedQueueType* queue, QueueElement data, int direction);
+QueueElement Dedeque(LinkedQueueType* queue, int direction);
 
 int main(void) {
 
