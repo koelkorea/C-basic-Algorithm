@@ -19,7 +19,7 @@
 //          return -1;
 //        }
 //    }
-      
+
 //    ListNode* search(ListNode* head, int x){
 // 
 //        ListNode* p = head;
@@ -41,15 +41,23 @@
 
 //  # 구현 예시 (low, high는 배열의 index에 해당)
 
-// 3. 색인 순차 탐색(indexed sequential search)   <- 발전한 순차검색
-//    : 순차검색 + 주 자료 집합에서 일정 간격으로 발췌한 인덱스(index) 테이블 활용 (단! 주 자료 데이터 집합과 인덱스 테이블은 모두 정렬되어 있어야 한다)
-//      -> 그러니까 미리 일정한 간격으로 수를 집어넣어 각 수의 상대적 위치값을 참고하는 index 테이블을 만들고, 입력되는 값이 어디에 들어가야 할지를 그 index 테이블을 참고한다는 것
-//         (= 인덱스 테이블에서 index는 순차적이지만, 이를 주 자료에 쓰려면 사이사이가 비어야 함 = 영문사전 찾는듯한 개념으로 가면 된다)
+// 3. 색인 순차 탐색(indexed sequential search)
+//    : 주 자료 집합에서 일정 간격으로 발췌한 인덱스(index) 테이블 활용 (단! 주 자료 데이터 집합과 인덱스 테이블은 모두 정렬되어 있어야 한다)
+//      -> 그러니까 미리 일정한 간격으로 수를 집어넣어, 각 항의 값의 위치값을 참고하는 목차(index)리스트를 만들고, 검색되는 값이 어디에 있을지 찾는걸 그 목차를 먼저 참고해서 검색범위를 정한다는 개념으로 받아들이자
+
+//  # 특징이 있다면 검색을 할 구간을 정해둔다는 것 (= 범위가 정해지면 그 다음은 어떤 검색을 해도 상관없음)
+//  # 인덱스 테이블에서 index는 순차적이지만, 이를 주 자료에 쓰려면 사이사이가 비어야 함 = 영문사전 찾는듯한 개념으로 가면 된다
+
+// 4. 보간 탐색(interpolation search)
+//    : 정렬된 데이터 집합에서 값과 인덱스(데이터의 위치)에 "비례" 정도를 기준. key가 존재할 위치를 대략적으로 찾아 탐색하는 방법
+//      (= 각 항의 데이터들간의 간격이 일정하다는 가정이 필요하다!)
+
 
 
 // 동적할당을 사용한 순차검색, 이진검색 구현
 #include <stdio.h>
 #include <stdlib.h>				//	srand(), rand() 함수 사용 가능하게 함
+#include <time.h>
 
 // 선형 검색(Linear Search) = 순차 검색(Sequential Search)
 //  : 데이터 더미에서 처음부터 끝까지 하나씩 순서대로 비교하며 원하는 값을 찾아내는 알고리즘
@@ -116,9 +124,16 @@ int main(void) {
     // 동적할당한 메모리 각각의 값이 정렬된 효과를 낳게, 랜덤한 값이 들어갈수 있게하되, 무조건 자기 이전의 값에 추가값을 더하는 식으로 설계
     for (int i = 0; i < array_num; i++) {
 
-        int plus_a = rand() % 4 + 1;
+        int plus_a = rand() % 3 + 1;
 
-        *(array_address + i) = i + plus_a;
+        if (i == 0) {
+            *(array_address + i) = i + plus_a;
+        }
+        else {
+            *(array_address + i) = *(array_address + i - 1) + plus_a;
+        }
+
+        printf("%d ", *(array_address + i));
     }
 
     printf("값 입력이 완료되었습니다. \n");
@@ -131,9 +146,9 @@ int main(void) {
         printf("이거다 싶은 값을 입력 부탁드립니다(%d ~ %d) (0 = 종료하기) : ", *(array_address), *(array_address + array_num - 1));
         scanf_s("%d", &input);
 
-        if (search_value == 0) {
+        if (search_value <= 0 || search_value > *(array_address + array_num - 1)) {
 
-            printf("프로그램이 종료되었습니다.");
+            printf("\n(경고!)배열값들의 범위를 넘어선 값입니다. 프로그램이 종료되었습니다.\n");
             exit(0);
         }
 

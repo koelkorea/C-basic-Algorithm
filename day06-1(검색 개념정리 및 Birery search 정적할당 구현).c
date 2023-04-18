@@ -1,60 +1,67 @@
-//ê²€ìƒ‰(íƒìƒ‰) : ì—¬ëŸ¬ ê°œì˜ ìžë£Œë“¤ ì¤‘ì—ì„œ ì›í•˜ëŠ” ìžë£Œë¥¼ ì°¾ëŠ” ìž‘ì—… (= ë°©ë²•ì€ ì—¬ëŸ¬ê°€ì§€ì§€ë§Œ ë¹¨ë¦¬ ì°¾ëŠ”ê²Œ ì„±ëŠ¥ìƒ ìœ ë¦¬..)
+//°Ë»ö(Å½»ö) : ¿©·¯ °³ÀÇ ÀÚ·áµé Áß¿¡¼­ ¿øÇÏ´Â ÀÚ·á¸¦ Ã£´Â ÀÛ¾÷ (= ¹æ¹ýÀº ¿©·¯°¡ÁöÁö¸¸ »¡¸® Ã£´Â°Ô ¼º´É»ó À¯¸®..)
 
-// 1. ì„ í˜• ê²€ìƒ‰(Linear Search) = ìˆœì°¨ ê²€ìƒ‰(Sequential Search)
-//    : ë°ì´í„° ë”ë¯¸ì—ì„œ ì²˜ìŒë¶€í„° ëê¹Œì§€ í•˜ë‚˜ì”© ìˆœì„œëŒ€ë¡œ ë¹„êµí•˜ë©° ì›í•˜ëŠ” ê°’ì„ ì°¾ì•„ë‚´ëŠ” ì•Œê³ ë¦¬ì¦˜
+// 1. ¼±Çü °Ë»ö(Linear Search) = ¼øÂ÷ °Ë»ö(Sequential Search)
+//    : µ¥ÀÌÅÍ ´õ¹Ì¿¡¼­ Ã³À½ºÎÅÍ ³¡±îÁö ÇÏ³ª¾¿ ¼ø¼­´ë·Î ºñ±³ÇÏ¸ç ¿øÇÏ´Â °ªÀ» Ã£¾Æ³»´Â ¾Ë°í¸®Áò
 
-//    # ì„ í˜• ê²€ìƒ‰ íŠ¹ì§•
-//     - ë°ì´í„°ë¥¼ ì •ë ¬í•˜ê±°ë‚˜ ë”°ë¡œ ê±´ë“œë¦´ í•„ìš”ê°€ ì—†ìŒ
-//     - ë°ì´í„°ì˜ ì–‘ì´ ë§Žì•„ì§€ë©´ ê²€ìƒ‰ì˜ ì†Œìš” ì‹œê°„ë„ ë¹„ë¡€
-//     - í•˜ë‚˜ì”© ì¼ì¼ì´ ë¹„êµí•˜ê¸° ë•Œë¬¸ì— ë¹„íš¨ìœ¨ì 
-//     - ì—°ê²°ë¦¬ìŠ¤íŠ¸ì—ì„œ ìžì£¼ ì“°ìž„ (= sortê°€ ë˜ì–´ìžˆì§€ ì•Šìœ¼ë¯€ë¡œ, ëŒ€ì¡°í•˜ëŠ”ê±° ë§ê³ ëŠ” ë°©ë²•ì´ ìë‹¤)
+//  # ¼±Çü °Ë»ö Æ¯Â¡
+//   - µ¥ÀÌÅÍ¸¦ Á¤·ÄÇÏ°Å³ª µû·Î °Çµå¸± ÇÊ¿ä°¡ ¾øÀ½
+//   - µ¥ÀÌÅÍÀÇ ¾çÀÌ ¸¹¾ÆÁö¸é °Ë»öÀÇ ¼Ò¿ä ½Ã°£µµ ºñ·Ê
+//   - ÇÏ³ª¾¿ ÀÏÀÏÀÌ ºñ±³ÇÏ±â ¶§¹®¿¡ ºñÈ¿À²Àû
+//   - ¿¬°á¸®½ºÆ®¿¡¼­ ÀÚÁÖ ¾²ÀÓ (= sort°¡ µÇ¾îÀÖÁö ¾ÊÀ¸¹Ç·Î, ´ëÁ¶ÇÏ´Â°Å ¸»°í´Â ¹æ¹ýÀÌ À¾´Ù)
 
-//    # êµ¬í˜„ ì˜ˆì‹œ
-//      int seq_search(int key, int low, int high){
-//          int i;
-//          for (i = low; i <= high; i++) {
-//              if (list[i] == key) {
-//                  return i;
-//              }
-//            return -1;
-//          }
-//      }
+//  # ±¸Çö ¿¹½Ã
+//    int seq_search(int key, int low, int high){
+//        int i;
+//        for (i = low; i <= high; i++) {
+//            if (list[i] == key) {
+//                return i;
+//            }
+//          return -1;
+//        }
+//    }
 
-//      ListNode* search(ListNode* head, int x){
-//    
-//          ListNode* p = head;
-//          while (p != NULL) {
-//              if (p->data == x) return p;
-//              p = p->link;
-//          }
-//          return p;
-//      }
-
-// 2. ì´ì§„ê²€ìƒ‰(Binary Search) = ì´ë¶„(äºŒåˆ†)ê²€ìƒ‰
-//    : ì •ë ¬(sort)ë˜ì–´ ìžˆëŠ” ë°ì´í„°ì˜ ì§‘í•©ì—ì„œ ì›í•˜ëŠ” ê°’ì„ ì°¾ê¸° ìœ„í•´, ë°ì´í„°ì˜ ì¤‘ìœ„ê°’ì— í•´ë‹¹í•˜ëŠ” ë…€ì„ì„ ê¸°ì¤€ìœ¼ë¡œ í°ì§€ ìž‘ì€ì§€ë¥¼ ë³´ê³ , ê·¸ ê²°ê³¼ê°’ì— ë”°ë¼ ë‹¤ìŒ ê²€ìƒ‰ ì˜ì—­ì„ ì¶•ì†Œí•´ì„œ ê°™ì€ ê²ƒì„ ê³„ì† ë°˜ë³µ
+//    ListNode* search(ListNode* head, int x){
 // 
-//    # ì„ í˜• ê²€ìƒ‰ íŠ¹ì§•
-//     - ë°˜ìœ¼ë¡œ ë‚˜ëˆ„ì–´ì„œ ì—°ì‚°í•˜ëŠ” ë°©ë²•(ê±°ë“­ì œê³± ì‹)
-//     - ë°ì´í„°ì˜ ì§‘í•©ì´ ë°˜ë“œì‹œ ì •ë ¬(Sort)ì´ í•„ìš”
-//     - ì¤‘ê°„ê°’ë¶€í„° íƒìƒ‰, íŠ¸ë¦¬êµ¬ì¡°ì—ì„œ ìžì£¼ ì“°ìž„
-//     - ì²˜ë¦¬ì†ë„ê°€ ë§¤ìš° ë¹ ë¥´ë‹¤
+//        ListNode* p = head;
+//        while (p != NULL) {
+//            if (p->data == x) return p;
+//            p = p->link;
+//        }
+//        return p;
+//    }
 
-//    # êµ¬í˜„ ì˜ˆì‹œ (low, highëŠ” ë°°ì—´ì˜ indexì— í•´ë‹¹)
+// 2. ÀÌÁø°Ë»ö(Binary Search) = ÀÌºÐ(ì£ÝÂ)°Ë»ö
+//    : Á¤·Ä(sort)µÇ¾î ÀÖ´Â µ¥ÀÌÅÍÀÇ ÁýÇÕ¿¡¼­ ¿øÇÏ´Â °ªÀ» Ã£±â À§ÇØ, µ¥ÀÌÅÍÀÇ ÁßÀ§°ª¿¡ ÇØ´çÇÏ´Â ³à¼®À» ±âÁØÀ¸·Î Å«Áö ÀÛÀºÁö¸¦ º¸°í, ±× °á°ú°ª¿¡ µû¶ó ´ÙÀ½ °Ë»ö ¿µ¿ªÀ» Ãà¼ÒÇØ¼­ °°Àº °ÍÀ» °è¼Ó ¹Ýº¹
+// 
+//  # ¼±Çü °Ë»ö Æ¯Â¡
+//   - ¹ÝÀ¸·Î ³ª´©¾î¼­ ¿¬»êÇÏ´Â ¹æ¹ý(°ÅµìÁ¦°ö ½Ä)
+//   - µ¥ÀÌÅÍÀÇ ÁýÇÕÀÌ ¹Ýµå½Ã Á¤·Ä(Sort)ÀÌ ÇÊ¿ä
+//   - Áß°£°ªºÎÅÍ Å½»ö, Æ®¸®±¸Á¶¿¡¼­ ÀÚÁÖ ¾²ÀÓ
+//   - Ã³¸®¼Óµµ°¡ ¸Å¿ì ºü¸£´Ù
 
-// 3. ìƒ‰ì¸ ìˆœì°¨ íƒìƒ‰(indexed sequential search)   <- ë°œì „í•œ ìˆœì°¨ê²€ìƒ‰
-//    : ìˆœì°¨ê²€ìƒ‰ + ì£¼ ìžë£Œ ì§‘í•©ì—ì„œ ì¼ì • ê°„ê²©ìœ¼ë¡œ ë°œì·Œí•œ ì¸ë±ìŠ¤(index) í…Œì´ë¸” í™œìš© (ë‹¨! ì£¼ ìžë£Œ ë°ì´í„° ì§‘í•©ê³¼ ì¸ë±ìŠ¤ í…Œì´ë¸”ì€ ëª¨ë‘ ì •ë ¬ë˜ì–´ ìžˆì–´ì•¼ í•œë‹¤)
-//      -> ê·¸ëŸ¬ë‹ˆê¹Œ ë¯¸ë¦¬ ì¼ì •í•œ ê°„ê²©ìœ¼ë¡œ ìˆ˜ë¥¼ ì§‘ì–´ë„£ì–´ ê° ìˆ˜ì˜ ìƒëŒ€ì  ìœ„ì¹˜ê°’ì„ ì°¸ê³ í•˜ëŠ” index í…Œì´ë¸”ì„ ë§Œë“¤ê³ , ìž…ë ¥ë˜ëŠ” ê°’ì´ ì–´ë””ì— ë“¤ì–´ê°€ì•¼ í• ì§€ë¥¼ ê·¸ index í…Œì´ë¸”ì„ ì°¸ê³ í•œë‹¤ëŠ” ê²ƒ
-//         (= ì¸ë±ìŠ¤ í…Œì´ë¸”ì—ì„œ indexëŠ” ìˆœì°¨ì ì´ì§€ë§Œ, ì´ë¥¼ ì£¼ ìžë£Œì— ì“°ë ¤ë©´ ì‚¬ì´ì‚¬ì´ê°€ ë¹„ì–´ì•¼ í•¨ = ì˜ë¬¸ì‚¬ì „ ì°¾ëŠ”ë“¯í•œ ê°œë…ìœ¼ë¡œ ê°€ë©´ ëœë‹¤)
+//  # ±¸Çö ¿¹½Ã (low, high´Â ¹è¿­ÀÇ index¿¡ ÇØ´ç)
+
+// 3. »öÀÎ ¼øÂ÷ Å½»ö(indexed sequential search)
+//    : ÁÖ ÀÚ·á ÁýÇÕ¿¡¼­ ÀÏÁ¤ °£°ÝÀ¸·Î ¹ßÃéÇÑ ÀÎµ¦½º(index) Å×ÀÌºí È°¿ë (´Ü! ÁÖ ÀÚ·á µ¥ÀÌÅÍ ÁýÇÕ°ú ÀÎµ¦½º Å×ÀÌºíÀº ¸ðµÎ Á¤·ÄµÇ¾î ÀÖ¾î¾ß ÇÑ´Ù)
+//      -> ±×·¯´Ï±î ¹Ì¸® ÀÏÁ¤ÇÑ °£°ÝÀ¸·Î ¼ö¸¦ Áý¾î³Ö¾î, °¢ Ç×ÀÇ °ªÀÇ À§Ä¡°ªÀ» Âü°íÇÏ´Â ¸ñÂ÷(index)¸®½ºÆ®¸¦ ¸¸µé°í, °Ë»öµÇ´Â °ªÀÌ ¾îµð¿¡ ÀÖÀ»Áö Ã£´Â°É ±× ¸ñÂ÷¸¦ ¸ÕÀú Âü°íÇØ¼­ °Ë»ö¹üÀ§¸¦ Á¤ÇÑ´Ù´Â °³³äÀ¸·Î ¹Þ¾ÆµéÀÌÀÚ
+
+//  # Æ¯Â¡ÀÌ ÀÖ´Ù¸é °Ë»öÀ» ÇÒ ±¸°£À» Á¤ÇØµÐ´Ù´Â °Í (= ¹üÀ§°¡ Á¤ÇØÁö¸é ±× ´ÙÀ½Àº ¾î¶² °Ë»öÀ» ÇØµµ »ó°ü¾øÀ½)
+//  # ÀÎµ¦½º Å×ÀÌºí¿¡¼­ index´Â ¼øÂ÷ÀûÀÌÁö¸¸, ÀÌ¸¦ ÁÖ ÀÚ·á¿¡ ¾²·Á¸é »çÀÌ»çÀÌ°¡ ºñ¾î¾ß ÇÔ = ¿µ¹®»çÀü Ã£´ÂµíÇÑ °³³äÀ¸·Î °¡¸é µÈ´Ù
+
+// 4. º¸°£ Å½»ö(interpolation search)
+//    : Á¤·ÄµÈ µ¥ÀÌÅÍ ÁýÇÕ¿¡¼­ °ª°ú ÀÎµ¦½º(µ¥ÀÌÅÍÀÇ À§Ä¡)¿¡ "ºñ·Ê" Á¤µµ¸¦ ±âÁØ. key°¡ Á¸ÀçÇÒ À§Ä¡¸¦ ´ë·«ÀûÀ¸·Î Ã£¾Æ Å½»öÇÏ´Â ¹æ¹ý
+//      (= °¢ Ç×ÀÇ µ¥ÀÌÅÍµé°£ÀÇ °£°ÝÀÌ ÀÏÁ¤ÇÏ´Ù´Â °¡Á¤ÀÌ ÇÊ¿äÇÏ´Ù!)
 
 
-// ì •ì í• ë‹¹ì„ ì‚¬ìš©í•œ ìˆœì°¨ê²€ìƒ‰, ì´ì§„ê²€ìƒ‰ êµ¬í˜„
+// Á¤ÀûÇÒ´çÀ» »ç¿ëÇÑ ¼øÂ÷°Ë»ö, ÀÌÁø°Ë»ö ±¸Çö
 #include <stdio.h>
-#include <stdlib.h>				//	srand(), rand() í•¨ìˆ˜ ì‚¬ìš© ê°€ëŠ¥í•˜ê²Œ í•¨
+#include <stdlib.h>				//	srand(), rand() ÇÔ¼ö »ç¿ë °¡´ÉÇÏ°Ô ÇÔ
+#include <time.h>
 #define ARRAY_LENGTH 50
 
-// ì„ í˜• ê²€ìƒ‰(Linear Search) = ìˆœì°¨ ê²€ìƒ‰(Sequential Search)
-//  : ë°ì´í„° ë”ë¯¸ì—ì„œ ì²˜ìŒë¶€í„° ëê¹Œì§€ í•˜ë‚˜ì”© ìˆœì„œëŒ€ë¡œ ë¹„êµí•˜ë©° ì›í•˜ëŠ” ê°’ì„ ì°¾ì•„ë‚´ëŠ” ì•Œê³ ë¦¬ì¦˜
-//    -> ë°°ì—´ì˜ ëª¨ë“  ì£¼ì†Œê°’ê³¼ keyê°’ì´ ê°™ì€ì§€ ì¼ì¼ì´ ë”°ì ¸ê°€ëŠ” ë°©ë²•
+// ¼±Çü °Ë»ö(Linear Search) = ¼øÂ÷ °Ë»ö(Sequential Search)
+//  : µ¥ÀÌÅÍ ´õ¹Ì¿¡¼­ Ã³À½ºÎÅÍ ³¡±îÁö ÇÏ³ª¾¿ ¼ø¼­´ë·Î ºñ±³ÇÏ¸ç ¿øÇÏ´Â °ªÀ» Ã£¾Æ³»´Â ¾Ë°í¸®Áò
+//    -> ¹è¿­ÀÇ ¸ðµç ÁÖ¼Ò°ª°ú key°ªÀÌ °°ÀºÁö ÀÏÀÏÀÌ µûÁ®°¡´Â ¹æ¹ý
 int seq_search(int* list, int key, int low, int high) {
 
     for (int i = low; i <= high; i++) {
@@ -68,47 +75,49 @@ int seq_search(int* list, int key, int low, int high) {
     return -1;
 }
 
-// ì´ì§„ê²€ìƒ‰(Binary Search) = ì´ë¶„(äºŒåˆ†)ê²€ìƒ‰
-//  : ì •ë ¬(sort)ë˜ì–´ ìžˆëŠ” ë°ì´í„°ì˜ ì§‘í•©ì—ì„œ ì›í•˜ëŠ” ê°’ì„ ì°¾ê¸° ìœ„í•´, ë°ì´í„°ì˜ ì¤‘ìœ„ê°’ì— í•´ë‹¹í•˜ëŠ” ë…€ì„ì„ ê¸°ì¤€ìœ¼ë¡œ í°ì§€ ìž‘ì€ì§€ë¥¼ ë³´ê³ , ê·¸ ê²°ê³¼ê°’ì— ë”°ë¼ ë‹¤ìŒ ê²€ìƒ‰ ì˜ì—­ì„ ì¶•ì†Œí•´ì„œ ê°™ì€ ê²ƒì„ ê³„ì† ë°˜ë³µ
+// ÀÌÁø°Ë»ö(Binary Search) = ÀÌºÐ(ì£ÝÂ)°Ë»ö
+//  : Á¤·Ä(sort)µÇ¾î ÀÖ´Â µ¥ÀÌÅÍÀÇ ÁýÇÕ¿¡¼­ ¿øÇÏ´Â °ªÀ» Ã£±â À§ÇØ, µ¥ÀÌÅÍÀÇ ÁßÀ§°ª¿¡ ÇØ´çÇÏ´Â ³à¼®À» ±âÁØÀ¸·Î Å«Áö ÀÛÀºÁö¸¦ º¸°í, ±× °á°ú°ª¿¡ µû¶ó ´ÙÀ½ °Ë»ö ¿µ¿ªÀ» Ãà¼ÒÇØ¼­ °°Àº °ÍÀ» °è¼Ó ¹Ýº¹
 int search_binary(int arr[], int key, int low, int high) {
 
-    // í•´ë‹¹ ë°°ì—´ ê¸¸ì´ì˜ í˜„ìž¬ ì¤‘ì•™ìœ„ì¹˜(ì´ê±¸ë¡œ ë°°ì—´ì˜ ì¤‘ìœ„ê°’ ì¶”ì¶œ) ì •í•˜ê¸° (= ì´ì§„ê²€ìƒ‰ì´ ì§„í–‰ë¨ì— ë”°ë¼ ê²€ìƒ‰ ë²”ìœ„ê°€ ì¶•ì†Œë¨)
+    // ÇØ´ç ¹è¿­ ±æÀÌÀÇ ÇöÀç Áß¾ÓÀ§Ä¡(ÀÌ°É·Î ¹è¿­ÀÇ ÁßÀ§°ª ÃßÃâ) Á¤ÇÏ±â (= ÀÌÁø°Ë»öÀÌ ÁøÇàµÊ¿¡ µû¶ó °Ë»ö ¹üÀ§°¡ Ãà¼ÒµÊ)
     int reference_index = (low + high) / 2;
 
-    // ë§Œì•½ í˜„ìž¬ì˜ ìµœì €ê°’ì´ ìµœê³ ê°’ë³´ë‹¤ ìž‘ë‹¤ë©´, ê³„ì† ì§„í–‰
+    // ¸¸¾à ÇöÀçÀÇ ÃÖÀú°ªÀÌ ÃÖ°í°ªº¸´Ù ÀÛ´Ù¸é, °è¼Ó ÁøÇà
     if (low <= high) {
 
-        // ê°’ì„ ì°¾ì•˜ìœ¼ë©´, ê·¸ ë°°ì—´ì˜ ì£¼ì†Œ ë¦¬í„´
+        // °ªÀ» Ã£¾ÒÀ¸¸é, ±× ¹è¿­ÀÇ ÁÖ¼Ò ¸®ÅÏ
         if (key == arr[reference_index]) {
 
             return reference_index;
         }
-        // ì°¾ëŠ” ê°’ë³´ë‹¤ ë°°ì—´ì˜ ì¤‘ìœ„ê°’ì´ ìž‘ìœ¼ë©´, ê²€ìƒ‰ìœ„ì¹˜ë¥¼ 'ì¤‘ìœ„ê°’ + 1' ~ 'í˜„ìž¬ ë²”ìœ„ ë ìœ„ì¹˜'ë¡œ ë†“ê³  ì´ì§„ê²€ìƒ‰ì„ ìž¬ê·€í•œë‹¤
+        // Ã£´Â °ªº¸´Ù ¹è¿­ÀÇ ÁßÀ§°ªÀÌ ÀÛÀ¸¸é, °Ë»öÀ§Ä¡¸¦ 'ÁßÀ§°ª + 1' ~ 'ÇöÀç ¹üÀ§ ³¡ À§Ä¡'·Î ³õ°í ÀÌÁø°Ë»öÀ» Àç±ÍÇÑ´Ù
         else if (key > arr[reference_index]) {
 
             return search_binary(arr, key, reference_index + 1, high);
         }
-        // ì°¾ëŠ” ê°’ë³´ë‹¤ ë°°ì—´ì˜ ì¤‘ìœ„ê°’ì´ ìž‘ìœ¼ë©´, ê²€ìƒ‰ìœ„ì¹˜ë¥¼ 'í˜„ìž¬ ë²”ìœ„ ì²« ìœ„ì¹˜' ~ 'ì¤‘ìœ„ê°’ - 1'ë¡œ ë†“ê³  ì´ì§„ê²€ìƒ‰ì„ ìž¬ê·€í•œë‹¤
+        // Ã£´Â °ªº¸´Ù ¹è¿­ÀÇ ÁßÀ§°ªÀÌ ÀÛÀ¸¸é, °Ë»öÀ§Ä¡¸¦ 'ÇöÀç ¹üÀ§ Ã¹ À§Ä¡' ~ 'ÁßÀ§°ª - 1'·Î ³õ°í ÀÌÁø°Ë»öÀ» Àç±ÍÇÑ´Ù
         else if (key < arr[reference_index]) {
 
             return search_binary(arr, key, low, reference_index - 1);
         }
     }
 
-    // ê²€ìƒ‰ì— ì‹¤íŒ¨í–ˆì„ ê²½ìš° -1 ë°˜í™˜
+    // °Ë»ö¿¡ ½ÇÆÐÇßÀ» °æ¿ì -1 ¹ÝÈ¯
     return -1;
 }
 
 int main() {
 
+    srand((unsigned int)time(NULL));
+
     printf("----------------------------------------------------------------------------\n");
-    printf("ë°°ì—´ì˜ ê¸¸ì´ëŠ” 50ì´ë©°, ì´ì§„ê²€ìƒ‰ê³¼ ìˆœì°¨ê²€ìƒ‰ì„ ìˆ˜í–‰í•´ë´…ë‹ˆë‹¤.\nê° ë°°ì—´ê°’ì€ ê° ë°°ì—´ì˜ ì´ì „ ë°°ì—´ê°’ + a(1~5) ì— ëŒ€ì‘í•˜ëŠ” ê°’ìœ¼ë¡œ ìž…ë ¥ë©ë‹ˆë‹¤.\n");
+    printf("¹è¿­ÀÇ ±æÀÌ´Â 50ÀÌ¸ç, ÀÌÁø°Ë»ö°ú ¼øÂ÷°Ë»öÀ» ¼öÇàÇØº¾´Ï´Ù.\n°¢ ¹è¿­°ªÀº °¢ ¹è¿­ÀÇ ÀÌÀü ¹è¿­°ª + a(1~5) ¿¡ ´ëÀÀÇÏ´Â °ªÀ¸·Î ÀÔ·ÂµË´Ï´Ù.\n");
     printf("----------------------------------------------------------------------------\n\n");
 
     int ary_test[ARRAY_LENGTH] = { 0 };
     int input = 0;
 
-    // ëžœë¤í•œ ê°’ì´ ë“¤ì–´ê°ˆìˆ˜ ìžˆê²Œí•˜ë˜, ë°°ì—´ì— ë“¤ì–´ê°„ ê°’ì´ ì •ë ¬ íš¨ê³¼ë¥¼ ë‚³ë„ë¡ ë¬´ì¡°ê±´ ìžê¸° ì´ì „ì˜ ê°’ì— ì¶”ê°€ê°’ì„ ë”í•˜ëŠ” ì‹ìœ¼ë¡œ ì„¤ê³„
+    // ·£´ýÇÑ °ªÀÌ µé¾î°¥¼ö ÀÖ°ÔÇÏµÇ, ¹è¿­¿¡ µé¾î°£ °ªÀÌ Á¤·Ä È¿°ú¸¦ ³ºµµ·Ï ¹«Á¶°Ç ÀÚ±â ÀÌÀüÀÇ °ª¿¡ Ãß°¡°ªÀ» ´õÇÏ´Â ½ÄÀ¸·Î ¼³°è
     for (int i = 0; i < ARRAY_LENGTH; i++) {
 
         int plus_a = rand() % 4 + 1;
@@ -123,40 +132,40 @@ int main() {
         printf("%d ", ary_test[i]);
     }
 
-    printf("\n\nê°’ ìž…ë ¥ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤. \n");
-    printf("(hint : ê°€ìž¥ ìž‘ì€ ê°’ = %d, ê°€ìž¥ ë†’ì€ ê°’ = %d)\n\n", ary_test[0], ary_test[49]);
+    printf("\n\n°ª ÀÔ·ÂÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù. \n");
+    printf("(hint : °¡Àå ÀÛÀº °ª = %d, °¡Àå ³ôÀº °ª = %d)\n\n", ary_test[0], ary_test[49]);
 
     while (1) {
 
-        printf("ì°¾ê³  ì‹¶ì€ ìˆ«ìžë¥¼ %d ~ %dì—ì„œ ìž…ë ¥í•˜ì„¸ìš”. (ë²”ìœ„ ë°– ìž…ë ¥ = ì¢…ë£Œ) :", ary_test[0], ary_test[49]);
+        printf("Ã£°í ½ÍÀº ¼ýÀÚ¸¦ %d ~ %d¿¡¼­ ÀÔ·ÂÇÏ¼¼¿ä. (¹üÀ§ ¹Û ÀÔ·Â = Á¾·á) :", ary_test[0], ary_test[49]);
         scanf_s("%d", &input);
 
         if (ary_test[0] <= 0 || input > ary_test[49]) {
-            printf("ë°°ì—´ê°’ë“¤ì˜ ë²”ìœ„ë¥¼ ë„˜ì–´ì„  ê°’ìž…ë‹ˆë‹¤. \n");
+            printf("¹è¿­°ªµéÀÇ ¹üÀ§¸¦ ³Ñ¾î¼± °ªÀÔ´Ï´Ù. \n");
             break;
         }
 
-        // ìˆœì°¨ê²€ìƒ‰ì„ ì‹¤í–‰ (-1 ì´ì™¸ì˜ ê°’ì´ ë‚˜ì˜´ = í•´ë‹¹ ë°°ì—´ ë‚´ì— ê°’ì´ ì¡´ìž¬)
+        // ¼øÂ÷°Ë»öÀ» ½ÇÇà (-1 ÀÌ¿ÜÀÇ °ªÀÌ ³ª¿È = ÇØ´ç ¹è¿­ ³»¿¡ °ªÀÌ Á¸Àç)
         if (seq_search(ary_test, input, 0, ARRAY_LENGTH) != -1) {
 
-            // (ê²€ìƒ‰ ê°’ì˜ ìœ„ì¹˜) search_binary ( ê²€ìƒ‰ ë°°ì—´, ê²€ìƒ‰ ê°’, ë‚®ì€ ë²”ìœ„ ì¹¸, ìµœëŒ€ ë²”ìœ„ ì¹¸ )
-            printf(" ->> (ì„±ê³µ) ìˆœì°¨ íƒìƒ‰ : ê²€ìƒ‰ê°’ [%d]ëŠ” í•´ë‹¹ë°°ì—´ì˜ %dë²ˆì§¸ ê³µê°„ì— ìœ„ì¹˜í•©ë‹ˆë‹¤.\n", input, seq_search(ary_test, input, 0, ARRAY_LENGTH) + 1);
+            // (°Ë»ö °ªÀÇ À§Ä¡) search_binary ( °Ë»ö ¹è¿­, °Ë»ö °ª, ³·Àº ¹üÀ§ Ä­, ÃÖ´ë ¹üÀ§ Ä­ )
+            printf(" ->> (¼º°ø) ¼øÂ÷ Å½»ö : °Ë»ö°ª [%d]´Â ÇØ´ç¹è¿­ÀÇ %d¹øÂ° °ø°£¿¡ À§Ä¡ÇÕ´Ï´Ù.\n", input, seq_search(ary_test, input, 0, ARRAY_LENGTH) + 1);
         }
         else {
 
-            printf(" ->> [%d]ëŠ” ìˆœì°¨ íƒìƒ‰ ì‹¤íŒ¨\n", input);
+            printf(" ->> [%d]´Â ¼øÂ÷ Å½»ö ½ÇÆÐ\n", input);
         }
 
-        // ì´ì§„ ê²€ìƒ‰ ì‹¤í–‰ (-1 ì´ì™¸ì˜ ê°’ì´ ë‚˜ì˜´ = í•´ë‹¹ ë°°ì—´ ë‚´ì— ê°’ì´ ì¡´ìž¬)
+        // ÀÌÁø °Ë»ö ½ÇÇà (-1 ÀÌ¿ÜÀÇ °ªÀÌ ³ª¿È = ÇØ´ç ¹è¿­ ³»¿¡ °ªÀÌ Á¸Àç)
         if (search_binary(ary_test, input, 0, ARRAY_LENGTH) != -1) {
 
-            // (ê²€ìƒ‰ ê°’ì˜ ìœ„ì¹˜) search_binary ( ê²€ìƒ‰ ë°°ì—´, ê²€ìƒ‰ ê°’, ë‚®ì€ ë²”ìœ„ ì¹¸, ìµœëŒ€ ë²”ìœ„ ì¹¸ )
-            printf(" ->> (ì„±ê³µ) ì´ì§„ íƒìƒ‰ : ê²€ìƒ‰ê°’ [%d]ëŠ” í•´ë‹¹ë°°ì—´ì˜ %dë²ˆì§¸ ê³µê°„ì— ìœ„ì¹˜í•©ë‹ˆë‹¤.\n", input, search_binary(ary_test, input, 0, ARRAY_LENGTH) + 1);
+            // (°Ë»ö °ªÀÇ À§Ä¡) search_binary ( °Ë»ö ¹è¿­, °Ë»ö °ª, ³·Àº ¹üÀ§ Ä­, ÃÖ´ë ¹üÀ§ Ä­ )
+            printf(" ->> (¼º°ø) ÀÌÁø Å½»ö : °Ë»ö°ª [%d]´Â ÇØ´ç¹è¿­ÀÇ %d¹øÂ° °ø°£¿¡ À§Ä¡ÇÕ´Ï´Ù.\n", input, search_binary(ary_test, input, 0, ARRAY_LENGTH) + 1);
 
         }
         else {
 
-            printf(" ->> [%d]ëŠ” ì´ì§„ íƒìƒ‰ ì‹¤íŒ¨\n", input);
+            printf(" ->> [%d]´Â ÀÌÁø Å½»ö ½ÇÆÐ\n", input);
         }
         printf("\n");
 
