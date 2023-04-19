@@ -163,12 +163,6 @@ int main() {
         printf("검색을 원하는 값을 입력해주세요 (0 = 종료하기): ");
         scanf_s("%d", &search_value);
 
-        if (search_value <= 0 || search_value > target_array[target_array_length-1]) {
-
-            printf("프로그램이 종료되었습니다.");
-            exit(0);
-        }
-
         // index 페이지에서 범위 설정 완료하고 나면?
         //  -> 그 index 범위에 대해서만, 타겟 배열을 순차 검색(sequentialSearch2)하기
         indexSearch(target_array, target_array_length, search_value);
