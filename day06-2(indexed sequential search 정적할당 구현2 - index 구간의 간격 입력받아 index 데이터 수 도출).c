@@ -7,7 +7,7 @@
 //  # 특징이 있다면 검색을 할 구간을 정해둔다는 것 (= 범위가 정해지면 그 다음은 어떤 검색을 해도 상관없음)
 //  # 인덱스 테이블에서 index는 순차적이지만, 이를 주 자료에 쓰려면 사이사이가 비어야 함 = 영문사전 찾는듯한 개념으로 가면 된다
 
-// 색인 순차 탐색 정적배열을 사용하여 구현
+// 방법2) 색인 순차 탐색 정적배열을 사용하여 구현 (index 구간의 간격 입력 -> index 데이터 수를 도출하는 방법)
 #include <stdio.h>
 #include <stdlib.h>				//	srand(), rand() 함수 사용 가능하게 함
 #include <time.h>
@@ -93,6 +93,7 @@ void indexSearch(int target_array[], int target_array_length, int key) {
 // 1단계) 타겟배열의 정보를 통해 index 정보를 완성시키기 (parameter : 해당 배열의 위치, 해당 배열의 크기  <- 이걸 재료로 index_reference 배열 크기에 맞게 index 페이지를 채움)
 void makeIndexTable(int target_array[], int target_array_length) {
   
+	// [방법1 핵심]
 	// (선) index 데이터의 간격 입력(당연히 index 데이터의 수를 구하는데 사용될 예정)
 	int index_interval = 0;
 	printf("index의 간격을 정해주세요 (배열의 길이 %d보단 작은 값 부탁드립니다): ", target_array_length);
