@@ -93,11 +93,11 @@ void indexSearch(int target_array[], int target_array_length, int key) {
 // 1단계) 타겟배열의 정보를 통해 index 정보를 완성시키기 (parameter : 해당 배열의 위치, 해당 배열의 크기  <- 이걸 재료로 index_reference 배열 크기에 맞게 index 페이지를 채움)
 void makeIndexTable(int target_array[], int target_array_length) {
   
-	// [방법1 핵심]
-	// (선) index 데이터의 간격 입력(당연히 index 데이터의 수를 구하는데 사용될 예정)
-	int index_interval = 0;
-	printf("index의 간격을 정해주세요 (배열의 길이 %d보단 작은 값 부탁드립니다): ", target_array_length);
-	scanf_s("%d", &index_interval);
+    // [방법1 핵심]
+    // (선) index 데이터의 간격 입력(당연히 index 데이터의 수를 구하는데 사용될 예정)
+    int index_interval = 0;
+    printf("index의 간격을 정해주세요 (배열의 길이 %d보단 작은 값 부탁드립니다): ", target_array_length);
+    scanf_s("%d", &index_interval);
 
     // (후) index 데이터의 수 = 타겟 배열의 길이 / index 구간의 간격
     int the_number_of_index = max_size / interval;
