@@ -100,7 +100,7 @@ void makeIndexTable(int target_array[], int target_array_length) {
     scanf_s("%d", &index_interval);
 
     // (후) index 데이터의 수 = 타겟 배열의 길이 / index 구간의 간격
-    int the_number_of_index = max_size / interval;
+    int the_number_of_index = target_array_length / index_interval;
 	
     // 만약 타겟 배열의 길이 / index 데이터의 수에 나머지 값이 존재한다면, 에러를 방지하기 위해 각 index 데이터의 수를 1증가시켜 나머지도 포용할 수 있도록 index 데이터를 늘린다
     if (target_array_length % the_number_of_index != 0) {
