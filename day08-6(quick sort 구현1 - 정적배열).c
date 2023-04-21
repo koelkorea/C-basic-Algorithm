@@ -1,43 +1,43 @@
-// Á¤·Ä
-//  : µ¥ÀÌÅÍ ±×·ì ¿ä¼Ò¸¦ Æ¯Á¤ ±âÁØÀ¸·Î ¿À¸§Â÷¼øÀÌ³ª ³»¸²Â÷¼øÀ¸·Î Á¤¸®
-//    -> µ¥ÀÌÅÍ¸¦ ÁıÇÕÀ¸·Î ±×·ìÈ­ÇÒ ¶§ °¡Àå ±âº»ÀûÀÌ°í Áß¿äÇÑ ¾Ë°í¸®Áò
+// ì •ë ¬
+//  : ë°ì´í„° ê·¸ë£¹ ìš”ì†Œë¥¼ íŠ¹ì • ê¸°ì¤€ìœ¼ë¡œ ì˜¤ë¦„ì°¨ìˆœì´ë‚˜ ë‚´ë¦¼ì°¨ìˆœìœ¼ë¡œ ì •ë¦¬
+//    -> ë°ì´í„°ë¥¼ ì§‘í•©ìœ¼ë¡œ ê·¸ë£¹í™”í•  ë•Œ ê°€ì¥ ê¸°ë³¸ì ì´ê³  ì¤‘ìš”í•œ ì•Œê³ ë¦¬ì¦˜
 
-//  5. Äü Á¤·Ä(Quick sort)
-//     : ¸®½ºÆ® ¾È¿¡ Á¸ÀçÇÏ´Â ÀÓÀÇÀÇ °ªÀ» ±âÁØ°ªÀ¸·Î Á¤ÇØµÎ°í, 
-//       -> ¿ŞÂÊ¿¡¼­ºÎÅÍ µ¥ÀÌÅÍ¸¦ ±âÁØ°ª°ú Á¤·Ä¹æ¹ı¿¡ µû¶ó Å©°í ÀÛÀºÁö ºñ±³ Á¤·Ä¹æ¹ı¿¡ µû¶ó Á¶°ÇÀÌ ¾È ¸ÂÀ¸¸é ´ÙÀ½ °ªÀ¸·Î, ¸ÂÀ¸¸é ¿À¸¥ÂÊºÎÅÍ µ¥ÀÌÅÍ¸¦ ±âÁØ°ª°ú ºñ±³ÇØ¼­ Á¤¹İ´ëÀÇ °æ¿ì°¡ Á¸ÀçÇÏ´ÂÁö È®ÀÎ
-//          -> ¿À¸¥ÂÊ¿¡µµ Á¸Àç°¡ ¸Â´Â °ªÀÌ º¸ÀÌ¸é? ->  ¿ŞÂÊ°ú ¿À¸¥ÂÊÀÇ °ªÀ» ±³È¯ÇÏ°í, ±× ´ÙÀ½ ¿ŞÂÊÀ§Ä¡ÀÇ ´ÙÀ½ °ªºÎÅÍ ¶È°°ÀÌ °è¼Ó ÁøÇà
-//       -> ¿ŞÂÊÀÌ´ø ¿À¸¥ÂÊÀÌ´ø Æ÷ÀÎÅÍ°¡ °ãÄ¡°Ô µÈ´Ù¸é? ±× ºÎºĞÀ» Áß½ÉÀ¸·Î ¸®½ºÆ®¸¦ Åä¸·³»¼­ ´Ù½Ã °°Àº ¹æ½ÄÀ¸·Î ºñ±³ ¹İº¹
-//       -> ¸ğµç ºÎºĞ¸®½ºÆ®°¡ ´õ ÀÌ»ó ºĞÇÒÀÌ ºÒ°¡´ÉÇÑ ÃÖ¼Ò ´ÜÀ§(1°³)·Î ºĞÇÒ µÉ ¶§±îÁö ÀÌ¸¦ ¹İº¹
+//  5. í€µ ì •ë ¬(Quick sort)
+//     : ë¦¬ìŠ¤íŠ¸ ì•ˆì— ì¡´ì¬í•˜ëŠ” ì„ì˜ì˜ ê°’ì„ ê¸°ì¤€ê°’ìœ¼ë¡œ ì •í•´ë‘ê³ , 
+//       -> ì™¼ìª½ì—ì„œë¶€í„° ë°ì´í„°ë¥¼ ê¸°ì¤€ê°’ê³¼ ì •ë ¬ë°©ë²•ì— ë”°ë¼ í¬ê³  ì‘ì€ì§€ ë¹„êµ ì •ë ¬ë°©ë²•ì— ë”°ë¼ ì¡°ê±´ì´ ì•ˆ ë§ìœ¼ë©´ ë‹¤ìŒ ê°’ìœ¼ë¡œ, ë§ìœ¼ë©´ ì˜¤ë¥¸ìª½ë¶€í„° ë°ì´í„°ë¥¼ ê¸°ì¤€ê°’ê³¼ ë¹„êµí•´ì„œ ì •ë°˜ëŒ€ì˜ ê²½ìš°ê°€ ì¡´ì¬í•˜ëŠ”ì§€ í™•ì¸
+//          -> ì˜¤ë¥¸ìª½ì—ë„ ì¡´ì¬ê°€ ë§ëŠ” ê°’ì´ ë³´ì´ë©´? ->  ì™¼ìª½ê³¼ ì˜¤ë¥¸ìª½ì˜ ê°’ì„ êµí™˜í•˜ê³ , ê·¸ ë‹¤ìŒ ì™¼ìª½ìœ„ì¹˜ì˜ ë‹¤ìŒ ê°’ë¶€í„° ë˜‘ê°™ì´ ê³„ì† ì§„í–‰
+//       -> ì™¼ìª½ì´ë˜ ì˜¤ë¥¸ìª½ì´ë˜ í¬ì¸í„°ê°€ ê²¹ì¹˜ê²Œ ëœë‹¤ë©´? ê·¸ ë¶€ë¶„ì„ ì¤‘ì‹¬ìœ¼ë¡œ ë¦¬ìŠ¤íŠ¸ë¥¼ í† ë§‰ë‚´ì„œ ë‹¤ì‹œ ê°™ì€ ë°©ì‹ìœ¼ë¡œ ë¹„êµ ë°˜ë³µ
+//       -> ëª¨ë“  ë¶€ë¶„ë¦¬ìŠ¤íŠ¸ê°€ ë” ì´ìƒ ë¶„í• ì´ ë¶ˆê°€ëŠ¥í•œ ìµœì†Œ ë‹¨ìœ„(1ê°œ)ë¡œ ë¶„í•  ë  ë•Œê¹Œì§€ ì´ë¥¼ ë°˜ë³µ
 
-//     # Æò±ÕÀûÀ¸·Î °¡Àå ºü¸¥ Á¤·Ä ¹æ¹ı
-//     # top-bottom(= Å« ¹®Á¦¸¦ ÇØ°áÇÏ´Â °úÁ¤¿¡¼­ ºĞÇÒÇØ¼­ ÀÛÀº ¹®Á¦¸¦ ÇØ°áÇÏ±â) ¹æ½Ä »ç¿ë
+//     # í‰ê· ì ìœ¼ë¡œ ê°€ì¥ ë¹ ë¥¸ ì •ë ¬ ë°©ë²•
+//     # top-bottom(= í° ë¬¸ì œë¥¼ í•´ê²°í•˜ëŠ” ê³¼ì •ì—ì„œ ë¶„í• í•´ì„œ ì‘ì€ ë¬¸ì œë¥¼ í•´ê²°í•˜ê¸°) ë°©ì‹ ì‚¬ìš©
 
-// Á¤ÀûÇÒ´çÀ» »ç¿ëÇÑ ÄüÁ¤·Ä ±¸Çö
+// ì •ì í• ë‹¹ì„ ì‚¬ìš©í•œ í€µì •ë ¬ êµ¬í˜„
 #include <stdio.h>
-#include <stdlib.h>				//	srand(), rand() ÇÔ¼ö »ç¿ë °¡´ÉÇÏ°Ô ÇÔ
+#include <stdlib.h>				//	srand(), rand() í•¨ìˆ˜ ì‚¬ìš© ê°€ëŠ¥í•˜ê²Œ í•¨
 #include <time.h>
 #define ARRAY_LENGTH 10
 #define ascending_order  0
-#define swap(type, a, b) { type temp = a; a = b; b = temp; };		// #define ¸ÅÅ©·Î ¿µ¿ª (ÇüÅÂÃ³¸® ÀüÃ³¸® ±â¹®)			ex) A <-> : A¿Í B¸¦ ÇØ´çÇÏ´Â Å¸ÀÔÀ» ºó°ø°£À¸·Î »ç¿ëÇÏ¿© ±³È¯
+#define swap(type, a, b) { type temp = a; a = b; b = temp; };		// #define ë§¤í¬ë¡œ ì˜ì—­ (í˜•íƒœì²˜ë¦¬ ì „ì²˜ë¦¬ ê¸°ë¬¸)			ex) A <-> : Aì™€ Bë¥¼ í•´ë‹¹í•˜ëŠ” íƒ€ì…ì„ ë¹ˆê³µê°„ìœ¼ë¡œ ì‚¬ìš©í•˜ì—¬ êµí™˜
 
-//  5. Äü Á¤·Ä(Quick sort)
-//     : ¸®½ºÆ® ¾È¿¡ Á¸ÀçÇÏ´Â ÀÓÀÇÀÇ °ªÀ» ±âÁØ°ªÀ¸·Î Á¤ÇØµÎ°í, 
-//       -> ¿ŞÂÊ¿¡¼­ºÎÅÍ µ¥ÀÌÅÍ¸¦ ±âÁØ°ª°ú Á¤·Ä¹æ¹ı¿¡ µû¶ó Å©°í ÀÛÀºÁö ºñ±³ Á¤·Ä¹æ¹ı¿¡ µû¶ó Á¶°ÇÀÌ ¾È ¸ÂÀ¸¸é ´ÙÀ½ °ªÀ¸·Î, ¸ÂÀ¸¸é ¿À¸¥ÂÊºÎÅÍ µ¥ÀÌÅÍ¸¦ ±âÁØ°ª°ú ºñ±³ÇØ¼­ Á¤¹İ´ëÀÇ °æ¿ì°¡ Á¸ÀçÇÏ´ÂÁö È®ÀÎ
-//          -> ¿À¸¥ÂÊ¿¡µµ Á¸Àç°¡ ¸Â´Â °ªÀÌ º¸ÀÌ¸é? ->  ¿ŞÂÊ°ú ¿À¸¥ÂÊÀÇ °ªÀ» ±³È¯ÇÏ°í, ±× ´ÙÀ½ ¿ŞÂÊÀ§Ä¡ÀÇ ´ÙÀ½ °ªºÎÅÍ ¶È°°ÀÌ °è¼Ó ÁøÇà
-//       -> ¿ŞÂÊÀÌ´ø ¿À¸¥ÂÊÀÌ´ø Æ÷ÀÎÅÍ°¡ °ãÄ¡°Ô µÈ´Ù¸é? ±× ºÎºĞÀ» Áß½ÉÀ¸·Î ¸®½ºÆ®¸¦ Åä¸·³»¼­ ´Ù½Ã °°Àº ¹æ½ÄÀ¸·Î ºñ±³ ¹İº¹
-//       -> ¸ğµç ºÎºĞ¸®½ºÆ®°¡ ´õ ÀÌ»ó ºĞÇÒÀÌ ºÒ°¡´ÉÇÑ ÃÖ¼Ò ´ÜÀ§(1°³)·Î ºĞÇÒ µÉ ¶§±îÁö ÀÌ¸¦ ¹İº¹
+//  5. í€µ ì •ë ¬(Quick sort)
+//     : ë¦¬ìŠ¤íŠ¸ ì•ˆì— ì¡´ì¬í•˜ëŠ” ì„ì˜ì˜ ê°’ì„ ê¸°ì¤€ê°’ìœ¼ë¡œ ì •í•´ë‘ê³ , 
+//       -> ì™¼ìª½ì—ì„œë¶€í„° ë°ì´í„°ë¥¼ ê¸°ì¤€ê°’ê³¼ ì •ë ¬ë°©ë²•ì— ë”°ë¼ í¬ê³  ì‘ì€ì§€ ë¹„êµ ì •ë ¬ë°©ë²•ì— ë”°ë¼ ì¡°ê±´ì´ ì•ˆ ë§ìœ¼ë©´ ë‹¤ìŒ ê°’ìœ¼ë¡œ, ë§ìœ¼ë©´ ì˜¤ë¥¸ìª½ë¶€í„° ë°ì´í„°ë¥¼ ê¸°ì¤€ê°’ê³¼ ë¹„êµí•´ì„œ ì •ë°˜ëŒ€ì˜ ê²½ìš°ê°€ ì¡´ì¬í•˜ëŠ”ì§€ í™•ì¸
+//          -> ì˜¤ë¥¸ìª½ì—ë„ ì¡´ì¬ê°€ ë§ëŠ” ê°’ì´ ë³´ì´ë©´? ->  ì™¼ìª½ê³¼ ì˜¤ë¥¸ìª½ì˜ ê°’ì„ êµí™˜í•˜ê³ , ê·¸ ë‹¤ìŒ ì™¼ìª½ìœ„ì¹˜ì˜ ë‹¤ìŒ ê°’ë¶€í„° ë˜‘ê°™ì´ ê³„ì† ì§„í–‰
+//       -> ì™¼ìª½ì´ë˜ ì˜¤ë¥¸ìª½ì´ë˜ í¬ì¸í„°ê°€ ê²¹ì¹˜ê²Œ ëœë‹¤ë©´? ê·¸ ë¶€ë¶„ì„ ì¤‘ì‹¬ìœ¼ë¡œ ë¦¬ìŠ¤íŠ¸ë¥¼ í† ë§‰ë‚´ì„œ ë‹¤ì‹œ ê°™ì€ ë°©ì‹ìœ¼ë¡œ ë¹„êµ ë°˜ë³µ
+//       -> ëª¨ë“  ë¶€ë¶„ë¦¬ìŠ¤íŠ¸ê°€ ë” ì´ìƒ ë¶„í• ì´ ë¶ˆê°€ëŠ¥í•œ ìµœì†Œ ë‹¨ìœ„(1ê°œ)ë¡œ ë¶„í•  ë  ë•Œê¹Œì§€ ì´ë¥¼ ë°˜ë³µ
 void quick_sort(int arr[], int direction, int start, int array_length) {
 
     int flag = 0;
 
     if (array_length <= 0) {
 
-        printf("¹è¿­ÀÇ ±æÀÌ°¡ 0º¸´Ù ÀÛ°Å³ª °°À¸¹Ç·Î ÁøÇàX\n\n");
+        printf("ë°°ì—´ì˜ ê¸¸ì´ê°€ 0ë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ìœ¼ë¯€ë¡œ ì§„í–‰X\n\n");
         return;
     }
 
     if (start >= array_length) {
-        printf("¹è¿­ÀÇ ½ÃÀÛÁ¡ÀÌ ¹è¿­ÀÇ ±æÀÌ %dº¸´Ù Å©°Å³ª °°À¸¹Ç·Î ÁøÇàX\n\n", array_length);
+        printf("ë°°ì—´ì˜ ì‹œì‘ì ì´ ë°°ì—´ì˜ ê¸¸ì´ %dë³´ë‹¤ í¬ê±°ë‚˜ ê°™ìœ¼ë¯€ë¡œ ì§„í–‰X\n\n", array_length);
         return;
     }
 
@@ -45,20 +45,20 @@ void quick_sort(int arr[], int direction, int start, int array_length) {
     int left_start = start;
     int right_start = array_length;
 
-    printf("\n---------------------[±âÁØ°ª : %d, ½ÃÀÛºÎºĞ : %d, ³¡ºÎºĞ : %d]------------------------------------\n\n", standard, start, array_length);
+    printf("\n---------------------[ê¸°ì¤€ê°’ : %d, ì‹œì‘ë¶€ë¶„ : %d, ëë¶€ë¶„ : %d]------------------------------------\n\n", standard, start, array_length);
 
-    // ¿À¸§Â÷¼ø (Å« ¼ö¸¦ µÚ·Î.. )
+    // ì˜¤ë¦„ì°¨ìˆœ (í° ìˆ˜ë¥¼ ë’¤ë¡œ.. )
     if (direction == ascending_order) {
 
-        // ¹è¿­ Å©±â¸¸Å­ ºÎºĞÁ¤·Ä ±×·ìº° ½ÎÀÌÅ¬ µ¹ ¼ö ÀÖ°Ô ÇÔ
-        while (left_start <= right_start) {
+        // ë°°ì—´ í¬ê¸°ë§Œí¼ ë¶€ë¶„ì •ë ¬ ê·¸ë£¹ë³„ ì‹¸ì´í´ ëŒ ìˆ˜ ìˆê²Œ í•¨
+       do {
 
             if (left_start == right_start) {
-                printf("=============left¿Í right°¡ °°Àº ÁöÁ¡ ¹è¿­[%d]¿¡ ¸ğÀÓ!================\n", left_start);
+                printf("\n@@@@@@@@@@@@@@@leftì™€ rightê°€ ê°™ì€ ì§€ì  ë°°ì—´[%d]ì— ëª¨ì„!@@@@@@@@@@@@@@@@@@@@\n", left_start);
 
-                printf("-> ±âÁØ°ª %dÀ» °¡Áö°í ÀÖ´ø arr[%d]ÀÇ À§Ä¡¸¦ ºĞ±âÁ¡ ¹è¿­[%d]ÀÇ °ª°ú ½º¿Ò", standard, start, flag);
-                printf("arr[%d] : %d <-> arr[%d] : %d!\n\n", start, arr[start], flag, arr[flag]);
-                swap(int, arr[flag], arr[start]);
+                //printf("-> ê¸°ì¤€ê°’ %dì„ ê°€ì§€ê³  ìˆë˜ arr[%d]ì˜ ìœ„ì¹˜ë¥¼ ë¶„ê¸°ì  ë°°ì—´[%d]ì˜ ê°’ê³¼ ìŠ¤ì™‘\n\n", standard, start, flag);
+                //printf(" ->> arr[%d] : %d <-> arr[%d] : %d!\n\n", start, arr[start], flag, arr[flag]);
+                //swap(int, arr[flag], arr[start]);
 
                 for (int i = start; i <= array_length; i++) {
 
@@ -69,7 +69,7 @@ void quick_sort(int arr[], int direction, int start, int array_length) {
                 break;
             }
             //else if (left_start > right_start) {
-            //    printf("left¿Í right°¡ ¹è¿­[%d],  ¹è¿­[%d]¸¦ ±âÁØÀ¸·Î ±³Â÷ÇÔ!\n\n", left_start, right_start);
+            //    printf("leftì™€ rightê°€ ë°°ì—´[%d],  ë°°ì—´[%d]ë¥¼ ê¸°ì¤€ìœ¼ë¡œ êµì°¨í•¨!\n\n", left_start, right_start);
             //    swap(int, arr[right_start], arr[start]);
 
             //    if (left_start > 0 && left_start <= array_length) {
@@ -80,23 +80,37 @@ void quick_sort(int arr[], int direction, int start, int array_length) {
             //}
             else if (left_start < right_start) {
 
-                printf("(±³È¯°ª °Ë»öÀü) left_start -> %d, right_start -> %d\n", left_start, right_start);
 
-                while (arr[left_start] <= standard && left_start < array_length) {
+                printf("(êµí™˜ê°’ ê²€ìƒ‰ì „) left_start -> %d, right_start -> %d\n\n", left_start, right_start);
+
+                while (arr[left_start] < standard && left_start < array_length && left_start < right_start) {
                     left_start++;
-                    flag = left_start;
                 }
 
-                printf("(Áß¿ä) ÇöÀç ±³È¯´ë»ó left : %d ,  ±× À§Ä¡ : %d   ----->> right°ªÀ» ¿òÁ÷ÀÌ°ÚÀ½\n", arr[left_start], left_start);
+                if (left_start == right_start) {
+                    flag = left_start - 1;
+                    printf(" ->> (left ì»¤ì„œ move ì¤‘ë‹¨!) left = right : í˜„ì¬ ìœ„ì¹˜ê°€ %dë¡œ ê°™ì€ ìƒí™©ì…ë‹ˆë‹¤\n\n   ----->> í˜„ì¬ ì‹¸ì´í´ ì¤‘ë‹¨í›„ arr[0] : %d <-> arr[%d] : %d ì‹¤ì‹œ ì˜ˆì •!!!! \n\n", left_start, standard, flag, arr[flag]);
+                }
+                else {
+                    flag = left_start;
+                    printf(" ->> (leftë°œê²¬) í˜„ì¬ êµí™˜ëŒ€ìƒ left : %d ,  left ìœ„ì¹˜ : %d   ----->> rightê°’ì„ ì›€ì§ì´ê² ìŒ\n", arr[left_start], left_start);
+                }
 
                 while (arr[right_start] > standard && right_start > start && left_start < right_start) {
                     right_start--;
                 }
 
-                printf("(±³È¯°ª ¹ß°ßÈÄ!) left_start -> %d, right_start -> %d\n\n", left_start, right_start);
+                if (left_start == right_start) {
+                    printf(" ->> (right ì»¤ì„œ move ì¤‘ë‹¨!) left = right : í˜„ì¬ ìœ„ì¹˜ê°€ %dë¡œ ê°™ì€ ìƒí™©ì…ë‹ˆë‹¤\n\n   ----->> í˜„ì¬ ì‹¸ì´í´ ì¤‘ë‹¨í›„ arr[0] : %d <-> arr[%d] : %d ì‹¤ì‹œ ì˜ˆì •!!!! \n\n", left_start, standard, flag, arr[flag]);
+                }
+                if (left_start < right_start) {
+                    printf(" ->> (rightë°œê²¬) í˜„ì¬ êµí™˜ëŒ€ìƒ right : %d ,  right ìœ„ì¹˜ : %d\n", arr[right_start], right_start);
+                }
+
+                printf("\n(êµí™˜ê°’ ë°œê²¬í›„!) left_start -> %d, right_start -> %d\n\n", left_start, right_start);
 
                 if (left_start <= right_start) {
-                    printf("->> left : %d <= right : %d ÀÌ¹Ç·Î..  arr[left_start] : %d <-> arr[right_start] : %d \n\n", left_start, right_start, arr[left_start], arr[right_start]);
+                    printf("->> (left - right êµí™˜!) left : %d <= right : %d ì´ë¯€ë¡œ..  arr[left_start] : %d <-> arr[right_start] : %d \n\n", left_start, right_start, arr[left_start], arr[right_start]);
                     swap(int, arr[left_start], arr[right_start]);
                 }
             }
@@ -107,30 +121,37 @@ void quick_sort(int arr[], int direction, int start, int array_length) {
             }
             printf("\n\n");
 
-        }
+            printf("========================================================================\n");
 
-        if (left_start == array_length && right_start == array_length) {
+       } while (left_start <= right_start);
 
-            printf("(ºÎºĞ Á¤·Ä ¿Ï·á) ÇöÀç left_start == right_start == %d ÇØ´ç ºÎºĞ¹è¿­ÀÇ ¹è¿­Àº ¿Ï¼ºµÇ¾ú°í, ´õ ºÎºĞÀ¸·Î °¡¸¦ ÀÌÀ¯°¡ ¾ø½À´Ï´Ù.\n\n", array_length);
+        //if (left_start == array_length && right_start == array_length) {
 
-        }
-        // ºÎºĞ ¹è¿­ ¸¸µé¾î¾ß ÇÔ
-        else if (left_start >= 0 && left_start < array_length) {
+        //    printf("(ìµœì†Œê°’ì´ í˜„ì¬ ë¶€ë¶„ë°°ì—´ 1ë²ˆì§¸ ìœ„ì¹˜ì— ìˆìŒì„ í™•ì¸ ì™„ë£Œ)\n -> arr[%d] = %d ì œì™¸ %dë²ˆì§¸ ~ %dë²ˆì§¸ê°’ìœ¼ë¡œ ë¶€ë¶„ ë°°ì—´ë§Œë“¤ê¸°\n\n", start, arr[start], start + 1, array_length);
 
-            // ÁÂºĞÇÒ
-            printf("<Àü ¹è¿­> : leftÁÂÇ¥ = %d, rightÁÂÇ¥ = %dÀÎ ºÎºĞ ¹è¿­ÀÇ quick ½ÃÀÛ!\n", start, left_start);
-            quick_sort(arr, direction, start, left_start);
+        //    // ìš°ë¶„í• ë§Œ
+        //    printf("<í›„ ë°°ì—´> : leftì¢Œí‘œ = %d, rightì¢Œí‘œ = %dì¸ ë¶€ë¶„ ë°°ì—´ì˜ quick ì‹œì‘!\n\n", start + 1, array_length);
+        //    quick_sort(arr, direction, start + 1, array_length);
 
-            // ¿ìºĞÇÒ
-            printf("<ÈÄ ¹è¿­> : leftÁÂÇ¥ = %d, rightÁÂÇ¥ = %dÀÎ ºÎºĞ ¹è¿­ÀÇ quick ½ÃÀÛ!\n", left_start + 1, array_length);
-            quick_sort(arr, direction, left_start + 1, array_length);
+        //}
+        
+        // ë¶€ë¶„ ë°°ì—´ ë§Œë“¤ì–´ì•¼ í•¨
+        if (left_start >= start && left_start < array_length) {
+
+            // ì¢Œë¶„í• 
+            printf("<ì „ ë°°ì—´> : leftì¢Œí‘œ = %d, rightì¢Œí‘œ = %dì¸ ë¶€ë¶„ ë°°ì—´ì˜ quick ì‹œì‘!\n\n", start, right_start);
+            quick_sort(arr, direction, start, right_start);
+
+            // ìš°ë¶„í• 
+            printf("<í›„ ë°°ì—´> : leftì¢Œí‘œ = %d, rightì¢Œí‘œ = %dì¸ ë¶€ë¶„ ë°°ì—´ì˜ quick ì‹œì‘!\n\n", left_start, array_length);
+            quick_sort(arr, direction, left_start, array_length);
         }
 
     }
-    // ³»¸²Â÷¼ø (ÀÛÀº ¼ö¸¦ µÚ·Î.. )
+    // ë‚´ë¦¼ì°¨ìˆœ (ì‘ì€ ìˆ˜ë¥¼ ë’¤ë¡œ.. )
     else {
 
-        // ¹è¿­ Å©±â¸¸Å­ ºÎºĞÁ¤·Ä ±×·ìº° ½ÎÀÌÅ¬ µ¹ ¼ö ÀÖ°Ô ÇÔ
+        // ë°°ì—´ í¬ê¸°ë§Œí¼ ë¶€ë¶„ì •ë ¬ ê·¸ë£¹ë³„ ì‹¸ì´í´ ëŒ ìˆ˜ ìˆê²Œ í•¨
         for (int i = 0; i < array_length; i++) {
 
             if (i == array_length - 1 - i) {
@@ -159,7 +180,7 @@ int main() {
     srand((unsigned int)time(NULL));
 
     printf("----------------------------------------------------------------------------\n");
-    printf("¹è¿­ÀÇ ±æÀÌ´Â 100ÀÌ¸ç, quick sort¸¦ ¼öÇàÇØº¾´Ï´Ù.\n°¢ ¹è¿­°ªÀº °¢ ¹è¿­ÀÇ ÀÌÀü ¹è¿­°ª + a(1~5) ¿¡ ´ëÀÀÇÏ´Â °ªÀ¸·Î ÀÔ·ÂµË´Ï´Ù.\n");
+    printf("ë°°ì—´ì˜ ê¸¸ì´ëŠ” 100ì´ë©°, quick sortë¥¼ ìˆ˜í–‰í•´ë´…ë‹ˆë‹¤.\nê° ë°°ì—´ê°’ì€ ê° ë°°ì—´ì˜ ì´ì „ ë°°ì—´ê°’ + a(1~5) ì— ëŒ€ì‘í•˜ëŠ” ê°’ìœ¼ë¡œ ì…ë ¥ë©ë‹ˆë‹¤.\n");
     printf("----------------------------------------------------------------------------\n\n");
 
     int ary_test[ARRAY_LENGTH] = { 0 };
@@ -167,7 +188,7 @@ int main() {
     int direction = ascending_order;
     int array_length = ARRAY_LENGTH - 1;
 
-    // ·£´ıÇÑ °ªÀÌ µé¾î°¥¼ö ÀÖ°Ô ¼³°è (0 ~ 500)
+    // ëœë¤í•œ ê°’ì´ ë“¤ì–´ê°ˆìˆ˜ ìˆê²Œ ì„¤ê³„ (0 ~ 500)
     for (int i = 0; i < ARRAY_LENGTH; i++) {
 
         ary_test[i] = rand() % 501;
@@ -175,23 +196,23 @@ int main() {
         printf("%d ", ary_test[i]);
     }
 
-    printf("\n\n°ª ÀÔ·ÂÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù. \n");
+    printf("\n\nê°’ ì…ë ¥ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤. \n");
 
     //int divider;
 
-    //printf("shell ¼ÒÆ®¸¦ À§ÇØ Áı´ÜÀ» ³ª´­°ªÀ» Á¤ÇØÁÖ¼¼¿ä : ");
+    //printf("shell ì†ŒíŠ¸ë¥¼ ìœ„í•´ ì§‘ë‹¨ì„ ë‚˜ëˆŒê°’ì„ ì •í•´ì£¼ì„¸ìš” : ");
     //scanf_s("%d", &divider);
 
-    //// shell ºÎºĞ Á¤·Ä ¾Ë°í¸®ÁòÀÇ °£°İ
+    //// shell ë¶€ë¶„ ì •ë ¬ ì•Œê³ ë¦¬ì¦˜ì˜ ê°„ê²©
     //int interval = (ARRAY_LENGTH - 1) / divider;
 
-    printf("¿øÇÏ½Ã´Â ¹æ½ÄÀÇ Á¤·Ä¹æ½ÄÀÌ ¿À¸§Â÷¼øÀÎ°¡¿ä? (0 : ¿À¸§Â÷¼ø, ±× ÀÌ¿Ü °ª ÀÔ·Â: ³»¸²Â÷¼ø) : ");
+    printf("ì›í•˜ì‹œëŠ” ë°©ì‹ì˜ ì •ë ¬ë°©ì‹ì´ ì˜¤ë¦„ì°¨ìˆœì¸ê°€ìš”? (0 : ì˜¤ë¦„ì°¨ìˆœ, ê·¸ ì´ì™¸ ê°’ ì…ë ¥: ë‚´ë¦¼ì°¨ìˆœ) : ");
     scanf_s("%d", &direction);
 
-    // ¸ÓÁö ¼ÒÆ® ½ÇÇà
+    // ë¨¸ì§€ ì†ŒíŠ¸ ì‹¤í–‰
     quick_sort(ary_test, direction, 0, array_length);
 
-    printf("\n[quick sort °á°ú] \n");
+    printf("\n[quick sort ê²°ê³¼] \n");
 
     for (int i = 0; i < ARRAY_LENGTH; i++) {
 
