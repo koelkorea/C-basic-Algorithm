@@ -20,156 +20,168 @@
 #define ascending_order  0
 #define swap(type, a, b) { type temp = a; a = b; b = temp; };		// #define 매크로 영역 (형태처리 전처리 기문)			ex) A <-> : A와 B를 해당하는 타입을 빈공간으로 사용하여 교환
 
+
+// 해당 동적배열의 요소값을 순차적 출력 (for문으로 length만큼 반복)
+void display(int arr[], int start, int size) {
+
+    for (int i = start; i < size; i++) {
+
+        printf("%d ", arr[i]);
+    }
+    printf("\n\n");
+}
+
 //  5. 퀵 정렬(Quick sort)
 //     : 리스트 안에 존재하는 임의의 값을 기준값으로 정해두고, 
 //       -> 왼쪽에서부터 데이터를 기준값과 정렬방법에 따라 크고 작은지 비교 정렬방법에 따라 조건이 안 맞으면 다음 값으로, 맞으면 오른쪽부터 데이터를 기준값과 비교해서 정반대의 경우가 존재하는지 확인
 //          -> 오른쪽에도 존재가 맞는 값이 보이면? ->  왼쪽과 오른쪽의 값을 교환하고, 그 다음 왼쪽위치의 다음 값부터 똑같이 계속 진행
 //       -> 왼쪽이던 오른쪽이던 포인터가 겹치게 된다면? 그 부분을 중심으로 리스트를 토막내서 다시 같은 방식으로 비교 반복
 //       -> 모든 부분리스트가 더 이상 분할이 불가능한 최소 단위(1개)로 분할 될 때까지 이를 반복
-void quick_sort(int arr[], int direction, int start, int array_length) {
+void quick_sort(int arr[], int direction, int leftest, int rightest) {
 
-    int flag = 0;
+    int left_point = leftest;
+    int right_point = rightest;
+    int pivot = arr[left_point];
 
-    if (array_length <= 0) {
+    printf("\n---------------------[기준값 : %d, 시작부분 : %d, 끝부분 : %d]------------------------------------\n\n", pivot, leftest, rightest);
 
-        printf("배열의 길이가 0보다 작거나 같으므로 진행X\n\n");
-        return;
-    }
-
-    if (start >= array_length) {
-        printf("배열의 시작점이 배열의 길이 %d보다 크거나 같으므로 진행X\n\n", array_length);
-        return;
-    }
-
-    int standard = arr[start];
-    int left_start = start;
-    int right_start = array_length;
-
-    printf("\n---------------------[기준값 : %d, 시작부분 : %d, 끝부분 : %d]------------------------------------\n\n", standard, start, array_length);
+    display(arr, leftest, rightest + 1);
 
     // 오름차순 (큰 수를 뒤로.. )
     if (direction == ascending_order) {
 
-        // 배열 크기만큼 부분정렬 그룹별 싸이클 돌 수 있게 함
-       do {
+        // left_point가 right_point보다 같게 될 때까지 반복 (상황이 아니라 쳐도 일단 실행해봄)
+        do {
 
-            if (left_start == right_start) {
-                printf("\n@@@@@@@@@@@@@@@left와 right가 같은 지점 배열[%d]에 모임!@@@@@@@@@@@@@@@@@@@@\n", left_start);
+            printf("(교환값 검색전)  left : arr[%d] = %d , right : arr[%d] = %d \n", left_point, arr[left_point], right_point, arr[right_point]);
 
-                //printf("-> 기준값 %d을 가지고 있던 arr[%d]의 위치를 분기점 배열[%d]의 값과 스왑\n\n", standard, start, flag);
-                //printf(" ->> arr[%d] : %d <-> arr[%d] : %d!\n\n", start, arr[start], flag, arr[flag]);
-                //swap(int, arr[flag], arr[start]);
-
-                for (int i = start; i <= array_length; i++) {
-
-                    printf("%d ", arr[i]);
-                }
-                printf("\n\n");
-
-                break;
-            }
-            //else if (left_start > right_start) {
-            //    printf("left와 right가 배열[%d],  배열[%d]를 기준으로 교차함!\n\n", left_start, right_start);
-            //    swap(int, arr[right_start], arr[start]);
-
-            //    if (left_start > 0 && left_start <= array_length) {
-            //        quick_sort(arr, direction, start, right_start);
-            //        quick_sort(arr, direction, left_start, array_length);
-            //    }
-            //    break;
-            //}
-            else if (left_start < right_start) {
-
-
-                printf("(교환값 검색전) left_start -> %d, right_start -> %d\n\n", left_start, right_start);
-
-                while (arr[left_start] < standard && left_start < array_length && left_start < right_start) {
-                    left_start++;
-                }
-
-                if (left_start == right_start) {
-                    flag = left_start - 1;
-                    printf(" ->> (left 커서 move 중단!) left = right : 현재 위치가 %d로 같은 상황입니다\n\n   ----->> 현재 싸이클 중단후 arr[0] : %d <-> arr[%d] : %d 실시 예정!!!! \n\n", left_start, standard, flag, arr[flag]);
-                }
-                else {
-                    flag = left_start;
-                    printf(" ->> (left발견) 현재 교환대상 left : %d ,  left 위치 : %d   ----->> right값을 움직이겠음\n", arr[left_start], left_start);
-                }
-
-                while (arr[right_start] > standard && right_start > start && left_start < right_start) {
-                    right_start--;
-                }
-
-                if (left_start == right_start) {
-                    printf(" ->> (right 커서 move 중단!) left = right : 현재 위치가 %d로 같은 상황입니다\n\n   ----->> 현재 싸이클 중단후 arr[0] : %d <-> arr[%d] : %d 실시 예정!!!! \n\n", left_start, standard, flag, arr[flag]);
-                }
-                if (left_start < right_start) {
-                    printf(" ->> (right발견) 현재 교환대상 right : %d ,  right 위치 : %d\n", arr[right_start], right_start);
-                }
-
-                printf("\n(교환값 발견후!) left_start -> %d, right_start -> %d\n\n", left_start, right_start);
-
-                if (left_start <= right_start) {
-                    printf("->> (left - right 교환!) left : %d <= right : %d 이므로..  arr[left_start] : %d <-> arr[right_start] : %d \n\n", left_start, right_start, arr[left_start], arr[right_start]);
-                    swap(int, arr[left_start], arr[right_start]);
-                }
+            // 배열[left_point]값이 기준값보다 크거나 같은 상황이 될떄까지 left_point를 왼쪽으로 옮김
+            while (arr[left_point] < pivot){
+                left_point++;
             }
 
-            for (int i = start; i <= array_length; i++) {
-
-                printf("%d ", arr[i]);
+            if (left_point == right_point) {
+                printf(" ->> (left 커서 move 중단!) left = right : 현재 위치가 %d로 같은 상황입니다\n\n");
             }
-            printf("\n\n");
+            else {
+                printf(" ->> (교환 left발견) arr[%d] : %d (arr[%d](기준값) : %d 보다 큰 값)   ----->> right값을 움직이겠음\n", left_point, arr[left_point], leftest, pivot);
+            }
 
-            printf("========================================================================\n");
+            // 배열[right_point]값이 기준값보다 작거나 같은 상황이 될떄까지 right_point를 오룬쪽으로 옮김
+            while (arr[right_point] > pivot){
+                right_point--;
+            }
 
-       } while (left_start <= right_start);
+            if (left_point == right_point) {
+                printf(" ->> (right 커서 move 중단!) left = right : 현재 위치가 %d로 같은 상황입니다\n\n");
+            }
+            else if (left_point < right_point){
+                printf(" ->> (교환 right발견) arr[%d] : %d (arr[%d](기준값) : %d 보다 작은 값)\n", right_point, arr[right_point], leftest, pivot);
+            }
 
-        //if (left_start == array_length && right_start == array_length) {
+            printf("(교환값 검색후!)  left : arr[%d] = %d , right : arr[%d] = %d \n", left_point, arr[left_point], right_point, arr[right_point]);
 
-        //    printf("(최소값이 현재 부분배열 1번째 위치에 있음을 확인 완료)\n -> arr[%d] = %d 제외 %d번째 ~ %d번째값으로 부분 배열만들기\n\n", start, arr[start], start + 1, array_length);
+            if (left_point <= right_point) {
+                printf("  ->> (left - right 교환!) arr[%d] : %d <-> arr[%d] : %d \n\n", left_point, arr[left_point], right_point, arr[right_point]);
+                swap(int, arr[left_point], arr[right_point]);
+                left_point++;
+                right_point--;
+            }
 
-        //    // 우분할만
-        //    printf("<후 배열> : left좌표 = %d, right좌표 = %d인 부분 배열의 quick 시작!\n\n", start + 1, array_length);
-        //    quick_sort(arr, direction, start + 1, array_length);
+            display(arr, leftest, rightest + 1);
 
-        //}
-        
-        // 부분 배열 만들어야 함
-        if (left_start >= start && left_start < array_length) {
+        } while (left_point <= right_point);
+
+        printf("=====================================[싸이클 end]==================================================\n\n");
+
+        printf("leftest : %d , rightest : %d , left_point : %d , right_point : %d \n\n", leftest , rightest , left_point , right_point);
+
+
+        // 배열 가장 왼쪽위치가 현재 오른쪽 포인터보다 작으면?
+        //  -> 배열 가장 왼쪽위치 ~ 현재 오른쪽 포인터까지를 잘라서 퀵소트 실행
+        if (leftest < right_point) {
 
             // 좌분할
-            printf("<전 배열> : left좌표 = %d, right좌표 = %d인 부분 배열의 quick 시작!\n\n", start, right_start);
-            quick_sort(arr, direction, start, right_start);
+            printf("<전 배열> : left좌표 = %d, right좌표 = %d인 부분 배열의 quick 시작!\n\n", leftest, right_point);
+            quick_sort(arr, direction, leftest, right_point);
+        }
+
+        // 배열 가장 오른쪽위치가 현재 왼쪽 포인터보다 크면?
+        //  -> 현재 왼쪽 포인터 ~ 배열 가장 오른쪽위치까지 잘라서 퀵소트 실행
+        if (rightest > left_point) {
 
             // 우분할
-            printf("<후 배열> : left좌표 = %d, right좌표 = %d인 부분 배열의 quick 시작!\n\n", left_start, array_length);
-            quick_sort(arr, direction, left_start, array_length);
+            printf("<후 배열> : left좌표 = %d, right좌표 = %d인 부분 배열의 quick 시작!\n\n", left_point, rightest);
+            quick_sort(arr, direction, left_point, rightest);
         }
 
     }
     // 내림차순 (작은 수를 뒤로.. )
     else {
 
-        // 배열 크기만큼 부분정렬 그룹별 싸이클 돌 수 있게 함
-        for (int i = 0; i < array_length; i++) {
+        // left_point가 right_point보다 같게 될 때까지 반복 (상황이 아니라 쳐도 일단 실행해봄)
+        do {
 
-            if (i == array_length - 1 - i) {
-                quick_sort(arr, direction, 0, i - 1);
-                quick_sort(arr, direction, i + 1, array_length);
-                break;
-            }
-            else if (i > array_length - 1 - i) {
-                quick_sort(arr, direction, 0, array_length - 1 - i);
-                quick_sort(arr, direction, i, array_length);
-                break;
-            }
-            else if (i < array_length - 1 - i) {
+            printf("(교환값 검색전)  left : arr[%d] = %d , right : arr[%d] = %d \n", left_point, arr[left_point], right_point, arr[right_point]);
 
-                if (arr[i] < arr[array_length - 1 - i]) {
-                    swap(int, arr[i], arr[array_length - 1 - i]);
-                }
+            // 배열[left_point]값이 기준값보다 작거나 같은 상황이 될떄까지 left_point를 왼쪽으로 옮김
+            while (arr[left_point] > pivot) {
+                left_point++;
             }
+
+            if (left_point == right_point) {
+                printf(" ->> (left 커서 move 중단!) left = right : 현재 위치가 %d로 같은 상황입니다\n\n");
+            }
+            else {
+                printf(" ->> (교환 left발견) arr[%d] : %d (arr[%d](기준값) : %d 보다 큰 값)   ----->> right값을 움직이겠음\n", left_point, arr[left_point], leftest, pivot);
+            }
+
+            // 배열[right_point]값이 기준값보다 크거나 같은 상황이 될떄까지 right_point를 오룬쪽으로 옮김
+            while (arr[right_point] < pivot) {
+                right_point--;
+            }
+
+            if (left_point == right_point) {
+                printf(" ->> (right 커서 move 중단!) left = right : 현재 위치가 %d로 같은 상황입니다\n\n");
+            }
+            else if (left_point < right_point) {
+                printf(" ->> (교환 right발견) arr[%d] : %d (arr[%d](기준값) : %d 보다 작은 값)\n", right_point, arr[right_point], leftest, pivot);
+            }
+
+            printf("(교환값 검색후!)  left : arr[%d] = %d , right : arr[%d] = %d \n", left_point, arr[left_point], right_point, arr[right_point]);
+
+            if (left_point <= right_point) {
+                printf("  ->> (left - right 교환!) arr[%d] : %d <-> arr[%d] : %d \n\n", left_point, arr[left_point], right_point, arr[right_point]);
+                swap(int, arr[left_point], arr[right_point]);
+                left_point++;
+                right_point--;
+            }
+
+            display(arr, leftest, rightest + 1);
+
+        } while (left_point <= right_point);
+
+        printf("=====================================[싸이클 end]==================================================\n\n");
+
+        printf("leftest : %d , rightest : %d , left_point : %d , right_point : %d \n\n", leftest, rightest, left_point, right_point);
+
+
+        // 배열 가장 왼쪽위치가 현재 오른쪽 포인터보다 작으면?
+        //  -> 배열 가장 왼쪽위치 ~ 현재 오른쪽 포인터까지를 잘라서 퀵소트 실행
+        if (leftest < right_point) {
+
+            // 좌분할
+            printf("<전 배열> : left좌표 = %d, right좌표 = %d인 부분 배열의 quick 시작!\n\n", leftest, right_point);
+            quick_sort(arr, direction, leftest, right_point);
+        }
+
+        // 배열 가장 오른쪽위치가 현재 왼쪽 포인터보다 크면?
+        //  -> 현재 왼쪽 포인터 ~ 배열 가장 오른쪽위치까지 잘라서 퀵소트 실행
+        if (rightest > left_point) {
+
+            // 우분할
+            printf("<후 배열> : left좌표 = %d, right좌표 = %d인 부분 배열의 quick 시작!\n\n", left_point, rightest);
+            quick_sort(arr, direction, left_point, rightest);
         }
     }
 
@@ -214,10 +226,7 @@ int main() {
 
     printf("\n[quick sort 결과] \n");
 
-    for (int i = 0; i < ARRAY_LENGTH; i++) {
-
-        printf("%d ", ary_test[i]);
-    }
+    display(ary_test, 0, ARRAY_LENGTH);
 
     printf("\n");
 
