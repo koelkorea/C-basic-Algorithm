@@ -1,27 +1,27 @@
-// ì •ë ¬
-//  : ë°ì´í„° ê·¸ë£¹ ìš”ì†Œë¥¼ íŠ¹ì • ê¸°ì¤€ìœ¼ë¡œ ì˜¤ë¦„ì°¨ìˆœì´ë‚˜ ë‚´ë¦¼ì°¨ìˆœìœ¼ë¡œ ì •ë¦¬
-//    -> ë°ì´í„°ë¥¼ ì§‘í•©ìœ¼ë¡œ ê·¸ë£¹í™”í•  ë•Œ ê°€ì¥ ê¸°ë³¸ì ì´ê³  ì¤‘ìš”í•œ ì•Œê³ ë¦¬ì¦˜
+// Á¤·Ä
+//  : µ¥ÀÌÅÍ ±×·ì ¿ä¼Ò¸¦ Æ¯Á¤ ±âÁØÀ¸·Î ¿À¸§Â÷¼øÀÌ³ª ³»¸²Â÷¼øÀ¸·Î Á¤¸®
+//    -> µ¥ÀÌÅÍ¸¦ ÁıÇÕÀ¸·Î ±×·ìÈ­ÇÒ ¶§ °¡Àå ±âº»ÀûÀÌ°í Áß¿äÇÑ ¾Ë°í¸®Áò
 
-//  5. í€µ ì •ë ¬(Quick sort)
-//     : ë¦¬ìŠ¤íŠ¸ ì•ˆì— ì¡´ì¬í•˜ëŠ” ì„ì˜ì˜ ê°’ì„ ê¸°ì¤€ê°’ìœ¼ë¡œ ì •í•´ë‘ê³ , 
-//       -> ì™¼ìª½ì—ì„œë¶€í„° ë°ì´í„°ë¥¼ ê¸°ì¤€ê°’ê³¼ ì •ë ¬ë°©ë²•ì— ë”°ë¼ í¬ê³  ì‘ì€ì§€ ë¹„êµ ì •ë ¬ë°©ë²•ì— ë”°ë¼ ì¡°ê±´ì´ ì•ˆ ë§ìœ¼ë©´ ë‹¤ìŒ ê°’ìœ¼ë¡œ, ë§ìœ¼ë©´ ì˜¤ë¥¸ìª½ë¶€í„° ë°ì´í„°ë¥¼ ê¸°ì¤€ê°’ê³¼ ë¹„êµí•´ì„œ ì •ë°˜ëŒ€ì˜ ê²½ìš°ê°€ ì¡´ì¬í•˜ëŠ”ì§€ í™•ì¸
-//          -> ì˜¤ë¥¸ìª½ì—ë„ ì¡´ì¬ê°€ ë§ëŠ” ê°’ì´ ë³´ì´ë©´? ->  ì™¼ìª½ê³¼ ì˜¤ë¥¸ìª½ì˜ ê°’ì„ êµí™˜í•˜ê³ , ê·¸ ë‹¤ìŒ ì™¼ìª½ìœ„ì¹˜ì˜ ë‹¤ìŒ ê°’ë¶€í„° ë˜‘ê°™ì´ ê³„ì† ì§„í–‰
-//       -> ì™¼ìª½ì´ë˜ ì˜¤ë¥¸ìª½ì´ë˜ í¬ì¸í„°ê°€ ê²¹ì¹˜ê²Œ ëœë‹¤ë©´? ê·¸ ë¶€ë¶„ì„ ì¤‘ì‹¬ìœ¼ë¡œ ë¦¬ìŠ¤íŠ¸ë¥¼ í† ë§‰ë‚´ì„œ ë‹¤ì‹œ ê°™ì€ ë°©ì‹ìœ¼ë¡œ ë¹„êµ ë°˜ë³µ
-//       -> ëª¨ë“  ë¶€ë¶„ë¦¬ìŠ¤íŠ¸ê°€ ë” ì´ìƒ ë¶„í• ì´ ë¶ˆê°€ëŠ¥í•œ ìµœì†Œ ë‹¨ìœ„(1ê°œ)ë¡œ ë¶„í•  ë  ë•Œê¹Œì§€ ì´ë¥¼ ë°˜ë³µ
+//  5. Äü Á¤·Ä(Quick sort)
+//     : ¸®½ºÆ® ¾È¿¡ Á¸ÀçÇÏ´Â ÀÓÀÇÀÇ °ªÀ» ±âÁØ°ªÀ¸·Î Á¤ÇØµÎ°í, 
+//       -> ¿ŞÂÊ¿¡¼­ºÎÅÍ µ¥ÀÌÅÍ¸¦ ±âÁØ°ª°ú Á¤·Ä¹æ¹ı¿¡ µû¶ó Å©°í ÀÛÀºÁö ºñ±³ Á¤·Ä¹æ¹ı¿¡ µû¶ó Á¶°ÇÀÌ ¾È ¸ÂÀ¸¸é ´ÙÀ½ °ªÀ¸·Î, ¸ÂÀ¸¸é ¿À¸¥ÂÊºÎÅÍ µ¥ÀÌÅÍ¸¦ ±âÁØ°ª°ú ºñ±³ÇØ¼­ Á¤¹İ´ëÀÇ °æ¿ì°¡ Á¸ÀçÇÏ´ÂÁö È®ÀÎ
+//          -> ¿À¸¥ÂÊ¿¡µµ Á¸Àç°¡ ¸Â´Â °ªÀÌ º¸ÀÌ¸é? ->  ¿ŞÂÊ°ú ¿À¸¥ÂÊÀÇ °ªÀ» ±³È¯ÇÏ°í, ±× ´ÙÀ½ ¿ŞÂÊÀ§Ä¡ÀÇ ´ÙÀ½ °ªºÎÅÍ ¶È°°ÀÌ °è¼Ó ÁøÇà
+//       -> ¿ŞÂÊÀÌ´ø ¿À¸¥ÂÊÀÌ´ø Æ÷ÀÎÅÍ°¡ °ãÄ¡°Ô µÈ´Ù¸é? ±× ºÎºĞÀ» Áß½ÉÀ¸·Î ¸®½ºÆ®¸¦ Åä¸·³»¼­ ´Ù½Ã °°Àº ¹æ½ÄÀ¸·Î ºñ±³ ¹İº¹
+//       -> ¸ğµç ºÎºĞ¸®½ºÆ®°¡ ´õ ÀÌ»ó ºĞÇÒÀÌ ºÒ°¡´ÉÇÑ ÃÖ¼Ò ´ÜÀ§(1°³)·Î ºĞÇÒ µÉ ¶§±îÁö ÀÌ¸¦ ¹İº¹
 
-//     # í‰ê· ì ìœ¼ë¡œ ê°€ì¥ ë¹ ë¥¸ ì •ë ¬ ë°©ë²•
-//     # top-bottom(= í° ë¬¸ì œë¥¼ í•´ê²°í•˜ëŠ” ê³¼ì •ì—ì„œ ë¶„í• í•´ì„œ ì‘ì€ ë¬¸ì œë¥¼ í•´ê²°í•˜ê¸°) ë°©ì‹ ì‚¬ìš©
+//     # Æò±ÕÀûÀ¸·Î °¡Àå ºü¸¥ Á¤·Ä ¹æ¹ı
+//     # top-bottom(= Å« ¹®Á¦¸¦ ÇØ°áÇÏ´Â °úÁ¤¿¡¼­ ºĞÇÒÇØ¼­ ÀÛÀº ¹®Á¦¸¦ ÇØ°áÇÏ±â) ¹æ½Ä »ç¿ë
 
-// ì •ì í• ë‹¹ì„ ì‚¬ìš©í•œ í€µì •ë ¬ êµ¬í˜„
+// Á¤ÀûÇÒ´çÀ» »ç¿ëÇÑ ÄüÁ¤·Ä ±¸Çö
 #include <stdio.h>
-#include <stdlib.h>				//	srand(), rand() í•¨ìˆ˜ ì‚¬ìš© ê°€ëŠ¥í•˜ê²Œ í•¨
+#include <stdlib.h>				//	srand(), rand() ÇÔ¼ö »ç¿ë °¡´ÉÇÏ°Ô ÇÔ
 #include <time.h>
-#define ARRAY_LENGTH 10
+#define ARRAY_LENGTH 100
 #define ascending_order  0
-#define swap(type, a, b) { type temp = a; a = b; b = temp; };		// #define ë§¤í¬ë¡œ ì˜ì—­ (í˜•íƒœì²˜ë¦¬ ì „ì²˜ë¦¬ ê¸°ë¬¸)			ex) A <-> : Aì™€ Bë¥¼ í•´ë‹¹í•˜ëŠ” íƒ€ì…ì„ ë¹ˆê³µê°„ìœ¼ë¡œ ì‚¬ìš©í•˜ì—¬ êµí™˜
+#define swap(type, a, b) { type temp = a; a = b; b = temp; };		// #define ¸ÅÅ©·Î ¿µ¿ª (ÇüÅÂÃ³¸® ÀüÃ³¸® ±â¹®)			ex) A <-> : A¿Í B¸¦ ÇØ´çÇÏ´Â Å¸ÀÔÀ» ºó°ø°£À¸·Î »ç¿ëÇÏ¿© ±³È¯
 
 
-// í•´ë‹¹ ë™ì ë°°ì—´ì˜ ìš”ì†Œê°’ì„ ìˆœì°¨ì  ì¶œë ¥ (forë¬¸ìœ¼ë¡œ lengthë§Œí¼ ë°˜ë³µ)
+// ÇØ´ç µ¿Àû¹è¿­ÀÇ ¿ä¼Ò°ªÀ» ¼øÂ÷Àû Ãâ·Â (for¹®À¸·Î length¸¸Å­ ¹İº¹)
 void display(int arr[], int start, int size) {
 
     for (int i = start; i < size; i++) {
@@ -31,58 +31,55 @@ void display(int arr[], int start, int size) {
     printf("\n\n");
 }
 
-//  5. í€µ ì •ë ¬(Quick sort)
-//     : ë¦¬ìŠ¤íŠ¸ ì•ˆì— ì¡´ì¬í•˜ëŠ” ì„ì˜ì˜ ê°’ì„ ê¸°ì¤€ê°’ìœ¼ë¡œ ì •í•´ë‘ê³ , 
-//       -> ì™¼ìª½ì—ì„œë¶€í„° ë°ì´í„°ë¥¼ ê¸°ì¤€ê°’ê³¼ ì •ë ¬ë°©ë²•ì— ë”°ë¼ í¬ê³  ì‘ì€ì§€ ë¹„êµ ì •ë ¬ë°©ë²•ì— ë”°ë¼ ì¡°ê±´ì´ ì•ˆ ë§ìœ¼ë©´ ë‹¤ìŒ ê°’ìœ¼ë¡œ, ë§ìœ¼ë©´ ì˜¤ë¥¸ìª½ë¶€í„° ë°ì´í„°ë¥¼ ê¸°ì¤€ê°’ê³¼ ë¹„êµí•´ì„œ ì •ë°˜ëŒ€ì˜ ê²½ìš°ê°€ ì¡´ì¬í•˜ëŠ”ì§€ í™•ì¸
-//          -> ì˜¤ë¥¸ìª½ì—ë„ ì¡´ì¬ê°€ ë§ëŠ” ê°’ì´ ë³´ì´ë©´? ->  ì™¼ìª½ê³¼ ì˜¤ë¥¸ìª½ì˜ ê°’ì„ êµí™˜í•˜ê³ , ê·¸ ë‹¤ìŒ ì™¼ìª½ìœ„ì¹˜ì˜ ë‹¤ìŒ ê°’ë¶€í„° ë˜‘ê°™ì´ ê³„ì† ì§„í–‰
-//       -> ì™¼ìª½ì´ë˜ ì˜¤ë¥¸ìª½ì´ë˜ í¬ì¸í„°ê°€ ê²¹ì¹˜ê²Œ ëœë‹¤ë©´? ê·¸ ë¶€ë¶„ì„ ì¤‘ì‹¬ìœ¼ë¡œ ë¦¬ìŠ¤íŠ¸ë¥¼ í† ë§‰ë‚´ì„œ ë‹¤ì‹œ ê°™ì€ ë°©ì‹ìœ¼ë¡œ ë¹„êµ ë°˜ë³µ
-//       -> ëª¨ë“  ë¶€ë¶„ë¦¬ìŠ¤íŠ¸ê°€ ë” ì´ìƒ ë¶„í• ì´ ë¶ˆê°€ëŠ¥í•œ ìµœì†Œ ë‹¨ìœ„(1ê°œ)ë¡œ ë¶„í•  ë  ë•Œê¹Œì§€ ì´ë¥¼ ë°˜ë³µ
+//  5. Äü Á¤·Ä(Quick sort)
+//     : ¸®½ºÆ® ¾È¿¡ Á¸ÀçÇÏ´Â ÀÓÀÇÀÇ °ªÀ» ±âÁØ°ªÀ¸·Î Á¤ÇØµÎ°í, 
+//       -> ¿ŞÂÊ¿¡¼­ºÎÅÍ µ¥ÀÌÅÍ¸¦ ±âÁØ°ª°ú Á¤·Ä¹æ¹ı¿¡ µû¶ó Å©°í ÀÛÀºÁö ºñ±³ Á¤·Ä¹æ¹ı¿¡ µû¶ó Á¶°ÇÀÌ ¾È ¸ÂÀ¸¸é ´ÙÀ½ °ªÀ¸·Î, ¸ÂÀ¸¸é ¿À¸¥ÂÊºÎÅÍ µ¥ÀÌÅÍ¸¦ ±âÁØ°ª°ú ºñ±³ÇØ¼­ Á¤¹İ´ëÀÇ °æ¿ì°¡ Á¸ÀçÇÏ´ÂÁö È®ÀÎ
+//          -> ¿À¸¥ÂÊ¿¡µµ Á¸Àç°¡ ¸Â´Â °ªÀÌ º¸ÀÌ¸é? ->  ¿ŞÂÊ°ú ¿À¸¥ÂÊÀÇ °ªÀ» ±³È¯ÇÏ°í, ±× ´ÙÀ½ ¿ŞÂÊÀ§Ä¡ÀÇ ´ÙÀ½ °ªºÎÅÍ ¶È°°ÀÌ °è¼Ó ÁøÇà
+//       -> ¿ŞÂÊÀÌ´ø ¿À¸¥ÂÊÀÌ´ø Æ÷ÀÎÅÍ°¡ °ãÄ¡°Ô µÈ´Ù¸é? ±× ºÎºĞÀ» Áß½ÉÀ¸·Î ¸®½ºÆ®¸¦ Åä¸·³»¼­ ´Ù½Ã °°Àº ¹æ½ÄÀ¸·Î ºñ±³ ¹İº¹
+//       -> ¸ğµç ºÎºĞ¸®½ºÆ®°¡ ´õ ÀÌ»ó ºĞÇÒÀÌ ºÒ°¡´ÉÇÑ ÃÖ¼Ò ´ÜÀ§(1°³)·Î ºĞÇÒ µÉ ¶§±îÁö ÀÌ¸¦ ¹İº¹
 void quick_sort(int arr[], int direction, int leftest, int rightest) {
 
     int left_point = leftest;
     int right_point = rightest;
     int pivot = arr[left_point];
 
-    printf("\n---------------------[ê¸°ì¤€ê°’ : %d, ì‹œì‘ë¶€ë¶„ : %d, ëë¶€ë¶„ : %d]------------------------------------\n\n", pivot, leftest, rightest);
+    printf("\n---------------------[±âÁØ°ª : %d, ½ÃÀÛºÎºĞ : %d, ³¡ºÎºĞ : %d]------------------------------------\n\n", pivot, leftest, rightest);
 
     display(arr, leftest, rightest + 1);
 
-    // ì˜¤ë¦„ì°¨ìˆœ (í° ìˆ˜ë¥¼ ë’¤ë¡œ.. )
+    // ¿À¸§Â÷¼ø (Å« ¼ö¸¦ µÚ·Î.. )
     if (direction == ascending_order) {
 
-        // left_pointê°€ right_pointë³´ë‹¤ ê°™ê²Œ ë  ë•Œê¹Œì§€ ë°˜ë³µ (ìƒí™©ì´ ì•„ë‹ˆë¼ ì³ë„ ì¼ë‹¨ ì‹¤í–‰í•´ë´„)
+        // left_point°¡ right_pointº¸´Ù °°°Ô µÉ ¶§±îÁö ¹İº¹ (»óÈ²ÀÌ ¾Æ´Ï¶ó ÃÄµµ ÀÏ´Ü ½ÇÇàÇØº½)
         do {
 
-            printf("(êµí™˜ê°’ ê²€ìƒ‰ì „)  left : arr[%d] = %d , right : arr[%d] = %d \n", left_point, arr[left_point], right_point, arr[right_point]);
+            printf("(±³È¯°ª °Ë»öÀü)  left : arr[%d] = %d , right : arr[%d] = %d \n", left_point, arr[left_point], right_point, arr[right_point]);
 
-            // ë°°ì—´[left_point]ê°’ì´ ê¸°ì¤€ê°’ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ì€ ìƒí™©ì´ ë ë–„ê¹Œì§€ left_pointë¥¼ ì™¼ìª½ìœ¼ë¡œ ì˜®ê¹€
-            while (arr[left_point] < pivot){
+            // ¹è¿­[left_point]°ªÀÌ ±âÁØ°ªº¸´Ù Å©°Å³ª °°Àº »óÈ²ÀÌ µÉ‹š±îÁö left_point¸¦ ¿ŞÂÊÀ¸·Î ¿Å±è
+            while (arr[left_point] < pivot && left_point <= right_point) {
                 left_point++;
             }
 
-            if (left_point == right_point) {
-                printf(" ->> (left ì»¤ì„œ move ì¤‘ë‹¨!) left = right : í˜„ì¬ ìœ„ì¹˜ê°€ %dë¡œ ê°™ì€ ìƒí™©ì…ë‹ˆë‹¤\n\n");
-            }
-            else {
-                printf(" ->> (êµí™˜ leftë°œê²¬) arr[%d] : %d (arr[%d](ê¸°ì¤€ê°’) : %d ë³´ë‹¤ í° ê°’)   ----->> rightê°’ì„ ì›€ì§ì´ê² ìŒ\n", left_point, arr[left_point], leftest, pivot);
+            if (left_point <= right_point) {
+                printf(" ->> (±³È¯ left¹ß°ß) arr[%d] : %d (arr[%d](±âÁØ°ª) : %d º¸´Ù Å« °ª)   ----->> right°ªÀ» ¿òÁ÷ÀÌ°ÚÀ½\n", left_point, arr[left_point], leftest, pivot);
             }
 
-            // ë°°ì—´[right_point]ê°’ì´ ê¸°ì¤€ê°’ë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ì€ ìƒí™©ì´ ë ë–„ê¹Œì§€ right_pointë¥¼ ì˜¤ë£¬ìª½ìœ¼ë¡œ ì˜®ê¹€
+            // ¹è¿­[right_point]°ªÀÌ ±âÁØ°ªº¸´Ù ÀÛ°Å³ª °°Àº »óÈ²ÀÌ µÉ‹š±îÁö right_point¸¦ ¿À·éÂÊÀ¸·Î ¿Å±è
             while (arr[right_point] > pivot){
                 right_point--;
             }
 
             if (left_point == right_point) {
-                printf(" ->> (right ì»¤ì„œ move ì¤‘ë‹¨!) left = right : í˜„ì¬ ìœ„ì¹˜ê°€ %dë¡œ ê°™ì€ ìƒí™©ì…ë‹ˆë‹¤\n\n");
+                printf(" ->> (right Ä¿¼­ move Áß´Ü!) left = right : ÇöÀç À§Ä¡°¡ %d·Î ±âÁØ°ªÀÎ %d¸¦ °ËÅäÇÕ´Ï´Ù\n\n", left_point, arr[left_point]);
             }
             else if (left_point < right_point){
-                printf(" ->> (êµí™˜ rightë°œê²¬) arr[%d] : %d (arr[%d](ê¸°ì¤€ê°’) : %d ë³´ë‹¤ ì‘ì€ ê°’)\n", right_point, arr[right_point], leftest, pivot);
+                printf(" ->> (±³È¯ right¹ß°ß) arr[%d] : %d (arr[%d](±âÁØ°ª) : %d º¸´Ù ÀÛÀº °ª)\n", right_point, arr[right_point], leftest, pivot);
             }
 
-            printf("(êµí™˜ê°’ ê²€ìƒ‰í›„!)  left : arr[%d] = %d , right : arr[%d] = %d \n", left_point, arr[left_point], right_point, arr[right_point]);
+            printf("(±³È¯°ª °Ë»öÈÄ!)  left : arr[%d] = %d , right : arr[%d] = %d \n", left_point, arr[left_point], right_point, arr[right_point]);
 
             if (left_point <= right_point) {
-                printf("  ->> (left - right êµí™˜!) arr[%d] : %d <-> arr[%d] : %d \n\n", left_point, arr[left_point], right_point, arr[right_point]);
+                printf("  ->> (left - right ±³È¯!) arr[%d] : %d <-> arr[%d] : %d \n\n", left_point, arr[left_point], right_point, arr[right_point]);
                 swap(int, arr[left_point], arr[right_point]);
                 left_point++;
                 right_point--;
@@ -92,95 +89,92 @@ void quick_sort(int arr[], int direction, int leftest, int rightest) {
 
         } while (left_point <= right_point);
 
-        printf("=====================================[ì‹¸ì´í´ end]==================================================\n\n");
+        printf("=====================================[½ÎÀÌÅ¬ end]==================================================\n\n");
 
         printf("leftest : %d , rightest : %d , left_point : %d , right_point : %d \n\n", leftest , rightest , left_point , right_point);
 
 
-        // ë°°ì—´ ê°€ì¥ ì™¼ìª½ìœ„ì¹˜ê°€ í˜„ì¬ ì˜¤ë¥¸ìª½ í¬ì¸í„°ë³´ë‹¤ ì‘ìœ¼ë©´?
-        //  -> ë°°ì—´ ê°€ì¥ ì™¼ìª½ìœ„ì¹˜ ~ í˜„ì¬ ì˜¤ë¥¸ìª½ í¬ì¸í„°ê¹Œì§€ë¥¼ ì˜ë¼ì„œ í€µì†ŒíŠ¸ ì‹¤í–‰
+        // ¹è¿­ °¡Àå ¿ŞÂÊÀ§Ä¡°¡ ÇöÀç ¿À¸¥ÂÊ Æ÷ÀÎÅÍº¸´Ù ÀÛÀ¸¸é?
+        //  -> ¹è¿­ °¡Àå ¿ŞÂÊÀ§Ä¡ ~ ÇöÀç ¿À¸¥ÂÊ Æ÷ÀÎÅÍ±îÁö¸¦ Àß¶ó¼­ Äü¼ÒÆ® ½ÇÇà
         if (leftest < right_point) {
 
-            // ì¢Œë¶„í• 
-            printf("<ì „ ë°°ì—´> : leftì¢Œí‘œ = %d, rightì¢Œí‘œ = %dì¸ ë¶€ë¶„ ë°°ì—´ì˜ quick ì‹œì‘!\n\n", leftest, right_point);
+            // ÁÂºĞÇÒ
+            printf("<Àü ¹è¿­> : leftÁÂÇ¥ = %d, rightÁÂÇ¥ = %dÀÎ ºÎºĞ ¹è¿­ÀÇ quick ½ÃÀÛ!\n\n", leftest, right_point);
             quick_sort(arr, direction, leftest, right_point);
         }
 
-        // ë°°ì—´ ê°€ì¥ ì˜¤ë¥¸ìª½ìœ„ì¹˜ê°€ í˜„ì¬ ì™¼ìª½ í¬ì¸í„°ë³´ë‹¤ í¬ë©´?
-        //  -> í˜„ì¬ ì™¼ìª½ í¬ì¸í„° ~ ë°°ì—´ ê°€ì¥ ì˜¤ë¥¸ìª½ìœ„ì¹˜ê¹Œì§€ ì˜ë¼ì„œ í€µì†ŒíŠ¸ ì‹¤í–‰
+        // ¹è¿­ °¡Àå ¿À¸¥ÂÊÀ§Ä¡°¡ ÇöÀç ¿ŞÂÊ Æ÷ÀÎÅÍº¸´Ù Å©¸é?
+        //  -> ÇöÀç ¿ŞÂÊ Æ÷ÀÎÅÍ ~ ¹è¿­ °¡Àå ¿À¸¥ÂÊÀ§Ä¡±îÁö Àß¶ó¼­ Äü¼ÒÆ® ½ÇÇà
         if (rightest > left_point) {
 
-            // ìš°ë¶„í• 
-            printf("<í›„ ë°°ì—´> : leftì¢Œí‘œ = %d, rightì¢Œí‘œ = %dì¸ ë¶€ë¶„ ë°°ì—´ì˜ quick ì‹œì‘!\n\n", left_point, rightest);
+            // ¿ìºĞÇÒ
+            printf("<ÈÄ ¹è¿­> : leftÁÂÇ¥ = %d, rightÁÂÇ¥ = %dÀÎ ºÎºĞ ¹è¿­ÀÇ quick ½ÃÀÛ!\n\n", left_point, rightest);
             quick_sort(arr, direction, left_point, rightest);
         }
 
     }
-    // ë‚´ë¦¼ì°¨ìˆœ (ì‘ì€ ìˆ˜ë¥¼ ë’¤ë¡œ.. )
+    // ³»¸²Â÷¼ø (ÀÛÀº ¼ö¸¦ µÚ·Î.. )
     else {
 
-        // left_pointê°€ right_pointë³´ë‹¤ ê°™ê²Œ ë  ë•Œê¹Œì§€ ë°˜ë³µ (ìƒí™©ì´ ì•„ë‹ˆë¼ ì³ë„ ì¼ë‹¨ ì‹¤í–‰í•´ë´„)
+        // left_point°¡ right_pointº¸´Ù °°°Ô µÉ ¶§±îÁö ¹İº¹ (»óÈ²ÀÌ ¾Æ´Ï¶ó ÃÄµµ ÀÏ´Ü ½ÇÇàÇØº½)
         do {
 
-            printf("(êµí™˜ê°’ ê²€ìƒ‰ì „)  left : arr[%d] = %d , right : arr[%d] = %d \n", left_point, arr[left_point], right_point, arr[right_point]);
+            printf("(±³È¯°ª °Ë»öÀü)  left : arr[%d] = %d , right : arr[%d] = %d \n", left_point, arr[left_point], right_point, arr[right_point]);
 
-            // ë°°ì—´[left_point]ê°’ì´ ê¸°ì¤€ê°’ë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ì€ ìƒí™©ì´ ë ë–„ê¹Œì§€ left_pointë¥¼ ì™¼ìª½ìœ¼ë¡œ ì˜®ê¹€
+            // ¹è¿­[left_point]°ªÀÌ ±âÁØ°ªº¸´Ù ÀÛ°Å³ª °°Àº »óÈ²ÀÌ µÉ‹š±îÁö left_point¸¦ ¿ŞÂÊÀ¸·Î ¿Å±è
             while (arr[left_point] > pivot) {
                 left_point++;
             }
 
-            if (left_point == right_point) {
-                printf(" ->> (left ì»¤ì„œ move ì¤‘ë‹¨!) left = right : í˜„ì¬ ìœ„ì¹˜ê°€ %dë¡œ ê°™ì€ ìƒí™©ì…ë‹ˆë‹¤\n\n");
-            }
-            else {
-                printf(" ->> (êµí™˜ leftë°œê²¬) arr[%d] : %d (arr[%d](ê¸°ì¤€ê°’) : %d ë³´ë‹¤ í° ê°’)   ----->> rightê°’ì„ ì›€ì§ì´ê² ìŒ\n", left_point, arr[left_point], leftest, pivot);
+            if (left_point <= right_point) {
+                printf(" ->> (±³È¯ left¹ß°ß) arr[%d] : %d (arr[%d](±âÁØ°ª) : %d º¸´Ù Å« °ª)   ----->> right°ªÀ» ¿òÁ÷ÀÌ°ÚÀ½\n", left_point, arr[left_point], leftest, pivot);
             }
 
-            // ë°°ì—´[right_point]ê°’ì´ ê¸°ì¤€ê°’ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ì€ ìƒí™©ì´ ë ë–„ê¹Œì§€ right_pointë¥¼ ì˜¤ë£¬ìª½ìœ¼ë¡œ ì˜®ê¹€
+            // ¹è¿­[right_point]°ªÀÌ ±âÁØ°ªº¸´Ù Å©°Å³ª °°Àº »óÈ²ÀÌ µÉ‹š±îÁö right_point¸¦ ¿À·éÂÊÀ¸·Î ¿Å±è
             while (arr[right_point] < pivot) {
                 right_point--;
             }
 
             if (left_point == right_point) {
-                printf(" ->> (right ì»¤ì„œ move ì¤‘ë‹¨!) left = right : í˜„ì¬ ìœ„ì¹˜ê°€ %dë¡œ ê°™ì€ ìƒí™©ì…ë‹ˆë‹¤\n\n");
+                printf(" ->> (right Ä¿¼­ move Áß´Ü!) left = right : ÇöÀç À§Ä¡°¡ %d·Î ±âÁØ°ªÀÎ %d¸¦ °ËÅäÇÕ´Ï´Ù\n\n", left_point, arr[left_point]);
             }
             else if (left_point < right_point) {
-                printf(" ->> (êµí™˜ rightë°œê²¬) arr[%d] : %d (arr[%d](ê¸°ì¤€ê°’) : %d ë³´ë‹¤ ì‘ì€ ê°’)\n", right_point, arr[right_point], leftest, pivot);
+                printf(" ->> (±³È¯ right¹ß°ß) arr[%d] : %d (arr[%d](±âÁØ°ª) : %d º¸´Ù ÀÛÀº °ª)\n", right_point, arr[right_point], leftest, pivot);
             }
 
-            printf("(êµí™˜ê°’ ê²€ìƒ‰í›„!)  left : arr[%d] = %d , right : arr[%d] = %d \n", left_point, arr[left_point], right_point, arr[right_point]);
+            printf("(±³È¯°ª °Ë»öÈÄ!)  left : arr[%d] = %d , right : arr[%d] = %d \n", left_point, arr[left_point], right_point, arr[right_point]);
 
             if (left_point <= right_point) {
-                printf("  ->> (left - right êµí™˜!) arr[%d] : %d <-> arr[%d] : %d \n\n", left_point, arr[left_point], right_point, arr[right_point]);
+                printf("  ->> (left - right ±³È¯!) arr[%d] : %d <-> arr[%d] : %d \n\n", left_point, arr[left_point], right_point, arr[right_point]);
                 swap(int, arr[left_point], arr[right_point]);
-                left_point++;
-                right_point--;
+                //left_point++;
+                //right_point--;
             }
 
             display(arr, leftest, rightest + 1);
 
         } while (left_point <= right_point);
 
-        printf("=====================================[ì‹¸ì´í´ end]==================================================\n\n");
+        printf("=====================================[½ÎÀÌÅ¬ end]==================================================\n\n");
 
         printf("leftest : %d , rightest : %d , left_point : %d , right_point : %d \n\n", leftest, rightest, left_point, right_point);
 
 
-        // ë°°ì—´ ê°€ì¥ ì™¼ìª½ìœ„ì¹˜ê°€ í˜„ì¬ ì˜¤ë¥¸ìª½ í¬ì¸í„°ë³´ë‹¤ ì‘ìœ¼ë©´?
-        //  -> ë°°ì—´ ê°€ì¥ ì™¼ìª½ìœ„ì¹˜ ~ í˜„ì¬ ì˜¤ë¥¸ìª½ í¬ì¸í„°ê¹Œì§€ë¥¼ ì˜ë¼ì„œ í€µì†ŒíŠ¸ ì‹¤í–‰
+        // ¹è¿­ °¡Àå ¿ŞÂÊÀ§Ä¡°¡ ÇöÀç ¿À¸¥ÂÊ Æ÷ÀÎÅÍº¸´Ù ÀÛÀ¸¸é?
+        //  -> ¹è¿­ °¡Àå ¿ŞÂÊÀ§Ä¡ ~ ÇöÀç ¿À¸¥ÂÊ Æ÷ÀÎÅÍ±îÁö¸¦ Àß¶ó¼­ Äü¼ÒÆ® ½ÇÇà
         if (leftest < right_point) {
 
-            // ì¢Œë¶„í• 
-            printf("<ì „ ë°°ì—´> : leftì¢Œí‘œ = %d, rightì¢Œí‘œ = %dì¸ ë¶€ë¶„ ë°°ì—´ì˜ quick ì‹œì‘!\n\n", leftest, right_point);
+            // ÁÂºĞÇÒ
+            printf("<Àü ¹è¿­> : leftÁÂÇ¥ = %d, rightÁÂÇ¥ = %dÀÎ ºÎºĞ ¹è¿­ÀÇ quick ½ÃÀÛ!\n\n", leftest, right_point);
             quick_sort(arr, direction, leftest, right_point);
         }
 
-        // ë°°ì—´ ê°€ì¥ ì˜¤ë¥¸ìª½ìœ„ì¹˜ê°€ í˜„ì¬ ì™¼ìª½ í¬ì¸í„°ë³´ë‹¤ í¬ë©´?
-        //  -> í˜„ì¬ ì™¼ìª½ í¬ì¸í„° ~ ë°°ì—´ ê°€ì¥ ì˜¤ë¥¸ìª½ìœ„ì¹˜ê¹Œì§€ ì˜ë¼ì„œ í€µì†ŒíŠ¸ ì‹¤í–‰
+        // ¹è¿­ °¡Àå ¿À¸¥ÂÊÀ§Ä¡°¡ ÇöÀç ¿ŞÂÊ Æ÷ÀÎÅÍº¸´Ù Å©¸é?
+        //  -> ÇöÀç ¿ŞÂÊ Æ÷ÀÎÅÍ ~ ¹è¿­ °¡Àå ¿À¸¥ÂÊÀ§Ä¡±îÁö Àß¶ó¼­ Äü¼ÒÆ® ½ÇÇà
         if (rightest > left_point) {
 
-            // ìš°ë¶„í• 
-            printf("<í›„ ë°°ì—´> : leftì¢Œí‘œ = %d, rightì¢Œí‘œ = %dì¸ ë¶€ë¶„ ë°°ì—´ì˜ quick ì‹œì‘!\n\n", left_point, rightest);
+            // ¿ìºĞÇÒ
+            printf("<ÈÄ ¹è¿­> : leftÁÂÇ¥ = %d, rightÁÂÇ¥ = %dÀÎ ºÎºĞ ¹è¿­ÀÇ quick ½ÃÀÛ!\n\n", left_point, rightest);
             quick_sort(arr, direction, left_point, rightest);
         }
     }
@@ -192,7 +186,7 @@ int main() {
     srand((unsigned int)time(NULL));
 
     printf("----------------------------------------------------------------------------\n");
-    printf("ë°°ì—´ì˜ ê¸¸ì´ëŠ” 100ì´ë©°, quick sortë¥¼ ìˆ˜í–‰í•´ë´…ë‹ˆë‹¤.\nê° ë°°ì—´ê°’ì€ ê° ë°°ì—´ì˜ ì´ì „ ë°°ì—´ê°’ + a(1~5) ì— ëŒ€ì‘í•˜ëŠ” ê°’ìœ¼ë¡œ ì…ë ¥ë©ë‹ˆë‹¤.\n");
+    printf("¹è¿­ÀÇ ±æÀÌ´Â 100ÀÌ¸ç, quick sort¸¦ ¼öÇàÇØº¾´Ï´Ù.\n°¢ ¹è¿­°ªÀº °¢ ¹è¿­ÀÇ ÀÌÀü ¹è¿­°ª + a(1~5) ¿¡ ´ëÀÀÇÏ´Â °ªÀ¸·Î ÀÔ·ÂµË´Ï´Ù.\n");
     printf("----------------------------------------------------------------------------\n\n");
 
     int ary_test[ARRAY_LENGTH] = { 0 };
@@ -200,7 +194,7 @@ int main() {
     int direction = ascending_order;
     int array_length = ARRAY_LENGTH - 1;
 
-    // ëœë¤í•œ ê°’ì´ ë“¤ì–´ê°ˆìˆ˜ ìˆê²Œ ì„¤ê³„ (0 ~ 500)
+    // ·£´ıÇÑ °ªÀÌ µé¾î°¥¼ö ÀÖ°Ô ¼³°è (0 ~ 500)
     for (int i = 0; i < ARRAY_LENGTH; i++) {
 
         ary_test[i] = rand() % 501;
@@ -208,23 +202,15 @@ int main() {
         printf("%d ", ary_test[i]);
     }
 
-    printf("\n\nê°’ ì…ë ¥ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤. \n");
+    printf("\n\n°ª ÀÔ·ÂÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù. \n");
 
-    //int divider;
-
-    //printf("shell ì†ŒíŠ¸ë¥¼ ìœ„í•´ ì§‘ë‹¨ì„ ë‚˜ëˆŒê°’ì„ ì •í•´ì£¼ì„¸ìš” : ");
-    //scanf_s("%d", &divider);
-
-    //// shell ë¶€ë¶„ ì •ë ¬ ì•Œê³ ë¦¬ì¦˜ì˜ ê°„ê²©
-    //int interval = (ARRAY_LENGTH - 1) / divider;
-
-    printf("ì›í•˜ì‹œëŠ” ë°©ì‹ì˜ ì •ë ¬ë°©ì‹ì´ ì˜¤ë¦„ì°¨ìˆœì¸ê°€ìš”? (0 : ì˜¤ë¦„ì°¨ìˆœ, ê·¸ ì´ì™¸ ê°’ ì…ë ¥: ë‚´ë¦¼ì°¨ìˆœ) : ");
+    printf("¿øÇÏ½Ã´Â ¹æ½ÄÀÇ Á¤·Ä¹æ½ÄÀÌ ¿À¸§Â÷¼øÀÎ°¡¿ä? (0 : ¿À¸§Â÷¼ø, ±× ÀÌ¿Ü °ª ÀÔ·Â: ³»¸²Â÷¼ø) : ");
     scanf_s("%d", &direction);
 
-    // ë¨¸ì§€ ì†ŒíŠ¸ ì‹¤í–‰
+    // ¸ÓÁö ¼ÒÆ® ½ÇÇà
     quick_sort(ary_test, direction, 0, array_length);
 
-    printf("\n[quick sort ê²°ê³¼] \n");
+    printf("\n[quick sort °á°ú] \n");
 
     display(ary_test, 0, ARRAY_LENGTH);
 
