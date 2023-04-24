@@ -1,59 +1,60 @@
-ï»¿// ì´ì§„ê²€ìƒ‰ íŠ¸ë¦¬(binery search tree)
-//  : ì´ì§„íŠ¸ë¦¬ì˜ ëª¨ë“  ë…¸ë“œì˜ ê°’ì´ 'key(ì™¼ìª½ì„œë¸ŒíŠ¸ë¦¬) < key(ë¶€ëª¨[ë£¨íŠ¸]ë…¸ë“œ) < key(ì˜¤ë¥¸ìª½ì„œë¸ŒíŠ¸ë¦¬)'ì˜ íŠ¹ì„±ìœ¼ë¡œ ì •ë ¬ë°°ì¹˜ ëœ íŠ¹ìˆ˜í•œ ì´ì§„íŠ¸ë¦¬
+// ÀÌÁø°Ë»ö Æ®¸®(binery search tree)
+//  : ÀÌÁøÆ®¸®ÀÇ ¸ðµç ³ëµåÀÇ °ªÀÌ 'key(¿ÞÂÊ¼­ºêÆ®¸®) < key(ºÎ¸ð[·çÆ®]³ëµå) < key(¿À¸¥ÂÊ¼­ºêÆ®¸®)'ÀÇ Æ¯¼ºÀ¸·Î Á¤·Ä¹èÄ¡ µÈ Æ¯¼öÇÑ ÀÌÁøÆ®¸®
 
 //    ex)        5
 //            3      7   
 //          2   4  6   8
 //        1              9
 
-//   # ì´ì§„ê²€ìƒ‰ íŠ¸ë¦¬ì˜ íŠ¹ì§• 
-//     1. ê°™ì€ ê°’ì„ ê°–ëŠ” ë…¸ë“œëŠ” ì—†ìŒ
-//     2. ì¤‘ìœ„ ìˆœíšŒë¥¼ í•˜ë©´ ìµœì†Œê°’ ~ ìµœëŒ€ê°’ì˜ ì „ì²´ìˆ˜ë¥¼ ì˜¤ë¦„ì°¨ìˆœìœ¼ë¡œ ì¶œë ¥í•  ìˆ˜ ìžˆìŒ ( <-> ë‚´ë¦¼ì°¨ìˆœì€ ê·¸ ë°˜ëŒ€ ì˜¤ë¥¸ìª½ - ë¶€ëª¨ - ì™¼ìª½)
-//     3. ë ˆë²¨ê³¼ ë³„ê°œë¡œ ê°€ìž¥ ì¢Œì¸¡ì— ìœ„ì¹˜í•˜ëŠ” ìˆ˜ê°€ ìµœì†Œê°’, ê°€ìž¥ ìš°ì¸¡ì— ìœ„ì¹˜í•˜ëŠ” ìˆ˜ê°€ ìµœëŒ€ê°’
-//     4. ê°€ê¸‰ì  ì¤‘ìœ„ê°’ì´ ê°€ìž¥ ìœ„ì— ìžˆì–´ì•¼ íŠ¸ë¦¬ êµ¬ì¡°ê°€ ëŒ€ì¹­ì— ê°€ê¹Œì›Œì§
-//        (= ì¤‘ìœ„ê°’ì´ ìµœìƒë‹¨ì— ìžˆì–´ì•¼ ì–´ë–¤ ìˆ«ìžë¥¼ ê²€ìƒ‰í•˜ë˜ ì´ì§„ê²€ìƒ‰ì´ íš¨ìœ¨ì  -> red black treeê°€ ë‚˜ì˜¨ ì´ìœ )
+//   # ÀÌÁø°Ë»ö Æ®¸®ÀÇ Æ¯Â¡ 
+//     1. °°Àº °ªÀ» °®´Â ³ëµå´Â ¾øÀ½
+//     2. ÁßÀ§ ¼øÈ¸¸¦ ÇÏ¸é ÃÖ¼Ò°ª ~ ÃÖ´ë°ªÀÇ ÀüÃ¼¼ö¸¦ ¿À¸§Â÷¼øÀ¸·Î Ãâ·ÂÇÒ ¼ö ÀÖÀ½ ( <-> ³»¸²Â÷¼øÀº ±× ¹Ý´ë ¿À¸¥ÂÊ - ºÎ¸ð - ¿ÞÂÊ)
+//     3. ·¹º§°ú º°°³·Î °¡Àå ÁÂÃø¿¡ À§Ä¡ÇÏ´Â ¼ö°¡ ÃÖ¼Ò°ª, °¡Àå ¿ìÃø¿¡ À§Ä¡ÇÏ´Â ¼ö°¡ ÃÖ´ë°ª
+//     4. °¡±ÞÀû ÁßÀ§°ªÀÌ °¡Àå À§¿¡ ÀÖ¾î¾ß Æ®¸® ±¸Á¶°¡ ´ëÄª¿¡ °¡±î¿öÁü
+//        (= ÁßÀ§°ªÀÌ ÃÖ»ó´Ü¿¡ ÀÖ¾î¾ß ¾î¶² ¼ýÀÚ¸¦ °Ë»öÇÏ´ø ÀÌÁø°Ë»öÀÌ È¿À²Àû -> red black tree°¡ ³ª¿Â ÀÌÀ¯)
 
-//   # ì´ì§„ê²€ìƒ‰ íŠ¸ë¦¬ì˜ ëª©ì ? -> ë°œì „í˜•ì¸ red black treeê°€ ë‚˜ì˜¨ ì´ìœ 
-//     : ì• ì´ˆì— ì´ëŸ° íŠ¸ë¦¬ë¥¼ ì§œëŠ” ëª©ì ì´ íš¨ìœ¨ì ì¸ ì´ì§„ê²€ìƒ‰ì„ ìœ„í•œ ê²ƒ..
-//       -> how to? ì¤‘ìœ„ê°’ì„ ê¸°ì¤€ìœ¼ë¡œ í¬ê³  ìž‘ìŒì„ ë¹„êµí•œë‹¤ë©´, ì–´ë–¤ ìˆ˜ë¥¼ ê²€ìƒ‰í•´ë„ ìµœëŒ€ log(2)N+1 ë²ˆì´ë©´ ê²€ìƒ‰ì´ ëë‚¨ì„ ì•Œìˆ˜ ìžˆìŒ
-//          -> ì¤‘ìœ„ê°’ì„ ë£¨íŠ¸ë¡œ ë‘” ëŒ€ì¹­êµ¬ì¡°ì˜ ì´ì§„íŠ¸ë¦¬ë¼ë©´ ì´ë¥¼ ì‹¤í˜„ê°€ëŠ¥í•œ ê·¹ë„ë¡œ íš¨ìœ¨ì ì¸ êµ¬ì¡°ìž„ ë°œê²¬!
-//              -> ìž…ë ¥ë˜ëŠ” ë°ì´í„°ë§ˆë‹¤ ì¤‘ìœ„ê°’ì´ ìµœìƒë‹¨ 'ë£¨íŠ¸'ë¡œ ê°€ê²Œí•˜ê³ , ì´ì§„íŠ¸ë¦¬ì ìœ¼ë¡œ ëŒ€ì¹­ì„ ì´ë£¨ê²Œ í•˜ë„ë¡ ë°°ì¹˜í•˜ëŠ” ë°©ë²•ì„ ëª¨ìƒ‰í•˜ìž (red black treeê°€ ë‚˜ì˜¨ ì´ìœ )
+//   # ÀÌÁø°Ë»ö Æ®¸®ÀÇ ¸ñÀû? -> ¹ßÀüÇüÀÎ red black tree°¡ ³ª¿Â ÀÌÀ¯
+//     : ¾ÖÃÊ¿¡ ÀÌ·± Æ®¸®¸¦ Â¥´Â ¸ñÀûÀÌ È¿À²ÀûÀÎ ÀÌÁø°Ë»öÀ» À§ÇÑ °Í..
+//       -> how to? ÁßÀ§°ªÀ» ±âÁØÀ¸·Î Å©°í ÀÛÀ½À» ºñ±³ÇÑ´Ù¸é, ¾î¶² ¼ö¸¦ °Ë»öÇØµµ ÃÖ´ë log(2)N+1 ¹øÀÌ¸é °Ë»öÀÌ ³¡³²À» ¾Ë¼ö ÀÖÀ½
+//          -> ÁßÀ§°ªÀ» ·çÆ®·Î µÐ ´ëÄª±¸Á¶ÀÇ ÀÌÁøÆ®¸®¶ó¸é ÀÌ¸¦ ½ÇÇö°¡´ÉÇÑ ±Øµµ·Î È¿À²ÀûÀÎ ±¸Á¶ÀÓ ¹ß°ß!
+//              -> ÀÔ·ÂµÇ´Â µ¥ÀÌÅÍ¸¶´Ù ÁßÀ§°ªÀÌ ÃÖ»ó´Ü '·çÆ®'·Î °¡°ÔÇÏ°í, ÀÌÁøÆ®¸®ÀûÀ¸·Î ´ëÄªÀ» ÀÌ·ç°Ô ÇÏµµ·Ï ¹èÄ¡ÇÏ´Â ¹æ¹ýÀ» ¸ð»öÇÏÀÚ (red black tree°¡ ³ª¿Â ÀÌÀ¯)
 
-//   # red black treeì™€ ì´ì§„ê²€ìƒ‰íŠ¸ë¦¬ ê´€ê³„
-//     : ê°œë…ì ìœ¼ë¡œ ì´ì§„ê²€ìƒ‰íŠ¸ë¦¬ > red black treeì¸ ê´€ê³„ 
-//       (= ì‰½ê²Œ ì„¤ëª…í•˜ë©´, ë§¤ë²ˆ ì¤‘ìœ„ê°’ì´ ë£¨íŠ¸ê°€ ë˜ì–´ ëŒ€ì¹­ì„ ì´ë£¨ë„ë¡ í•˜ëŠ” ì´ì§„íŠ¸ë¦¬ê°€ red black tree)
-
-
-//   # ì´ì§„ ê²€ìƒ‰íŠ¸ë¦¬ ì‚­ì œ ì•Œê³ ë¦¬ì¦˜
-//     1. ì‚­ì œí•˜ë ¤ëŠ” ë…¸ë“œê°€ ë¦¬í”„(ë§ë‹¨ ë…¸ë“œ)ì¼ ê²½ìš°
-//        : ë§ë‹¨ ë…¸ë“œì˜ ë¶€ëª¨ ë…¸ë“œë¥¼ ì°¾ì•„ì„œ linkë¥¼ ëŠìŒ
-//     2. ì‚­ì œí•˜ë ¤ëŠ” ë…¸ë“œê°€ í•˜ë‚˜ì˜ ì™¼ìª½ì´ë‚˜ ì˜¤ë¥¸ìª½ ìžì‹ì„ ê°€ì§€ê³  ìžˆëŠ” ê²½ìš°
-//        : ë…¸ë“œëŠ” ì‚­ì œí•˜ê³ , ê·¸ íŠ¸ë¦¬ê°€ ê°€ì§€ëŠ” ìžì‹ë“¤ì¸ ì„œë¸Œ íŠ¸ë¦¬ëŠ” ì‚­ì œëœ ë…¸ë“œì˜ ë¶€ëª¨ ë…¸ë“œì— ë¶™ì—¬ì¤Œ 
-//          -> ìž¬ê·€ì  ë°©ë²•ìœ¼ë¡œ ì´ë¥¼ ì—­ì°¸ì¡°í•œ ê°’ì— ëŒ€ìž…í•´ì¤Œ
-//     3. ì‚­ì œí•˜ë ¤ëŠ” ë…¸ë“œê°€ ë‘ ê°œì˜ ìžì‹ì„ ëª¨ë‘ ê°€ì§€ê³  ìžˆëŠ” ê²½ìš°
-//        : ì‚­ì œë…¸ë“œì™€ ê°€ìž¥ ê·¼ì‚¬ê°’ì„ ê°€ì§„ ë…¸ë“œê°’ì„ ì‚­ì œí•  ë…¸ë“œìœ„ì¹˜ì˜ ê°’ìœ¼ë¡œ ëŒ€ìž… (= ì™¼ìª½ì—ì„œ ê°€ìž¥ í° ê°’ or ì˜¤ë¥¸ìª½ì—ì„œ ê°€ìž¥ ìž‘ì€ ê°’)
-//          -> (ì¤‘ìš”!) ì™¼ìª½ì—ì„œ ê°€ìž¥ í° ê°’ or ì˜¤ë¥¸ìª½ì—ì„œ ê°€ìž¥ ìž‘ì€ ê°’.. ì´ë“¤ì€ ê²°ê³¼ì ìœ¼ë¡œ 'ë¦¬í”„ë…¸ë“œ'ë¡œ ìžì‹ì´ ì—†ìŒ
-//              -> ê²°ê³¼ì ìœ¼ë¡œ ë¦¬í”„ë…¸ë“œì˜ ê°’ì„ ì‚­ì œí•  ë…¸ë“œì˜ ê°’ìœ¼ë¡œ ì˜®ê¹€ 
-//                 (= ê²°ê³¼ì ìœ¼ë¡œ ì‚­ì œí•  ë…€ì„ì€ ë¦¬í”„ë…¸ë“œë¥¼ ì˜ë¯¸í•¨ -> ì‚¬ì‹¤ìƒ ê°’ì„ ì´ì‹ + ë¦¬í”„ë…¸ë“œ ì‚­ì œí•˜ëŠ” ê²½ìš°1ì˜ ë¬¸ì œê°€ ë¨)
+//   # red black tree¿Í ÀÌÁø°Ë»öÆ®¸® °ü°è
+//     : °³³äÀûÀ¸·Î ÀÌÁø°Ë»öÆ®¸® > red black treeÀÎ °ü°è 
+//       (= ½±°Ô ¼³¸íÇÏ¸é, ¸Å¹ø ÁßÀ§°ªÀÌ ·çÆ®°¡ µÇ¾î ´ëÄªÀ» ÀÌ·çµµ·Ï ÇÏ´Â ÀÌÁøÆ®¸®°¡ red black tree)
 
 
-// ì´ì§„ê²€ìƒ‰ íŠ¸ë¦¬(ì—¬ê¸°ì„œëŠ” ì²˜ìŒì— ë“¤ì–´ì˜¨ ê°’ì„ ë£¨íŠ¸ë¡œ í•˜ê³  ì´ê±¸ ì˜ì›ížˆ ë°”ê¾¸ì§€ ì•ŠëŠ” íŠ¸ë¦¬ë¡œ ê°€ì •... red black treeê°€ ì•„ë‹˜)ì˜ ì¡°íšŒ ê¸°ëŠ¥ êµ¬í˜„ ì½”ë“œ
+//   # ÀÌÁø °Ë»öÆ®¸® »èÁ¦ ¾Ë°í¸®Áò
+//     1. »èÁ¦ÇÏ·Á´Â ³ëµå°¡ ¸®ÇÁ(¸»´Ü ³ëµå)ÀÏ °æ¿ì
+//        : ¸»´Ü ³ëµåÀÇ ºÎ¸ð ³ëµå¸¦ Ã£¾Æ¼­ link¸¦ ²÷À½
+//     2. »èÁ¦ÇÏ·Á´Â ³ëµå°¡ ÇÏ³ªÀÇ ¿ÞÂÊÀÌ³ª ¿À¸¥ÂÊ ÀÚ½ÄÀ» °¡Áö°í ÀÖ´Â °æ¿ì
+//        : ³ëµå´Â »èÁ¦ÇÏ°í, ±× Æ®¸®°¡ °¡Áö´Â ÀÚ½ÄµéÀÎ ¼­ºê Æ®¸®´Â »èÁ¦µÈ ³ëµåÀÇ ºÎ¸ð ³ëµå¿¡ ºÙ¿©ÁÜ 
+//          -> Àç±ÍÀû ¹æ¹ýÀ¸·Î ÀÌ¸¦ ¿ªÂüÁ¶ÇÑ °ª¿¡ ´ëÀÔÇØÁÜ
+//     3. »èÁ¦ÇÏ·Á´Â ³ëµå°¡ µÎ °³ÀÇ ÀÚ½ÄÀ» ¸ðµÎ °¡Áö°í ÀÖ´Â °æ¿ì
+//        : »èÁ¦³ëµå¿Í °¡Àå ±Ù»ç°ªÀ» °¡Áø ³ëµå°ªÀ» »èÁ¦ÇÒ ³ëµåÀ§Ä¡ÀÇ °ªÀ¸·Î ´ëÀÔ (= ¿ÞÂÊ¿¡¼­ °¡Àå Å« °ª or ¿À¸¥ÂÊ¿¡¼­ °¡Àå ÀÛÀº °ª)
+//          -> (Áß¿ä!) ¿ÞÂÊ¿¡¼­ °¡Àå Å« °ª or ¿À¸¥ÂÊ¿¡¼­ °¡Àå ÀÛÀº °ª.. ÀÌµéÀº °á°úÀûÀ¸·Î '¸®ÇÁ³ëµå'·Î ÀÚ½ÄÀÌ ¾øÀ½
+//              -> °á°úÀûÀ¸·Î ¸®ÇÁ³ëµåÀÇ °ªÀ» »èÁ¦ÇÒ ³ëµåÀÇ °ªÀ¸·Î ¿Å±è 
+//                 (= °á°úÀûÀ¸·Î »èÁ¦ÇÒ ³à¼®Àº ¸®ÇÁ³ëµå¸¦ ÀÇ¹ÌÇÔ -> »ç½Ç»ó °ªÀ» ÀÌ½Ä + ¸®ÇÁ³ëµå »èÁ¦ÇÏ´Â °æ¿ì1ÀÇ ¹®Á¦°¡ µÊ)
+
+
+// ÀÌÁø°Ë»ö Æ®¸®(¿©±â¼­´Â Ã³À½¿¡ µé¾î¿Â °ªÀ» ·çÆ®·Î ÇÏ°í ÀÌ°É ¿µ¿øÈ÷ ¹Ù²ÙÁö ¾Ê´Â Æ®¸®·Î °¡Á¤... red black tree°¡ ¾Æ´Ô)ÀÇ Á¶È¸ ±â´É ±¸Çö ÄÚµå
 #include <stdio.h>
-#include <stdlib.h>       //	srand(), rand() í•¨ìˆ˜ ì‚¬ìš© ê°€ëŠ¥í•˜ê²Œ í•¨
+#include <stdlib.h>       //	srand(), rand() ÇÔ¼ö »ç¿ë °¡´ÉÇÏ°Ô ÇÔ
 #include <time.h>
 
 
-//-------------------------------------------------------------------------------------[í]----------------------------------------------------------------
-
-// íŠ¸ë¦¬ êµ¬í˜„ êµ¬ì¡°ì²´
+// Æ®¸® ±¸Çö ±¸Á¶Ã¼
 typedef int element;
 typedef struct treeNode {
-    element value;               // ê°’
-    struct treeNode* left;       // (í˜„ìž¬ ë…¸ë“œê¸°ì¤€) ì™¼ìª½ ë…¸ë“œì˜ ì£¼ì†Œê°’ 
-    struct treeNode* right;      // (í˜„ìž¬ ë…¸ë“œê¸°ì¤€) ì˜¤ë¥¸ìª½ ë…¸ë“œì˜ ì£¼ì†Œê°’ 
+    element value;               // °ª
+    element node_num;            // ³ëµåÀÇ ¼ø¼­°ª(BFS¼ø)
+    struct treeNode* left;       // (ÇöÀç ³ëµå±âÁØ) ¿ÞÂÊ ³ëµåÀÇ ÁÖ¼Ò°ª 
+    struct treeNode* right;      // (ÇöÀç ³ëµå±âÁØ) ¿À¸¥ÂÊ ³ëµåÀÇ ÁÖ¼Ò°ª 
 }treeNode;
 
-// íŠ¸ë¦¬ì˜ í¬ì¸í„°ë¥¼ ê°’ìœ¼ë¡œ ë°›ëŠ” í ìƒì„±
+//-------------------------------------------------------------------------------------[Queue]----------------------------------------------------------------
+
+// Æ®¸®ÀÇ Æ÷ÀÎÅÍ¸¦ °ªÀ¸·Î ¹Þ´Â Queue »ý¼º
 typedef treeNode* QueueElement;
 
 typedef struct QueueNode {
@@ -61,12 +62,12 @@ typedef struct QueueNode {
     struct QueueNode* link;
 } QueueNode;
 
-// Queue êµ¬ì¡°ì²´ì—ì„œ front, rearëŠ” ê°ê° íì˜ ë§¨ ì•žê³¼ ë§¨ ë’¤ì˜ ì£¼ì†Œê°’ì„ ì €ìž¥í•˜ëŠ” í¬ì¸í„°ë³€ìˆ˜
+// Queue ±¸Á¶Ã¼¿¡¼­ front, rear´Â °¢°¢ QueueÀÇ ¸Ç ¾Õ°ú ¸Ç µÚÀÇ ÁÖ¼Ò°ªÀ» ÀúÀåÇÏ´Â Æ÷ÀÎÅÍº¯¼ö
 typedef struct Queue {
     QueueNode* front, * rear;
 } LinkedQueueType;
 
-// Queue ì´ˆê¸°í™” (call by reference)
+// Queue ÃÊ±âÈ­ (call by reference)
 LinkedQueueType* QueueInit1(LinkedQueueType* queue) {
 
     queue = (LinkedQueueType*)malloc(sizeof(LinkedQueueType));
@@ -77,16 +78,7 @@ LinkedQueueType* QueueInit1(LinkedQueueType* queue) {
     return queue;
 }
 
-// Queue ì´ˆê¸°í™” (call by reference)
-void QueueInit2(LinkedQueueType** queue) {
-
-    *queue = (LinkedQueueType*)malloc(sizeof(LinkedQueueType));
-
-    (*queue)->front = NULL;
-    (*queue)->rear = NULL;
-}
-
-// í˜„ìž¬ì˜ Queueì— Nodeê°€ ì—†ëŠ”ì§€ í™•ì¸ (queueì˜ ë§¨ì•žì´ë‚˜ ë’¤ì— ìœ„ì¹˜í•œ ë…¸ë“œì˜ ì£¼ì†Œê°€ ì—†ì„ê²½ìš°)
+// ÇöÀçÀÇ Queue¿¡ Node°¡ ¾ø´ÂÁö È®ÀÎ (queueÀÇ ¸Ç¾ÕÀÌ³ª µÚ¿¡ À§Ä¡ÇÑ ³ëµåÀÇ ÁÖ¼Ò°¡ ¾øÀ»°æ¿ì)
 int QueueIsEmpty(LinkedQueueType* queue) {
 
     if (queue->front == NULL && queue->rear == NULL) {
@@ -96,78 +88,67 @@ int QueueIsEmpty(LinkedQueueType* queue) {
     return 1;
 }
 
-// ë§¨ ë’¤ì— Node ì¶”ê°€(ì „ì— ë§Œë“  ë…€ì„ì€ ë’¤ë¡œ ë°€ë¦¬ëŠ” ë°©ì‹)
+// ¸Ç µÚ¿¡ Node Ãß°¡(Àü¿¡ ¸¸µç ³à¼®Àº µÚ·Î ¹Ð¸®´Â ¹æ½Ä)
 void Enqueue(LinkedQueueType* queue, QueueElement data) {
 
-    // printf_s("\n\n------------------------------[queueì— %d ë„£ê¸° ì‹œìž‘!]------------------------------\n", data);
-
+    // »õ·Î¿î Queue³ëµåÀÇ ³»¿ëÀ» ÀúÀåÇÒ ¸Þ¸ð¸® ÁÖ¼Ò¸¦ µ¿Àû ÇÒ´çÇÏ°í, ±× ½ÃÀÛÁÖ¼Ò°ªÀ» Queue³ëµåÀÇ Æ÷ÀÎÅÍº¯¼ö Newnode¿¡ ÀúÀå
     QueueNode* Newnode = (QueueNode*)malloc(sizeof(QueueNode));
 
-    // ë…¸ë“œë¥¼ ë§Œë“¤ ë©”ëª¨ë¦¬ ê³µê°„ì´ ì—†ë‹¤ë©´?? ì—ëŸ¬ ë„ìš°ê¸°
+    // ³ëµå¸¦ ¸¸µé ¸Þ¸ð¸® °ø°£ÀÌ ¾ø´Ù¸é?? ¿¡·¯ ¶ç¿ì±â
     if (Newnode == NULL) {
-        printf("ë©”ëª¨ë¦¬ ë¶€ì¡±");
+        printf("¸Þ¸ð¸® ºÎÁ·");
         return NULL;
     }
 
-    // Queueë¥¼ êµ¬ì„±í•˜ëŠ” 1ë²ˆì§¸ ë…¸ë“œì— ê°’ê³¼ ë‹¤ìŒì£¼ì†Œ ìžì •
+    // Queue¸¦ ±¸¼ºÇÏ´Â 1¹øÂ° ³ëµå¿¡ °ª°ú ´ÙÀ½ÁÖ¼Ò ÀÚÁ¤
     Newnode->data = data;
     Newnode->link = NULL;
 
-    // queueì— ë“¤ì–´ê°„ ê°’ì´ ìžˆëŠ”ì§€ í™•ì¸
+    // queue¿¡ µé¾î°£ °ªÀÌ ÀÖ´ÂÁö È®ÀÎ
     if (QueueIsEmpty(queue) == 0) {
 
-        printf_s("(ì•ˆë‚´!) í˜„ìž¬ì˜ Queueì— ë“¤ì–´ê°€ ìžˆëŠ” ê°’ì´ ì—†ìœ¼ë¯€ë¡œ 1ë²ˆì§¸ ë…¸ë“œë¥¼ ë§Œë“¦\n");
-
-        // queueì˜ ê°€ìž¥ ì•žê³¼ ë’·ë…¸ë“œì˜ ì£¼ì†Œê°’ì„ Newnodeë¡œ ì§€ì •
+        // queueÀÇ °¡Àå ¾Õ°ú µÞ³ëµåÀÇ ÁÖ¼Ò°ªÀ» Newnode·Î ÁöÁ¤
         queue->front = Newnode;
         queue->rear = Newnode;
-
-        // printf_s("queueì˜ ì²˜ìŒì´ìž ë§ˆì§€ë§‰ ê°’ì¸ %dì„ ìž…ë ¥ì™„ë£Œ\n", queue->rear->data);
     }
     else if (QueueIsEmpty(queue) == 1) {
 
-        // ê¸°ì¡´ ë§ˆì§€ë§‰ ë…¸ë“œì˜ rearê°’ Newnodeë¡œ ê°±ì‹ 
+        // ±âÁ¸ ¸¶Áö¸· ³ëµåÀÇ rear°ª Newnode·Î °»½Å
         queue->rear->link = Newnode;
 
-        // queueì˜ ë’·ë…¸ë“œì˜ ì£¼ì†Œë§Œ ìƒˆë¡œ ë§Œë“¤ì–´ì§„ Newnodeë¡œ ì§€ì •
+        // queueÀÇ µÞ³ëµåÀÇ ÁÖ¼Ò¸¸ »õ·Î ¸¸µé¾îÁø Newnode·Î ÁöÁ¤
         queue->rear = Newnode;
-
-        // printf_s("queueì˜ ë§ˆì§€ë§‰ ê°’ì¸ %dì„ ìž…ë ¥ì™„ë£Œ\n", queue->rear->data);
     }
 
 }
 
-// í˜„ìž¬ì˜ Queueì— ê¸°ì¡´ì— ì¡´ìž¬í•œ ì²«ë²ˆì§¸ Node ì‚­ì œí›„, ì‚­ì œí–ˆë˜ íŠ¸ë¦¬ë…¸ë“œ ì£¼ì†Œê°’ ë¦¬í„´
+// ÇöÀçÀÇ Queue¿¡ ±âÁ¸¿¡ Á¸ÀçÇÑ Ã¹¹øÂ° Node »èÁ¦ÈÄ, »èÁ¦Çß´ø Æ®¸®³ëµå ÁÖ¼Ò°ª ¸®ÅÏ
 QueueElement Dequeue(LinkedQueueType* queue) {
 
-    // printf_s("\n\n------------------------------[Dequeueë¡œ ì²«ë²ˆì§¸ ë…¸ë“œ ì‚­ì œ ì‹œìž‘!]------------------------------\n");
-
-    // queueì— ë“¤ì–´ê°„ ê°’ì´ ìžˆëŠ”ì§€ í™•ì¸
+    // queue¿¡ µé¾î°£ °ªÀÌ ÀÖ´ÂÁö È®ÀÎ
     if (QueueIsEmpty(queue) == 0) {
 
-        printf_s("(ê²½ê³ !) í˜„ìž¬ì˜ Queueì— ë“¤ì–´ê°€ ìžˆëŠ” ê°’ì´ ì—†ìœ¼ë¯€ë¡œ ê°’ì€ ì§€ìš¸ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\n");
+        printf_s("(°æ°í!) ÇöÀçÀÇ Queue¿¡ µé¾î°¡ ÀÖ´Â °ªÀÌ ¾øÀ¸¹Ç·Î °ªÀº Áö¿ï ¼ö ¾ø½À´Ï´Ù.\n");
 
         return NULL;
     }
     else if (QueueIsEmpty(queue) == 1) {
 
-        // ì—†ì•¨ ë…¸ë“œ = í˜„ìž¬ ê°€ìž¥ 1ë²ˆì§¸ ë…¸ë“œ
+        // ¾ø¾Ù ³ëµå = ÇöÀç °¡Àå 1¹øÂ° ³ëµå
         QueueNode* deleteNode = queue->front;
 
-        // ì—†ì•¨ ë…¸ë“œì˜ ê°’ì¸ treeë…¸ë“œì˜ ì£¼ì†Œê°’ì€ ë¯¸ë¦¬ ë³µì‚¬
-        //  -> ì´ ê°’ì„ ì—­ì°¸ì¡°í•˜ì—¬ ë‚˜ì—´í•  ì˜ˆì •
+        // ¾ø¾Ù ³ëµåÀÇ °ªÀÎ tree³ëµåÀÇ ÁÖ¼Ò°ªÀº ¹Ì¸® º¹»ç
+        //  -> ÀÌ °ªÀ» ¿ªÂüÁ¶ÇÏ¿© ³ª¿­ÇÒ ¿¹Á¤
         QueueElement result = deleteNode->data;
 
-        //printf_s("queueì˜ ì²˜ìŒ ê°’ì¸ %dì„ ì‚­ì œì™„ë£Œ\n", queue->front->data);
-
-        // queueì˜ ê°€ìž¥ ì•žë…¸ë“œì˜ ì£¼ì†Œê°’ì„ ê¸°ì¡´ 2ë²ˆì§¸ ë…¸ë“œì˜ ê°’ìœ¼ë¡œ ë³€ê²½
+        // queueÀÇ °¡Àå ¾Õ³ëµåÀÇ ÁÖ¼Ò°ªÀ» ±âÁ¸ 2¹øÂ° ³ëµåÀÇ °ªÀ¸·Î º¯°æ
         queue->front = queue->front->link;
 
-        // íì— ë‚¨ì€ ë…¸ë“œê°€ í•˜ë‚˜ë¿ì´ ì—†ëŠ” ê²½ìš°
-        //  -> queueì˜ ê°€ìž¥ ë’· ë…¸ë“œì˜ ì£¼ì†Œë„ ë‹¤ì‹œ NULLì¸ queue->frontì™€ ì¼ì¹˜
+        // Queue¿¡ ³²Àº ³ëµå°¡ ÇÏ³ª»ÓÀÌ ¾ø´Â °æ¿ì
+        //  -> queueÀÇ °¡Àå µÞ ³ëµåÀÇ ÁÖ¼Òµµ ´Ù½Ã NULLÀÎ queue->front¿Í ÀÏÄ¡
         if (queue->front == NULL) {
 
-            queue->rear == NULL;
+            queue->rear = NULL;
         }
 
         free(deleteNode);
@@ -177,21 +158,7 @@ QueueElement Dequeue(LinkedQueueType* queue) {
 
 }
 
-// í˜„ìž¬ì˜ Queueì— ì¡´ìž¬í•˜ëŠ” ëª¨ë“  Node ì¶œë ¥
-void PrintQueue(LinkedQueueType* queue) {
-
-    printf_s("\n\n------------------------------[ì£¼ì†Œê°’ %dì— ìœ„ì¹˜í•œ queueì˜ linked list ì£¼ì†Œê°’ì— ê¸°ë°˜ PrintQueue ì‹œìž‘!]------------------------------\n\n", queue);
-
-    QueueNode* printed_index = queue->front;
-
-    while (printed_index != NULL) {
-
-        printf("%3d ", printed_index->data);
-        printed_index = printed_index->link;
-    }
-}
-
-// Queueë¥¼ ìœ„í•´ í• ë‹¹ëœ ëª¨ë“  ë©”ëª¨ë¦¬ í• ë‹¹ í•´ì œ
+// Queue¸¦ À§ÇØ ÇÒ´çµÈ ¸ðµç ¸Þ¸ð¸® ÇÒ´ç ÇØÁ¦
 void FreeQueue(LinkedQueueType* queue) {
 
     QueueNode* free_index = queue->front;
@@ -211,32 +178,38 @@ void FreeQueue(LinkedQueueType* queue) {
 //---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-//---------------------------------------------------------------------------[íŠ¸ë¦¬]-------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------[Æ®¸®]------------------------------------------------------------------------
 
-// ì´ì§„ê²€ìƒ‰íŠ¸ë¦¬ì— ë…¸ë“œ ì¶”ê°€ ë©”ì„œë“œ (= ì‚¬ì‹¤ìƒ ì´ì§„íŠ¸ë¦¬ì— ë…¸ë“œ ì¶”ê°€í•˜ëŠ” ë©”ì„œë“œì™€ ê°™ì€ ê¸°ëŠ¥)
-//  -> ì´ì§„ê²€ìƒ‰ íŠ¸ë¦¬ëŠ” ë£¨íŠ¸ê°€ ì‚¬ì‹¤ìƒ ì¤‘ìœ„ê°’ì´ ë˜ì–´ì•¼ í•˜ëŠ” êµ¬ì¡°ë¡œ íŠ¸ë¦¬ê°€ êµ¬ì„±ë˜ì–´ ìžˆì–´ì•¼ ê²€ìƒ‰ê³¼ ì‚­ì œê°€ ê°€ëŠ¥
-//     (= ì• ì´ˆë¶€í„° íŠ¸ë¦¬ì— ê°’ì´ ë“¤ì–´ê°ˆ ë•Œ ì´ì§„ê²€ìƒ‰íŠ¸ë¦¬ êµ¬ì¡°ë¥¼ ë§Œì¡±ì‹œì¼œì•¼ í•¨)
+// ÀÌÁø°Ë»öÆ®¸®¿¡ ³ëµå Ãß°¡ ¸Þ¼­µå (= »ç½Ç»ó ÀÌÁøÆ®¸®¿¡ ³ëµå Ãß°¡ÇÏ´Â ¸Þ¼­µå¿Í °°Àº ±â´É)
+//  -> ÀÌÁø°Ë»ö Æ®¸®´Â ¾ÖÃÊºÎÅÍ Æ®¸®¿¡ °ªÀÌ µé¾î°¥ ¶§ ÀÌÁø°Ë»öÆ®¸® ±¸Á¶·Î ÀÔ·ÂÀÌ µÇ¾î¾ß ±¸¼ºµÇ¾î ÀÖ¾î¾ß °Ë»ö°ú »èÁ¦°¡ °¡´É
+//      -> (Áß¿ä) BUT! ¿©±â¼­´Â Ã³À½¿¡ µé¾î¿Â °ªÀ» ·çÆ®·Î ÇÏ°í ÀÌ°É ¿µ¿øÈ÷ ¹Ù²ÙÁö ¾Ê´Â Æ®¸®·Î °¡Á¤... red black tree°¡ ¾Æ´Ô 
+//               (= ÀÌÁø°Ë»öÆ®¸® O , Æ÷È­ÀÌÁøÆ®¸® X = ÀÌÁøÆ®¸® ÁÂ¿ì´ëÄªX, ·çÆ®°¡ ÁßÀ§°ªÀÌ¶õ º¸Àå¾øÀ½À» ¾Ë°í ÀÚ·áÁ¶È¸ Ãâ·Â°ª Âü°í)
 treeNode* addNode(treeNode* t, element data) {
 
-    // ê²½ìš°1) íŒŒë¼ë¯¸í„°ë¡œ ë“¤ì–´ê°„ íŠ¸ë¦¬êµ¬ì¡°ì²´ í¬ì¸í„°ë³€ìˆ˜ì— ì£¼ì†Œê°’ì´ ì—†ìŒ (= ì£¼ì†Œê°’ì´ NULL)
-    // -> ì´ì§„íƒìƒ‰ ì‹¤íŒ¨ ìœ„ì¹˜ê°€ ì‚½ìž… ìœ„ì¹˜ & ë…¸ë“œê°€ ì—†ì„ ë•Œ
+    // °æ¿ì1) ÆÄ¶ó¹ÌÅÍ·Î µé¾î°£ Æ®¸®±¸Á¶Ã¼ Æ÷ÀÎÅÍº¯¼ö¿¡ ÁÖ¼Ò°ªÀÌ ¾øÀ½ (= ÁÖ¼Ò°ªÀÌ NULL)
+    // -> ÀÌÁøÅ½»ö ½ÇÆÐ À§Ä¡°¡ »ðÀÔ À§Ä¡ & ³ëµå°¡ ¾ø´Ù¸é? 
+    //    -> »õ·Î¿î ÀÌÁø°Ë»öÆ®¸®ÀÇ ³ëµåÀÇ ±¸Á¶Ã¼¸¦ ÀúÀåÇÒ ¸Þ¸ð¸®¸¦ µ¿ÀÛÇÒ´çÇÏ°í, ÀÌ¸¦ Àç±ÍÈ£ÃâÇÑ ÇØ´ç ½Å»ý³ëµåÀÇ ºÎ¸ð³ëµåÀÇ left³ª right¿¡ ±× ¸Þ¸ð¸® ½ÃÀÛÀ§Ä¡¸¦ ´ëÀÔ
     if (!t) {
         t = (treeNode*)malloc(sizeof(treeNode));
         t->value = data;
         t->left = NULL;
         t->right = NULL;
     }
-    // ê²½ìš°2) íŒŒë¼ë¯¸í„°ë¡œ ë“¤ì–´ê°„ ê²€ìƒ‰ê°’ì„ ê°€ì§„ íŠ¸ë¦¬ë…¸ë“œ(ì²˜ìŒì—ëŠ” ë£¨íŠ¸ë…¸ë“œê°€ ëŒ€ìƒ)ê°€ ë°œê²¬
+    // °æ¿ì2) ÆÄ¶ó¹ÌÅÍ·Î µé¾î°£ °Ë»ö°ªÀ» °¡Áø Æ®¸®³ëµå(Ã³À½¿¡´Â ·çÆ®³ëµå°¡ ´ë»ó)°¡ ¹ß°ß
     else if (data == t->value) {
-        printf("\n\n\t\t%dëŠ” ì´ë¯¸ ë“±ë¡ ëœ ê°’ ìž…ë‹ˆë‹¤.\n", data);
+
+        printf("\n\n\t\t%d´Â ÀÌ¹Ì µî·Ï µÈ °ª ÀÔ´Ï´Ù.\n\t\t%d·Î ´ëÃ¼ÇÏ°Ú½À´Ï´Ù.\n\n", data, data + 1);
+
+        data++;
+        t->right = addNode(t->right, data);
     }
-    // ê²½ìš°3) íŒŒë¼ë¯¸í„°ë¡œ ë“¤ì–´ê°„ ê²€ìƒ‰ê°’ë³´ë‹¤ ìž‘ì€ ê°’ì„ ê°€ì§„ ê°€ì§„ íŠ¸ë¦¬ë…¸ë“œ(ì²˜ìŒì—ëŠ” ë£¨íŠ¸ë…¸ë“œê°€ ëŒ€ìƒ)ê°€ ë°œê²¬
-    //  -> ì™¼ìª½ ë…¸ë“œë¥¼ ë’¤ì ¸ë³´ë©°, ì´ë¥¼ ìž¬ê·€ì ìœ¼ë¡œ ì‹¤í–‰í•´ì„œ í•´ë‹¹ ê°’ì„ ê°€ì§„ ë…¸ë“œë¥¼ ì´ì§„ê²€ìƒ‰íŠ¸ë¦¬ì— ì¶”ê°€í•  ìœ„ì¹˜ë¥¼ ì°¾ëŠ”ë‹¤
+    // °æ¿ì3) ÆÄ¶ó¹ÌÅÍ·Î µé¾î°£ °Ë»ö°ªº¸´Ù ÀÛÀº °ªÀ» °¡Áø °¡Áø Æ®¸®³ëµå(Ã³À½¿¡´Â ·çÆ®³ëµå°¡ ´ë»ó)°¡ ¹ß°ß
+    //  -> ¿ÞÂÊ ³ëµå¸¦ µÚÁ®º¸¸ç, ÀÌ¸¦ Àç±ÍÀûÀ¸·Î ½ÇÇàÇØ¼­ ÇØ´ç °ªÀ» °¡Áø ³ëµå¸¦ ÀÌÁø°Ë»öÆ®¸®¿¡ Ãß°¡ÇÒ À§Ä¡¸¦ Ã£´Â´Ù
     else if (data < t->value) {
         t->left = addNode(t->left, data);
     }
-    // ê²½ìš°4) íŒŒë¼ë¯¸í„°ë¡œ ë“¤ì–´ê°„ ê²€ìƒ‰ê°’ë³´ë‹¤ í° ê°’ì„ ê°€ì§„ ê°€ì§„ íŠ¸ë¦¬ë…¸ë“œ(ì²˜ìŒì—ëŠ” ë£¨íŠ¸ë…¸ë“œê°€ ëŒ€ìƒ)ê°€ ë°œê²¬
-    //  -> ì˜¤ë¥¸ìª½ ë…¸ë“œë¥¼ ë’¤ì ¸ë³´ë©°, ì´ë¥¼ ìž¬ê·€ì ìœ¼ë¡œ ì‹¤í–‰í•´ì„œ í•´ë‹¹ ê°’ì„ ê°€ì§„ ë…¸ë“œë¥¼ ì´ì§„ê²€ìƒ‰íŠ¸ë¦¬ì— ì¶”ê°€í•  ìœ„ì¹˜ë¥¼ ì°¾ëŠ”ë‹¤
+    // °æ¿ì4) ÆÄ¶ó¹ÌÅÍ·Î µé¾î°£ °Ë»ö°ªº¸´Ù Å« °ªÀ» °¡Áø °¡Áø Æ®¸®³ëµå(Ã³À½¿¡´Â ·çÆ®³ëµå°¡ ´ë»ó)°¡ ¹ß°ß
+    //  -> ¿À¸¥ÂÊ ³ëµå¸¦ µÚÁ®º¸¸ç, ÀÌ¸¦ Àç±ÍÀûÀ¸·Î ½ÇÇàÇØ¼­ ÇØ´ç °ªÀ» °¡Áø ³ëµå¸¦ ÀÌÁø°Ë»öÆ®¸®¿¡ Ãß°¡ÇÒ À§Ä¡¸¦ Ã£´Â´Ù
     else /* data > t->value */ {
         t->right = addNode(t->right, data);
     }
@@ -244,46 +217,65 @@ treeNode* addNode(treeNode* t, element data) {
     return t;
 }
 
-// í•´ë‹¹ íŠ¸ë¦¬ë¥¼ BFS(ë„ˆë¹„ìš°ì„ íƒìƒ‰)ë°©ì‹(= ë ˆë²¨ëŒ€ë¡œ ìˆœí™˜)ìœ¼ë¡œ ì¡°íšŒí•˜ëŠ” ë©”ì„œë“œ 
+// ÇØ´ç Æ®¸®¸¦ BFS(³Êºñ¿ì¼±Å½»ö)¹æ½Ä(= ·¹º§´ë·Î ¼øÈ¯)À¸·Î Á¶È¸ÇÏ´Â ¸Þ¼­µå 
+//  -> (Áß¿ä!) BFS(³Êºñ¿ì¼±Å½»ö) ¹æ½ÄÀÇ ÀÌÁø°Ë»öÆ®¸® ÀÚ·á Á¶È¸´Â queue°¡ ¹Ýµå½Ã ÇÊ¿äÇÏ¸ç.. 
+//     -> ÇØ´ç ³ëµåÀÇ left right¿¡ ÀúÀåµÈ ³ëµåÀÇ ÁÖ¼Ò°ªÀÌ ÇÊ¿äÇÏ¹Ç·Î.. QueueÀÇ ¿ä¼Ò´Â ÀÌÁøÆ®¸®³ëµåÀÇ °³º° Æ®¸®³ëµå ÁÖ¼Ò°ª(=Æ÷ÀÎÅÍ)°¡ µÇ¾î¾ß ÇÔ 
 void displayBFS(LinkedQueueType* queue) {
 
+    // QueueÀÇ °ª¿¡ ÇØ´çÇÏ´Â Æ®¸®ÀÇ ÁÖ¼Ò°ªÀ» ¹ÞÀ» Æ®¸®ÀÇ Æ÷ÀÎÅÍ pop_data
     QueueElement pop_data = NULL;
 
+    // ÀÌÁøÆ®¸®³ëµåÀÇ ¼ø¹ø
+    int node_index = 1;
+
+    // ÇØ´ç queueÀÇ ÀÌÁø°Ë»öÆ®¸® ³ëµåÀÇ ÁÖ¼Ò°¡ ¾øÀ»¶§±îÁö ¹Ýº¹ÇØ¶ó (Queue¿¡¼­ popÀ» ÇÏ´Ùº¸¸é, µÚ¿¡ ÀÖ´ø ³à¼®ÀÌ ¸Ç ¾ÕÀ¸·Î ¿¬°áµÊ)
     while (queue->front != NULL) {
 
+        // ÇØ´ç queue¿¡ ÀÌÁø°Ë»öÆ®¸® ³ëµåÀÇ ÁÖ¼Ò°¡ ³²¾Æ ÀÖ´Ù¸é, °¡Àå ¾Õ¿¡ ÀÖ´Â °ÍÀ» ÇÏ³ª Á¦°ÅÇÏ°í, ±× »èÁ¦ÇÑ QueueÀÇ ¿ä¼ÒÀÎ ÀÌÁø°Ë»öÆ®¸® ³ëµåÀÇ ÁÖ¼Ò°ªÀ» pop_data¿¡ ´ëÀÔ
         pop_data = Dequeue(queue);
+
+        // ÀÌÁøÆ®¸®³ëµåÀÇ ¼ø¹øÀ» ·çÆ®ºÎÅÍ ¼øÂ÷ÀûÀ¸·Î Queue¿¡¼­ ²¨³½ ¼ø¼­´ë·Î ¹øÈ£ ¸ÔÀÌ±â
+        pop_data->node_num = node_index++;
+
+        // Queue¿¡¼­ »ÌÀº ÀÌÁø°Ë»öÆ®¸® ³ëµåÀÇ °ªÀ» Ãâ·Â
         printf("%d ", pop_data->value);
 
+        // ±× ÀÌÈÄ ÇØ´ç ÀÌÁøÆ®¸®³ëµåÀÇ ¿ÞÂÊ ÀÌÁø°Ë»öÆ®¸® ³ëµå°¡ Á¸ÀçÇÑ´Ù¸é? 
+        // -> ±× ÀÌÁø°Ë»öÆ®¸® ³ëµåÀÇ ÇÏ´Ü ·¹º§ ¿ÞÂÊ¿¡ À§Ä¡ÇÑ ÁÖ¼Ò°ªÀ» Queue¿¡ Áý¾î³ÖÀ½
         if (pop_data->left != NULL) {
             Enqueue(queue, pop_data->left);
         }
 
+        // ±× ÀÌÈÄ ÇØ´ç ÀÌÁøÆ®¸®³ëµåÀÇ ¿À¸¥ÂÊ ÀÌÁø°Ë»öÆ®¸® ³ëµå°¡ Á¸ÀçÇÑ´Ù¸é? 
+        // -> ±× ÀÌÁø°Ë»öÆ®¸® ³ëµåÀÇ ÇÏ´Ü ·¹º§ ¿À¸¥ÂÊ¿¡ À§Ä¡ÇÑ ÁÖ¼Ò°ªÀ» Queue¿¡ Áý¾î³ÖÀ½
         if (pop_data->right != NULL) {
             Enqueue(queue, pop_data->right);
         }
 
     }
+
+    printf("\n");
 }
 
 
 
-// í•´ë‹¹ íŠ¸ë¦¬ë¥¼ ì „ìœ„ìˆœíšŒ( [ê¸°ì¤€ ë…¸ë“œ] ë¶€ëª¨ -> ì™¼ìª½ -> ì˜¤ë¥¸ìª½ ìˆœìœ¼ë¡œ ì¡°íšŒ)í•˜ì—¬ ì¡°íšŒí•˜ëŠ” ë©”ì„œë“œ
-//  -> ì›ì¹™ì ìœ¼ë¡œëŠ” ë¶€ëª¨, ì™¼ìª½, ì˜¤ë¥¸ìª½ ë…¸ë“œê°€ NULLì¼ì‹œ ê·¸ ë…¸ë“œì˜ ê°’ì„ ì°ìœ¼ë¼ê³  ì½”ë“œë¥¼ ì§œì•¼í•˜ë‚˜.. 
-//     -> êµ‰ìž¥ížˆ ë…¼ë¦¬ì ìœ¼ë¡œë‚˜ ì„±ëŠ¥ì ìœ¼ë¡œë‚˜ ë²ˆê±°ë¡­ê¸° ê·¸ì§€ì—†ìœ¼ë¯€ë¡œ, ë¶€ëª¨ë…¸ë“œë¥¼ ë³´ëŠ” ëŒ€ì‹  ìžì‹ ì˜ ê°’ì„ ì°ëŠ”ê±°ë¡œ ëŒ€ì²´
+// ÇØ´ç Æ®¸®¸¦ ÀüÀ§¼øÈ¸( [±âÁØ ³ëµå] ºÎ¸ð -> ¿ÞÂÊ -> ¿À¸¥ÂÊ ¼øÀ¸·Î Á¶È¸)ÇÏ¿© Á¶È¸ÇÏ´Â ¸Þ¼­µå
+//  -> ¿øÄ¢ÀûÀ¸·Î´Â ºÎ¸ð, ¿ÞÂÊ, ¿À¸¥ÂÊ ³ëµå°¡ NULLÀÏ½Ã ±× ³ëµåÀÇ °ªÀ» ÂïÀ¸¶ó°í ÄÚµå¸¦ Â¥¾ßÇÏ³ª.. 
+//     -> ±²ÀåÈ÷ ³í¸®ÀûÀ¸·Î³ª ¼º´ÉÀûÀ¸·Î³ª ¹ø°Å·Ó±â ±×Áö¾øÀ¸¹Ç·Î, ºÎ¸ð³ëµå¸¦ º¸´Â ´ë½Å ÀÚ½ÅÀÇ °ªÀ» Âï´Â°Å·Î ´ëÃ¼
 void displayPreOrder(treeNode* t) {
     if (t) {
-        // ì›ì¹™ì ìœ¼ë¡œëŠ” ë¶€ëª¨ë…¸ë“œë¥¼ íƒ€ê³  ì˜¬ë¼ê°€ë¼ê³  ì§€ì •í•´ì•¼ í•˜ë‚˜.. ë£¨íŠ¸ë¶€í„° ì‹œìž‘ì‹œ ì–´ì°¨í”¼ ìžê¸°ìžì‹ ì˜ ê°’ì„ ì°ì–´ë„ ê°™ìŒ
-        //  : ë£¨íŠ¸ -> ë£¨íŠ¸ ë¶€ëª¨ null -> ë£¨íŠ¸ ì™¼ìª½ ë…¸ë“œ(r_left) -> r_leftì˜ ë¶€ëª¨ë…¸ë“œ = ë£¨íŠ¸ê°’ ì¶œë ¥
-        //  : ë£¨íŠ¸ê°’ ì¶œë ¥ -> ë£¨íŠ¸ ì™¼ìª½ ë…¸ë“œ(r_left) ê°’ ì¶œë ¥ -> 
+        // ¿øÄ¢ÀûÀ¸·Î´Â ºÎ¸ð³ëµå¸¦ Å¸°í ¿Ã¶ó°¡¶ó°í ÁöÁ¤ÇØ¾ß ÇÏ³ª.. ·çÆ®ºÎÅÍ ½ÃÀÛ½Ã ¾îÂ÷ÇÇ ÀÚ±âÀÚ½ÅÀÇ °ªÀ» Âï¾îµµ °°À½
+        //  : ·çÆ® -> ·çÆ® ºÎ¸ð null -> ·çÆ® ¿ÞÂÊ ³ëµå(r_left) -> r_leftÀÇ ºÎ¸ð³ëµå = ·çÆ®°ª Ãâ·Â
+        //  : ·çÆ®°ª Ãâ·Â -> ·çÆ® ¿ÞÂÊ ³ëµå(r_left) °ª Ãâ·Â -> 
         printf("%d ", t->value);
         displayPreOrder(t->left);
         displayPreOrder(t->right);
     }
 }
 
-// í•´ë‹¹ íŠ¸ë¦¬ë¥¼ ì¤‘ìœ„ìˆœíšŒ( [ê¸°ì¤€ ë…¸ë“œ] ì™¼ìª½ -> ë¶€ëª¨ -> ì˜¤ë¥¸ìª½ ìˆœìœ¼ë¡œ ì¡°íšŒ)í•˜ì—¬ ì¡°íšŒí•˜ëŠ” ë©”ì„œë“œ
-//  -> ì›ì¹™ì ìœ¼ë¡œëŠ” ë¶€ëª¨, ì™¼ìª½, ì˜¤ë¥¸ìª½ ë…¸ë“œê°€ NULLì¼ì‹œ ê·¸ ë…¸ë“œì˜ ê°’ì„ ì°ìœ¼ë¼ê³  ì½”ë“œë¥¼ ì§œì•¼í•˜ë‚˜.. 
-//     -> êµ‰ìž¥ížˆ ë…¼ë¦¬ì ìœ¼ë¡œë‚˜ ì„±ëŠ¥ì ìœ¼ë¡œë‚˜ ë²ˆê±°ë¡­ê¸° ê·¸ì§€ì—†ìœ¼ë¯€ë¡œ, ë¶€ëª¨ë…¸ë“œë¥¼ ë³´ëŠ” ëŒ€ì‹  ìžì‹ ì˜ ê°’ì„ ì°ëŠ”ê±°ë¡œ ëŒ€ì²´
+// ÇØ´ç Æ®¸®¸¦ ÁßÀ§¼øÈ¸( [±âÁØ ³ëµå] ¿ÞÂÊ -> ºÎ¸ð -> ¿À¸¥ÂÊ ¼øÀ¸·Î Á¶È¸)ÇÏ¿© Á¶È¸ÇÏ´Â ¸Þ¼­µå
+//  -> ¿øÄ¢ÀûÀ¸·Î´Â ºÎ¸ð, ¿ÞÂÊ, ¿À¸¥ÂÊ ³ëµå°¡ NULLÀÏ½Ã ±× ³ëµåÀÇ °ªÀ» ÂïÀ¸¶ó°í ÄÚµå¸¦ Â¥¾ßÇÏ³ª.. 
+//     -> ±²ÀåÈ÷ ³í¸®ÀûÀ¸·Î³ª ¼º´ÉÀûÀ¸·Î³ª ¹ø°Å·Ó±â ±×Áö¾øÀ¸¹Ç·Î, ºÎ¸ð³ëµå¸¦ º¸´Â ´ë½Å ÀÚ½ÅÀÇ °ªÀ» Âï´Â°Å·Î ´ëÃ¼
 void displayInOrder(treeNode* t) {
     if (t) {
         displayInOrder(t->left);
@@ -292,9 +284,9 @@ void displayInOrder(treeNode* t) {
     }
 }
 
-// í•´ë‹¹ íŠ¸ë¦¬ë¥¼ í›„ìœ„ìˆœíšŒ( [ê¸°ì¤€ ë…¸ë“œ] ì™¼ìª½ -> ì˜¤ë¥¸ìª½ -> ë¶€ëª¨ ìˆœìœ¼ë¡œ ì¡°íšŒ)í•˜ì—¬ ì¡°íšŒí•˜ëŠ” ë©”ì„œë“œ
-//  -> ì›ì¹™ì ìœ¼ë¡œëŠ” ë¶€ëª¨, ì™¼ìª½, ì˜¤ë¥¸ìª½ ë…¸ë“œê°€ NULLì¼ì‹œ ê·¸ ë…¸ë“œì˜ ê°’ì„ ì°ìœ¼ë¼ê³  ì½”ë“œë¥¼ ì§œì•¼í•˜ë‚˜.. 
-//     -> êµ‰ìž¥ížˆ ë…¼ë¦¬ì ìœ¼ë¡œë‚˜ ì„±ëŠ¥ì ìœ¼ë¡œë‚˜ ë²ˆê±°ë¡­ê¸° ê·¸ì§€ì—†ìœ¼ë¯€ë¡œ, ë¶€ëª¨ë…¸ë“œë¥¼ ë³´ëŠ” ëŒ€ì‹  ìžì‹ ì˜ ê°’ì„ ì°ëŠ”ê±°ë¡œ ëŒ€ì²´
+// ÇØ´ç Æ®¸®¸¦ ÈÄÀ§¼øÈ¸( [±âÁØ ³ëµå] ¿ÞÂÊ -> ¿À¸¥ÂÊ -> ºÎ¸ð ¼øÀ¸·Î Á¶È¸)ÇÏ¿© Á¶È¸ÇÏ´Â ¸Þ¼­µå
+//  -> ¿øÄ¢ÀûÀ¸·Î´Â ºÎ¸ð, ¿ÞÂÊ, ¿À¸¥ÂÊ ³ëµå°¡ NULLÀÏ½Ã ±× ³ëµåÀÇ °ªÀ» ÂïÀ¸¶ó°í ÄÚµå¸¦ Â¥¾ßÇÏ³ª.. 
+//     -> ±²ÀåÈ÷ ³í¸®ÀûÀ¸·Î³ª ¼º´ÉÀûÀ¸·Î³ª ¹ø°Å·Ó±â ±×Áö¾øÀ¸¹Ç·Î, ºÎ¸ð³ëµå¸¦ º¸´Â ´ë½Å ÀÚ½ÅÀÇ °ªÀ» Âï´Â°Å·Î ´ëÃ¼
 void displayPostOrder(treeNode* t) {
     if (t) {
         displayPostOrder(t->left);
@@ -303,18 +295,18 @@ void displayPostOrder(treeNode* t) {
     }
 }
 
-// íŠ¸ë¦¬êµ¬ì¡° í•´ì²´ì˜ ìˆœì„œëŠ” ë…¸ë“œë¥¼ ëª¨ë“œ ê¹”ë”í•˜ê²Œ ì‚­ì œí•´ì•¼ í•˜ë‹ˆ, ë¶€ëª¨ë…¸ë“œë¥¼ ê°€ìž¥ ë‚˜ì¤‘ì— ë³´ëŠ” ê±¸ë¡œ í•œë‹¤
+// Æ®¸®±¸Á¶ ÇØÃ¼ÀÇ ¼ø¼­´Â ³ëµå¸¦ ¸ðµå ±ò²ûÇÏ°Ô »èÁ¦ÇØ¾ß ÇÏ´Ï, ºÎ¸ð³ëµå¸¦ °¡Àå ³ªÁß¿¡ º¸´Â °É·Î ÇÑ´Ù
 void freeTree(treeNode* t) {
     if (t) {
         freeTree(t->left);
         freeTree(t->right);
-        printf("\në…¸ë“œ ì‚­ì œ : %d\n", t->value);
+        printf("\n³ëµå »èÁ¦ : %d\n", t->value);
         free(t);
     }
 }
 
-// í•´ë‹¹ ë…¸ë“œë¥¼ ê¸°ì¤€ìœ¼ë¡œ, ê·¸ ì•„ëž˜ ë ˆë²¨ì— ìžˆëŠ” ê°’ì¤‘ ê°€ìž¥ í° ê°’ì„ êµ¬í•˜ëŠ” ë©”ì„œë“œ 
-// (= í•´ë‹¹ ë…¸ë“œì˜ ê°’ë³´ë‹¤ëŠ” ìž‘ì§€ë§Œ, ê·¸ ì•„ëž˜ì— ìžˆëŠ” ê°’ ì¤‘ ê°€ìž¥ ì˜¤ë¥¸ìª½ì— ìœ„ì¹˜í•œ, 'ìž‘ì€ìž ì¤‘ì—ì„œ ìµœëŒ€ê°’'ì„ êµ¬í•´ì•¼ í•¨)
+// ÇØ´ç ³ëµå¸¦ ±âÁØÀ¸·Î, ±× ¾Æ·¡ ·¹º§¿¡ ÀÖ´Â °ªÁß °¡Àå Å« °ªÀ» ±¸ÇÏ´Â ¸Þ¼­µå 
+// (= ÇØ´ç ³ëµåÀÇ °ªº¸´Ù´Â ÀÛÁö¸¸, ±× ¾Æ·¡¿¡ ÀÖ´Â °ª Áß °¡Àå ¿À¸¥ÂÊ¿¡ À§Ä¡ÇÑ, 'ÀÛÀºÀÚ Áß¿¡¼­ ÃÖ´ë°ª'À» ±¸ÇØ¾ß ÇÔ)
 treeNode* findMax(treeNode* t) {
 
     treeNode* minMax_address = t;
@@ -329,8 +321,8 @@ treeNode* findMax(treeNode* t) {
     return minMax_address;
 }
 
-// í•´ë‹¹ ë…¸ë“œë¥¼ ê¸°ì¤€ìœ¼ë¡œ, ê·¸ ì•„ëž˜ ë ˆë²¨ì— ìžˆëŠ” ê°’ì¤‘ ê°€ìž¥ ìž‘ì€ ê°’ì„ êµ¬í•˜ëŠ” ë©”ì„œë“œ 
-// (= í•´ë‹¹ ë…¸ë“œì˜ ê°’ë³´ë‹¤ëŠ” í¬ì§€ë§Œ, ê·¸ ì•„ëž˜ì— ìžˆëŠ” ê°’ ì¤‘ ê°€ìž¥ ì™¼ìª½ì— ìœ„ì¹˜í•œ, 'í°ìž ì¤‘ì—ì„œ ìµœì†Œê°’'ì„ êµ¬í•´ì•¼ í•¨)
+// ÇØ´ç ³ëµå¸¦ ±âÁØÀ¸·Î, ±× ¾Æ·¡ ·¹º§¿¡ ÀÖ´Â °ªÁß °¡Àå ÀÛÀº °ªÀ» ±¸ÇÏ´Â ¸Þ¼­µå 
+// (= ÇØ´ç ³ëµåÀÇ °ªº¸´Ù´Â Å©Áö¸¸, ±× ¾Æ·¡¿¡ ÀÖ´Â °ª Áß °¡Àå ¿ÞÂÊ¿¡ À§Ä¡ÇÑ, 'Å«ÀÚ Áß¿¡¼­ ÃÖ¼Ò°ª'À» ±¸ÇØ¾ß ÇÔ)
 treeNode* findMin(treeNode* t) {
 
     treeNode* maxMin_address = t;
@@ -346,128 +338,129 @@ treeNode* findMin(treeNode* t) {
 }
 
 
-// ì´ì§„ê²€ìƒ‰íŠ¸ë¦¬ êµ¬ì¡° ê²€ìƒ‰ ë©”ì„œë“œ (= ê¸°ë³¸ì ìœ¼ë¡œ ì´ì§„íŠ¸ë¦¬ êµ¬ì¡°ëŠ” ìž¬ê·€ì  ë°©ë²•ì„ ì‚¬ìš©)
-//  -> í•´ë‹¹ íŠ¸ë¦¬ ê²€ìƒ‰ ë¡œì§ì€ ì´ì§„ê²€ìƒ‰íŠ¸ë¦¬ì˜ êµ¬ì¡°ì  íŠ¹ì„±ì´ ê¸°ë°˜ì´ ë¨
-//     -> ê³¼ì •1) ë£¨íŠ¸ë¥¼ ê¸°ë°˜ìœ¼ë¡œ ê°’ì„ ê²€ì‚¬
-//        ê³¼ì •2) ê°’ì´ ìž‘ìœ¼ë©´ ì™¼ìª½ë£¨íŠ¸ë¡œ.. í¬ë©´ ì˜¤ë¥¸ìª½ ë£¨íŠ¸ë¡œ
-//        ê³¼ì •3) ì´ ì§“ì„ ìž¬ê·€ë¥¼ í†µí•´ ë°˜ë³µ... ê°’ì´ ë„ì¤‘ì— ë‚˜ì˜¤ë©´ íŠ¸ë¦¬ë…¸ë“œ ì£¼ì†Œê°’ ë¦¬í„´.. ì•„ë‹ˆë©´ null 
+// ÀÌÁø°Ë»öÆ®¸® ±¸Á¶ °Ë»ö ¸Þ¼­µå (= ±âº»ÀûÀ¸·Î ÀÌÁøÆ®¸® ±¸Á¶´Â Àç±ÍÀû ¹æ¹ýÀ» »ç¿ë)
+//  -> ÇØ´ç Æ®¸® °Ë»ö ·ÎÁ÷Àº ÀÌÁø°Ë»öÆ®¸®ÀÇ ±¸Á¶Àû Æ¯¼ºÀÌ ±â¹ÝÀÌ µÊ
+//     -> °úÁ¤1) ·çÆ®¸¦ ±â¹ÝÀ¸·Î °ªÀ» °Ë»ç
+//        °úÁ¤2) °ªÀÌ ÀÛÀ¸¸é ¿ÞÂÊ·çÆ®·Î.. Å©¸é ¿À¸¥ÂÊ ·çÆ®·Î
+//        °úÁ¤3) ÀÌ ÁþÀ» Àç±Í¸¦ ÅëÇØ ¹Ýº¹... °ªÀÌ µµÁß¿¡ ³ª¿À¸é Æ®¸®³ëµå ÁÖ¼Ò°ª ¸®ÅÏ.. ¾Æ´Ï¸é null 
 treeNode* searchNode(treeNode* t, element data) {
 
-    // [ìµœì¢… íƒìƒ‰ ì‹¤íŒ¨]
-    // ë§Œì•½ í˜„ìž¬ íŠ¸ë¦¬ê°€ ì¡´ìž¬í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´(= ì•„ë¬´ë¦¬ ë’¤ì ¸ë´¤ì§€ë§Œ, ê²€ìƒ‰í•  ê°’ì´ ì¡´ìž¬í•˜ì§€ ì•Šì•˜ìŒ)
-    //  -> NULL ë¦¬í„´
+    // [ÃÖÁ¾ Å½»ö ½ÇÆÐ]
+    // ¸¸¾à ÇöÀç Æ®¸®°¡ Á¸ÀçÇÏÁö ¾Ê´Â´Ù¸é(= ¾Æ¹«¸® µÚÁ®ºÃÁö¸¸, °Ë»öÇÒ °ªÀÌ Á¸ÀçÇÏÁö ¾Ê¾ÒÀ½)
+    //  -> NULL ¸®ÅÏ
     if (!t) {
         return NULL;
     }
 
-    // [ê²€ìƒ‰ ì„±ê³µ]
-    //  -> í•´ë‹¹ ë…¸ë“œì˜ ì£¼ì†Œê°’ ì¶œë ¥
+    // [°Ë»ö ¼º°ø]
+    //  -> ÇØ´ç ³ëµåÀÇ ÁÖ¼Ò°ª Ãâ·Â
     if (data == t->value) {
         return t;
     }
 
-    // [í˜„ìž¬ íƒìƒ‰ ì‹¤íŒ¨ = ë‹¤ìŒ ë…¸ë“œë¥¼ ë´ì•¼í•¨]
+    // [ÇöÀç Å½»ö ½ÇÆÐ = ´ÙÀ½ ³ëµå¸¦ ºÁ¾ßÇÔ]
 
-    // í˜„ìž¬ ë…¸ë“œ dataê°’ì´ ìž‘ìŒ = ì´ì§„ íŠ¸ë¦¬ êµ¬ì¡°ìƒ ìžì‹ ì˜ ê°’ë³´ë‹¤ ìž‘ì€ê²Œ ì™¼ìª½ì— ì¡´ìž¬í•˜ë‹ˆ ì™¼ìª½ìœ¼ë¡œ..
+    // ÇöÀç ³ëµå data°ªÀÌ ÀÛÀ½ = ÀÌÁø Æ®¸® ±¸Á¶»ó ÀÚ½ÅÀÇ °ªº¸´Ù ÀÛÀº°Ô ¿ÞÂÊ¿¡ Á¸ÀçÇÏ´Ï ¿ÞÂÊÀ¸·Î..
     if (data < t->value) {
         return searchNode(t->left, data);
     }
-    // í˜„ìž¬ ë…¸ë“œ dataê°’ì´ í¼ = ì´ì§„ íŠ¸ë¦¬ êµ¬ì¡°ìƒ ìžì‹ ì˜ ê°’ë³´ë‹¤ í°ê²Œ ì˜¤ë¥¸ìª½ì— ì¡´ìž¬í•˜ë‹ˆ ì˜¤ë¥¸ìª½ìœ¼ë¡œ..
+    // ÇöÀç ³ëµå data°ªÀÌ Å­ = ÀÌÁø Æ®¸® ±¸Á¶»ó ÀÚ½ÅÀÇ °ªº¸´Ù Å«°Ô ¿À¸¥ÂÊ¿¡ Á¸ÀçÇÏ´Ï ¿À¸¥ÂÊÀ¸·Î..
     else /* data > t->value */ {
-        return searchNode(t->right, data); // ì˜¤ë¥¸ìª½ íƒìƒ‰
+        return searchNode(t->right, data); // ¿À¸¥ÂÊ Å½»ö
     }
 }
 
-// ì´ì§„ê²€ìƒ‰íŠ¸ë¦¬ êµ¬ì¡° ì‚­ì œ ë©”ì„œë“œ (= ê¸°ë³¸ì ìœ¼ë¡œ íŠ¸ë¦¬êµ¬ì¡°ëŠ” ìž¬ê·€ì  ë°©ë²•ì„ ì‚¬ìš©)
-//  -> í•´ë‹¹ íŠ¸ë¦¬ ì‚­ì œ ë¡œì§ì€ ì´ì§„ê²€ìƒ‰íŠ¸ë¦¬ì˜ êµ¬ì¡°ì  íŠ¹ì„±ì´ ê¸°ë°˜ì´ ë¨
-//     -> ê³¼ì •1) ë£¨íŠ¸ë¥¼ ê¸°ë°˜ìœ¼ë¡œ ê°’ì„ ê²€ì‚¬
-//        ê³¼ì •2) ê°’ì´ ìž‘ìœ¼ë©´ ì™¼ìª½ë£¨íŠ¸ë¡œ.. í¬ë©´ ì˜¤ë¥¸ìª½ ë£¨íŠ¸ë¡œ
-//        ê³¼ì •3) ì´ ì§“ì„ ìž¬ê·€ë¥¼ í†µí•´ ë°˜ë³µ... ê°’ì´ ë„ì¤‘ì— ë‚˜ì˜¤ë©´.. ë˜ ê²½ìš°ì˜ ìˆ˜ë¥¼ ë”°ì§ ì•„ë‹ˆë©´ null 
-//        ê³¼ì •4) ì‚­ì œí•  ë…¸ë“œì˜ ìžì‹ë…¸ë“œê°€ ëª‡ê°œëƒ?
-//               -> 0ê°œ : ì‚­ì œí•  ë…¸ë“œì˜ ë¶€ëª¨ ë…¸ë“œë¥¼ ì°¾ì•„ì„œ linkë¥¼ ëŠê³ , ë©”ëª¨ë¦¬ ë°˜í™˜í•˜ê¸°
-//                  1ê°œ : ì‚­ì œí•  ë…¸ë“œì˜ ë¶€ëª¨ ë…¸ë“œë¥¼ ì°¾ì•„ì„œ, ë…¸ë“œ ì‚­ì œí›„, ê·¸ ë…¸ë“œì˜ ë‚¨ì€ ìžì‹ë…¸ë“œë¥¼ ë¶€ëª¨ë…¸ë“œì˜ linkì— ì—°ê²° (ì–´ì°¨í”¼ ìž¬ê·€ë¥¼ í†µí•´ ì–´ë”” ë°©í–¥ linkë¡œ ë“¤ì–´ê°ˆì§€ ë‹µ ë‚˜ì˜´)
-//                  2ê°œ : ì‚­ì œí•  ë…¸ë“œì˜ ìžì‹ë“¤ì¤‘ ì¢Œ, ìš°ì˜ ê·¼ì‚¬ê°’(= ë¦¬í”„ë…¸ë“œ) ì¤‘ í•˜ë‚˜ë¥¼ ê³¨ë¼ì„œ, ê°’ì„ ì´ì „ì‹œí‚¤ê³  ë‚¨ì€ ë¦¬í”„ë…¸ë“œ ì°Œêº¼ê¸° ì‚­ì œí›„ ë©”ëª¨ë¦¬ ë°˜í™˜
+// ÀÌÁø°Ë»öÆ®¸® ±¸Á¶ »èÁ¦ ¸Þ¼­µå (= ±âº»ÀûÀ¸·Î Æ®¸®±¸Á¶´Â Àç±ÍÀû ¹æ¹ýÀ» »ç¿ë)
+//  -> ÇØ´ç Æ®¸® »èÁ¦ ·ÎÁ÷Àº ÀÌÁø°Ë»öÆ®¸®ÀÇ ±¸Á¶Àû Æ¯¼ºÀÌ ±â¹ÝÀÌ µÊ
+//     -> °úÁ¤1) ·çÆ®¸¦ ±â¹ÝÀ¸·Î °ªÀ» °Ë»ç
+//        °úÁ¤2) °ªÀÌ ÀÛÀ¸¸é ¿ÞÂÊ·çÆ®·Î.. Å©¸é ¿À¸¥ÂÊ ·çÆ®·Î
+//        °úÁ¤3) ÀÌ ÁþÀ» Àç±Í¸¦ ÅëÇØ ¹Ýº¹... °ªÀÌ µµÁß¿¡ ³ª¿À¸é.. ¶Ç °æ¿ìÀÇ ¼ö¸¦ µûÁü ¾Æ´Ï¸é null 
+//        °úÁ¤4) »èÁ¦ÇÒ ³ëµåÀÇ ÀÚ½Ä³ëµå°¡ ¸î°³³Ä? -> (Áß¿ä!) °á°ú¾ß ¾îÂîµÇ´ø, »èÁ¦ÀÇ °á°ú·Î ÀÌÁø°Ë»öÆ®¸®´Â Àç±¸¼ºµÇ¾ú°í, returnÇÏ´Â °ÍÀº ±×°ÍÀÇ ·çÆ®°¡ µÇ´Â ³ëµåÀÇ ÁÖ¼Ò¸¦ ¹ÝÈ¯ÇÏ°Ô ¼³°èµÊ
+//               -> 0°³ : »èÁ¦ÇÒ ³ëµåÀÇ ºÎ¸ð ³ëµå¸¦ Ã£¾Æ¼­ link¸¦ ²÷°í, ¸Þ¸ð¸® ¹ÝÈ¯ÇÏ±â
+//                  1°³ : »èÁ¦ÇÒ ³ëµåÀÇ ºÎ¸ð ³ëµå¸¦ Ã£¾Æ¼­, ³ëµå »èÁ¦ÈÄ, ±× ³ëµåÀÇ ³²Àº ÀÚ½Ä³ëµå¸¦ ºÎ¸ð³ëµåÀÇ link¿¡ ¿¬°á (¾îÂ÷ÇÇ Àç±Í¸¦ ÅëÇØ ¾îµð ¹æÇâ link·Î µé¾î°¥Áö ´ä ³ª¿È)
+//                  2°³ : »èÁ¦ÇÒ ³ëµåÀÇ ÀÚ½ÄµéÁß ÁÂ, ¿ìÀÇ ±Ù»ç°ª(= ¸®ÇÁ³ëµå) Áß ÇÏ³ª¸¦ °ñ¶ó¼­, °ªÀ» ÀÌÀü½ÃÅ°°í ³²Àº ¸®ÇÁ³ëµå Âî²¨±â »èÁ¦ÈÄ ¸Þ¸ð¸® ¹ÝÈ¯
 
-//   # ì´ì§„ ê²€ìƒ‰íŠ¸ë¦¬ ì‚­ì œ ì•Œê³ ë¦¬ì¦˜
-//     1. ì‚­ì œí•˜ë ¤ëŠ” ë…¸ë“œê°€ ë¦¬í”„(ë§ë‹¨ ë…¸ë“œ)ì¼ ê²½ìš°
-//        : ë§ë‹¨ ë…¸ë“œì˜ ë¶€ëª¨ ë…¸ë“œë¥¼ ì°¾ì•„ì„œ linkë¥¼ ëŠìŒ
-//     2. ì‚­ì œí•˜ë ¤ëŠ” ë…¸ë“œê°€ í•˜ë‚˜ì˜ ì™¼ìª½ì´ë‚˜ ì˜¤ë¥¸ìª½ ìžì‹ì„ ê°€ì§€ê³  ìžˆëŠ” ê²½ìš°
-//        : ë…¸ë“œëŠ” ì‚­ì œí•˜ê³ , ê·¸ íŠ¸ë¦¬ê°€ ê°€ì§€ëŠ” ìžì‹ë“¤ì¸ ì„œë¸Œ íŠ¸ë¦¬ëŠ” ì‚­ì œëœ ë…¸ë“œì˜ ë¶€ëª¨ ë…¸ë“œì— ë¶™ì—¬ì¤Œ 
-//          -> ìž¬ê·€ì  ë°©ë²•ìœ¼ë¡œ ì´ë¥¼ ì—­ì°¸ì¡°í•œ ê°’ì— ëŒ€ìž…í•´ì¤Œ
-//     3. ì‚­ì œí•˜ë ¤ëŠ” ë…¸ë“œê°€ ë‘ ê°œì˜ ìžì‹ì„ ëª¨ë‘ ê°€ì§€ê³  ìžˆëŠ” ê²½ìš°
-//        : ì‚­ì œë…¸ë“œì™€ ê°€ìž¥ ê·¼ì‚¬ê°’ì„ ê°€ì§„ ë…¸ë“œê°’ì„ ì‚­ì œí•  ë…¸ë“œìœ„ì¹˜ì˜ ê°’ìœ¼ë¡œ ëŒ€ìž… (= ì™¼ìª½ì—ì„œ ê°€ìž¥ í° ê°’ or ì˜¤ë¥¸ìª½ì—ì„œ ê°€ìž¥ ìž‘ì€ ê°’)
-//          -> (ì¤‘ìš”!) ì™¼ìª½ì—ì„œ ê°€ìž¥ í° ê°’ or ì˜¤ë¥¸ìª½ì—ì„œ ê°€ìž¥ ìž‘ì€ ê°’.. ì´ë“¤ì€ ê²°ê³¼ì ìœ¼ë¡œ 'ë¦¬í”„ë…¸ë“œ'ë¡œ ìžì‹ì´ ì—†ìŒ
-//              -> ê²°ê³¼ì ìœ¼ë¡œ ë¦¬í”„ë…¸ë“œì˜ ê°’ì„ ì‚­ì œí•  ë…¸ë“œì˜ ê°’ìœ¼ë¡œ ì˜®ê¹€ 
-//                 (= ê²°ê³¼ì ìœ¼ë¡œ ì‚­ì œí•  ë…€ì„ì€ ë¦¬í”„ë…¸ë“œë¥¼ ì˜ë¯¸í•¨ -> ì‚¬ì‹¤ìƒ ê°’ì„ ì´ì‹ + ë¦¬í”„ë…¸ë“œ ì‚­ì œí•˜ëŠ” ê²½ìš°1ì˜ ë¬¸ì œê°€ ë¨)
+//   # ÀÌÁø °Ë»öÆ®¸® »èÁ¦ ¾Ë°í¸®Áò
+//     1. »èÁ¦ÇÏ·Á´Â ³ëµå°¡ ¸®ÇÁ(¸»´Ü ³ëµå)ÀÏ °æ¿ì
+//        : ¸»´Ü ³ëµåÀÇ ºÎ¸ð ³ëµå¸¦ Ã£¾Æ¼­ link¸¦ ²÷À½
+//     2. »èÁ¦ÇÏ·Á´Â ³ëµå°¡ ÇÏ³ªÀÇ ¿ÞÂÊÀÌ³ª ¿À¸¥ÂÊ ÀÚ½ÄÀ» °¡Áö°í ÀÖ´Â °æ¿ì
+//        : ³ëµå´Â »èÁ¦ÇÏ°í, ±× Æ®¸®°¡ °¡Áö´Â ÀÚ½ÄµéÀÎ ¼­ºê Æ®¸®´Â »èÁ¦µÈ ³ëµåÀÇ ºÎ¸ð ³ëµå¿¡ ºÙ¿©ÁÜ 
+//          -> Àç±ÍÀû ¹æ¹ýÀ¸·Î ÀÌ¸¦ ¿ªÂüÁ¶ÇÑ °ª¿¡ ´ëÀÔÇØÁÜ
+//     3. »èÁ¦ÇÏ·Á´Â ³ëµå°¡ µÎ °³ÀÇ ÀÚ½ÄÀ» ¸ðµÎ °¡Áö°í ÀÖ´Â °æ¿ì
+//        : »èÁ¦³ëµå¿Í °¡Àå ±Ù»ç°ªÀ» °¡Áø ³ëµå°ªÀ» »èÁ¦ÇÒ ³ëµåÀ§Ä¡ÀÇ °ªÀ¸·Î ´ëÀÔ (= ¿ÞÂÊ¿¡¼­ °¡Àå Å« °ª or ¿À¸¥ÂÊ¿¡¼­ °¡Àå ÀÛÀº °ª)
+//          -> (Áß¿ä!) ¿ÞÂÊ¿¡¼­ °¡Àå Å« °ª or ¿À¸¥ÂÊ¿¡¼­ °¡Àå ÀÛÀº °ª.. ÀÌµéÀº °á°úÀûÀ¸·Î '¸®ÇÁ³ëµå'·Î ÀÚ½ÄÀÌ ¾øÀ½
+//              -> °á°úÀûÀ¸·Î ¸®ÇÁ³ëµåÀÇ °ªÀ» »èÁ¦ÇÒ ³ëµåÀÇ °ªÀ¸·Î ¿Å±è 
+//                 (= °á°úÀûÀ¸·Î »èÁ¦ÇÒ ³à¼®Àº ¸®ÇÁ³ëµå¸¦ ÀÇ¹ÌÇÔ -> »ç½Ç»ó °ªÀ» ÀÌ½Ä + ¸®ÇÁ³ëµå »èÁ¦ÇÏ´Â °æ¿ì1ÀÇ ¹®Á¦°¡ µÊ)
 treeNode* removeNode(treeNode* t, element data) {
     treeNode* temp = NULL;
 
-    // í•´ë‹¹ treeë…¸ë“œê°€ ìœ„ì¹˜í•œ ì£¼ì†Œê°’ì´ ìžˆë‹¤ë©´?
+    // ÇØ´ç tree³ëµå°¡ À§Ä¡ÇÑ ÁÖ¼Ò°ªÀÌ ÀÖ´Ù¸é?
+    // -> (Áß¿ä!) °á°ú¾ß ¾îÂîµÇ´ø, »èÁ¦ÀÇ °á°ú·Î ÀÌÁø°Ë»öÆ®¸®´Â Àç±¸¼ºµÇ¾ú°í, returnÇÏ´Â °ÍÀº ±×°ÍÀÇ ·çÆ®°¡ µÇ´Â ³ëµåÀÇ ÁÖ¼Ò¸¦ ¹ÝÈ¯ÇÏ°Ô ¼³°èµÊ
     if (t) {
 
-        // ì‚­ì œí•  ê°’ ë…¸ë“œê°€ ë£¨íŠ¸ì— ì¡´ìž¬í•¨ì„ í™•ì¸
-        //  -> ë£¨íŠ¸ì— ì—†ìœ¼ë©´, ìž¬ê·€ë¥¼ í†µí•´ dfsë°©ì‹ìœ¼ë¡œ íƒìƒ‰í•´ì„œ ì§„í–‰
+        // »èÁ¦ÇÒ °ª ³ëµå°¡ ·çÆ®¿¡ Á¸ÀçÇÔÀ» È®ÀÎ
+        //  -> ·çÆ®¿¡ ¾øÀ¸¸é, Àç±Í¸¦ ÅëÇØ dfs¹æ½ÄÀ¸·Î Å½»öÇØ¼­ ÁøÇà
         if (data == t->value) {
 
-            // ê²½ìš°1) ë…¸ë“œê°€ ë¦¬í”„ì¸ ê²½ìš° (= left, rightê°€ ê°€ë¥´í‚¤ëŠ” ë…¸ë“œì£¼ì†Œ ì—†ìŒ)
+            // °æ¿ì1) ³ëµå°¡ ¸®ÇÁÀÎ °æ¿ì (= left, right°¡ °¡¸£Å°´Â ³ëµåÁÖ¼Ò ¾øÀ½)
             if (t->left == NULL && t->right == NULL) {
                 free(t);
                 return NULL;
             }
-            // ê²½ìš°2, 3) ë…¸ë“œê°€ ë¦¬í”„ê°€ ì•„ë‹ˆë¼ ìžì‹ì„ ê°€ì§ˆìˆ˜ ìžˆëŠ” ê²½ìš° 
+            // °æ¿ì2, 3) ³ëµå°¡ ¸®ÇÁ°¡ ¾Æ´Ï¶ó ÀÚ½ÄÀ» °¡Áú¼ö ÀÖ´Â °æ¿ì 
             else {
-                // ê²½ìš°2 - 1) í•´ë‹¹ ë…¸ë“œì˜ ì˜¤ë¥¸ìª½ì—ë§Œ ìžì‹ë§Œ ìžˆìŒ(= leftë§Œ null)
-                // -> í•´ë‹¹ rightì˜ ì£¼ì†Œê°’ì„ tmpì— ëŒ€ìž…í•˜ê³ , í•´ë‹¹ ë…¸ë“œì˜ ë©”ëª¨ë¦¬í• ë‹¹ì„ í•´ì œí›„ í•´ë‹¹ ë…¸ë“œë¥¼ ë¦¬í„´
-                //    -> ê·¸ë ‡ê²Œ í•˜ë©´, ê·¸ ì´ì „ ë…¸ë“œì˜ leftë‚˜ rightë¡œ ì—°ê²°ë˜ëŠ” ë…¸ë“œì˜ ì£¼ì†Œê°’ì´ ì œê±°ë˜ëŠ” ë…¸ë“œì˜ ìœ ì¼í•œ ìžì‹ë…¸ë“œë¡œ ì—°ê²°ì´ ë˜ì–´ ì´ì§„ê²€ìƒ‰íŠ¸ë¦¬ êµ¬ì¡°ê°€ ìœ ì§€
+                // °æ¿ì2 - 1) ÇØ´ç ³ëµåÀÇ ¿À¸¥ÂÊ¿¡¸¸ ÀÚ½Ä¸¸ ÀÖÀ½(= left¸¸ null)
+                // -> ÇØ´ç rightÀÇ ÁÖ¼Ò°ªÀ» tmp¿¡ ´ëÀÔÇÏ°í, ÇØ´ç ³ëµåÀÇ ¸Þ¸ð¸®ÇÒ´çÀ» ÇØÁ¦ÈÄ ÇØ´ç ³ëµå¸¦ ¸®ÅÏ
+                //    -> ±×·¸°Ô ÇÏ¸é, ±× ÀÌÀü ³ëµåÀÇ left³ª right·Î ¿¬°áµÇ´Â ³ëµåÀÇ ÁÖ¼Ò°ªÀÌ Á¦°ÅµÇ´Â ³ëµåÀÇ À¯ÀÏÇÑ ÀÚ½Ä³ëµå·Î ¿¬°áÀÌ µÇ¾î ÀÌÁø°Ë»öÆ®¸® ±¸Á¶°¡ À¯Áö
                 if (t->left == NULL) {
-                    // (ë¯¸ì™„)
+
                     temp = t->right;
                     free(t);
                     return temp;
                 }
 
-                // ê²½ìš°2 - 2)í•´ë‹¹ ë…¸ë“œì˜ ì™¼ìª½ì—ë§Œ ìžì‹ë§Œ ìžˆìŒ(= rightë§Œ null)
-                // -> í•´ë‹¹ leftì˜ ì£¼ì†Œê°’ì„ tmpì— ëŒ€ìž…í•˜ê³ , í•´ë‹¹ ë…¸ë“œì˜ ë©”ëª¨ë¦¬í• ë‹¹ì„ í•´ì œí›„ í•´ë‹¹ ë…¸ë“œë¥¼ ë¦¬í„´
-                //    -> ê·¸ë ‡ê²Œ í•˜ë©´, ê·¸ ì´ì „ ë…¸ë“œì˜ leftë‚˜ rightë¡œ ì—°ê²°ë˜ëŠ” ë…¸ë“œì˜ ì£¼ì†Œê°’ì´ ì œê±°ë˜ëŠ” ë…¸ë“œì˜ ìœ ì¼í•œ ìžì‹ë…¸ë“œë¡œ ì—°ê²°ì´ ë˜ì–´ ì´ì§„ê²€ìƒ‰íŠ¸ë¦¬ êµ¬ì¡°ê°€ ìœ ì§€
+                // °æ¿ì2 - 2)ÇØ´ç ³ëµåÀÇ ¿ÞÂÊ¿¡¸¸ ÀÚ½Ä¸¸ ÀÖÀ½(= right¸¸ null)
+                // -> ÇØ´ç leftÀÇ ÁÖ¼Ò°ªÀ» tmp¿¡ ´ëÀÔÇÏ°í, ÇØ´ç ³ëµåÀÇ ¸Þ¸ð¸®ÇÒ´çÀ» ÇØÁ¦ÈÄ ÇØ´ç ³ëµå¸¦ ¸®ÅÏ
+                //    -> ±×·¸°Ô ÇÏ¸é, ±× ÀÌÀü ³ëµåÀÇ left³ª right·Î ¿¬°áµÇ´Â ³ëµåÀÇ ÁÖ¼Ò°ªÀÌ Á¦°ÅµÇ´Â ³ëµåÀÇ À¯ÀÏÇÑ ÀÚ½Ä³ëµå·Î ¿¬°áÀÌ µÇ¾î ÀÌÁø°Ë»öÆ®¸® ±¸Á¶°¡ À¯Áö
                 if (t->right == NULL) {
-                    // (ë¯¸ì™„)
+
                     temp = t->left;
                     free(t);
                     return temp;
                 }
 
-                // ê²½ìš°3) í•´ë‹¹ ë…¸ë“œì˜ ì–‘ìª½ì— ìžì‹ë§Œ ìžˆìŒ
-                // -> ì‚­ì œë…¸ë“œì™€ ê°€ìž¥ ê·¼ì‚¬ê°’ì„ ê°€ì§„ ë…¸ë“œê°’ì„ ì‚­ì œí•  ë…¸ë“œìœ„ì¹˜ì˜ ê°’ìœ¼ë¡œ ëŒ€ìž… (= ì™¼ìª½ì—ì„œ ê°€ìž¥ í° ê°’ or ì˜¤ë¥¸ìª½ì—ì„œ ê°€ìž¥ ìž‘ì€ ê°’ ì¤‘ ë” ê°€ê¹Œìš´ ë…€ì„ì„ ê³ ë¥´ìž)
-                //   -> (ì¤‘ìš”!) ì™¼ìª½ì—ì„œ ê°€ìž¥ í° ê°’ or ì˜¤ë¥¸ìª½ì—ì„œ ê°€ìž¥ ìž‘ì€ ê°’.. ì´ë“¤ì€ ê²°ê³¼ì ìœ¼ë¡œ 'ë¦¬í”„ë…¸ë“œ'ë¡œ ìžì‹ì´ ì—†ìŒ
-                //       -> ê²°ê³¼ì ìœ¼ë¡œ ë¦¬í”„ë…¸ë“œì˜ ê°’ì„ ì‚­ì œí•  ë…¸ë“œì˜ ê°’ìœ¼ë¡œ ì˜®ê¹€ 
-                //          (= ê²°ê³¼ì ìœ¼ë¡œ ì‚­ì œí•  ë…€ì„ì€ ë¦¬í”„ë…¸ë“œë¥¼ ì˜ë¯¸í•¨ -> ì‚¬ì‹¤ìƒ ê°’ì„ ì´ì‹ + ë¦¬í”„ë…¸ë“œ ì‚­ì œí•˜ëŠ” ê²½ìš°1ì˜ ë¬¸ì œê°€ ë¨)
+                // °æ¿ì3) ÇØ´ç ³ëµåÀÇ ¾çÂÊ¿¡ ÀÚ½Ä¸¸ ÀÖÀ½
+                // -> »èÁ¦³ëµå¿Í °¡Àå ±Ù»ç°ªÀ» °¡Áø ³ëµå°ªÀ» »èÁ¦ÇÒ ³ëµåÀ§Ä¡ÀÇ °ªÀ¸·Î ´ëÀÔ (= ¿ÞÂÊ¿¡¼­ °¡Àå Å« °ª or ¿À¸¥ÂÊ¿¡¼­ °¡Àå ÀÛÀº °ª Áß ´õ °¡±î¿î ³à¼®À» °í¸£ÀÚ)
+                //   -> (Áß¿ä!) ¿ÞÂÊ¿¡¼­ °¡Àå Å« °ª or ¿À¸¥ÂÊ¿¡¼­ °¡Àå ÀÛÀº °ª.. ÀÌµéÀº °á°úÀûÀ¸·Î '¸®ÇÁ³ëµå'·Î ÀÚ½ÄÀÌ ¾øÀ½
+                //       -> °á°úÀûÀ¸·Î ¸®ÇÁ³ëµåÀÇ °ªÀ» »èÁ¦ÇÒ ³ëµåÀÇ °ªÀ¸·Î ¿Å±è 
+                //          (= °á°úÀûÀ¸·Î »èÁ¦ÇÒ ³à¼®Àº ¸®ÇÁ³ëµå¸¦ ÀÇ¹ÌÇÔ -> »ç½Ç»ó °ªÀ» ÀÌ½Ä + ¸®ÇÁ³ëµå »èÁ¦ÇÏ´Â °æ¿ì1ÀÇ ¹®Á¦°¡ µÊ)
 
-                // ì˜¤ë¥¸ìª½ & ì™¼ìª½ ëª¨ë‘ ìžì‹ì´ ìžˆì–´,
-                // -> ì™¼ìª½ ê°€ìž¥ í° ê°’ & ì˜¤ë¥¸ìª½ì—ì„œ ê°€ìž¥ ìž‘ì€ ê°’ì˜ ë…¸ë“œì˜ ì£¼ì†Œê°’ë¥¼ ê°ê° ì €ìž¥ 
-                //    (ì¤‘ìš”!) ì´ë“¤ì€ 'ë¦¬í”„ë…¸ë“œ'ë¡œ ìžì‹ì´ ì—†ìŒ
+                // ¿À¸¥ÂÊ & ¿ÞÂÊ ¸ðµÎ ÀÚ½ÄÀÌ ÀÖ¾î,
+                // -> ¿ÞÂÊ °¡Àå Å« °ª & ¿À¸¥ÂÊ¿¡¼­ °¡Àå ÀÛÀº °ªÀÇ ³ëµåÀÇ ÁÖ¼Ò°ª¸¦ °¢°¢ ÀúÀå 
+                //    (Áß¿ä!) ÀÌµéÀº '¸®ÇÁ³ëµå'·Î ÀÚ½ÄÀÌ ¾øÀ½
                 treeNode* left_close_value = findMax(t->left);
                 treeNode* right_close_value = findMin(t->right);
-                
-                // ê° ê·¼ì‚¬ì¹˜ ì¤‘ ë” ì‚­ì œì˜ˆì • ê°’ì— ê·¼ì ‘í•œ ë†ˆ ì°¾ì•„ì„œ..
-                // -> ì™¼ìª½ì—ì„œ ê°€ìž¥ í° ê°’ì´ ë” ê·¼ì ‘í•˜ë©´, ëŒ€ì²´ê°’ì€ ì™¼ìª½ì—ì„œ ê°€ìž¥ í° ê°’
+
+                // °¢ ±Ù»çÄ¡ Áß ´õ »èÁ¦¿¹Á¤ °ª¿¡ ±ÙÁ¢ÇÑ ³ð Ã£¾Æ¼­..
+                // -> ¿ÞÂÊ¿¡¼­ °¡Àå Å« °ªÀÌ ´õ ±ÙÁ¢ÇÏ¸é, ´ëÃ¼°ªÀº ¿ÞÂÊ¿¡¼­ °¡Àå Å« °ª
                 if (t->value - left_close_value->value < right_close_value->value - t->value) {
                     temp = left_close_value;
                 }
-                // -> ì˜¤ë¥¸ìª½ì—ì„œ ê°€ìž¥ ìž‘ì€ê°’ì´ ë” ê·¼ì ‘í•˜ë©´, ëŒ€ì²´ê°’ì€ ì˜¤ë¥¸ìª½ì—ì„œ ê°€ìž¥ ìž‘ì€ ê°’
+                // -> ¿À¸¥ÂÊ¿¡¼­ °¡Àå ÀÛÀº°ªÀÌ ´õ ±ÙÁ¢ÇÏ¸é, ´ëÃ¼°ªÀº ¿À¸¥ÂÊ¿¡¼­ °¡Àå ÀÛÀº °ª
                 else {
                     temp = right_close_value;
                 }
 
-                // ë” ê°€ê¹Œìš´ ê·¼ì‚¬ì¹˜ì— ìžˆëŠ” ë…¸ë“œì— ìžˆëŠ” ê°’ì„ ì‚­ì œê°’ì´ ìœ„ì¹˜í•œ ë…¸ë“œì˜ ê°’ìœ¼ë¡œ ëŒ€ìž…í•´ ì €ìž¥
+                // ´õ °¡±î¿î ±Ù»çÄ¡¿¡ ÀÖ´Â ³ëµå¿¡ ÀÖ´Â °ªÀ» »èÁ¦°ªÀÌ À§Ä¡ÇÑ ³ëµåÀÇ °ªÀ¸·Î ´ëÀÔÇØ ÀúÀå
                 t->value = temp->value;
 
-                // 'ë¦¬í”„ë…¸ë“œ'ë¡œ ìžì‹ì´ ì—†ì–´ ì‚¬ì‹¤ìƒ ê°’ ì´ì£¼ë¥¼ ëë‚´ ì°Œêº¼ê¸°ë§Œ ë‚¨ì€ ë…¸ë“œë¥¼ ì œê±°í•´ì•¼í•¨
-                //  -> tempê°’ì´ ì™¼ìª½ ê°€ìž¥ í° ê°’ & ì˜¤ë¥¸ìª½ì—ì„œ ê°€ìž¥ ìž‘ì€ ê°’ì¸ì§€ë¥¼ ì¡°ê±´ìœ¼ë¡œ
-                //     -> 'ì™¼ìª½ ê°€ìž¥ í° ê°’'ì„ ì´ì£¼í–ˆìœ¼ë©´, ì‚­ì œê°’ì´ ìœ„ì¹˜í•œ ë…¸ë“œì˜ ì™¼íŽ¸ ë…¸ë“œë¥¼ ì‹œìž‘ìœ¼ë¡œ ì™¼ìª½ ê°€ìž¥ í° ê°’ì´ ì¡´ìž¬í–ˆë˜ ì›ëž˜ ë…¸ë“œë¥¼ ì´ì§„ê²€ìƒ‰íŠ¸ë¦¬ ë…¼ë¦¬ë¡œ ì°¾ì•„ ì¶”ì í•´ ì‚­ì œí•˜ë„ë¡ ìž¬ê·€ì‚­ì œë¬¸ ìž‘ì„±
-                if (temp = left_close_value) {
+                // '¸®ÇÁ³ëµå'·Î ÀÚ½ÄÀÌ ¾ø¾î »ç½Ç»ó °ª ÀÌÁÖ¸¦ ³¡³» Âî²¨±â¸¸ ³²Àº ³ëµå¸¦ Á¦°ÅÇØ¾ßÇÔ
+                //  -> temp°ªÀÌ ¿ÞÂÊ °¡Àå Å« °ª & ¿À¸¥ÂÊ¿¡¼­ °¡Àå ÀÛÀº °ªÀÎÁö¸¦ Á¶°ÇÀ¸·Î
+                //     -> '¿ÞÂÊ °¡Àå Å« °ª'À» ÀÌÁÖÇßÀ¸¸é, »èÁ¦°ªÀÌ À§Ä¡ÇÑ ³ëµåÀÇ ¿ÞÆí ³ëµå¸¦ ½ÃÀÛÀ¸·Î ¿ÞÂÊ °¡Àå Å« °ªÀÌ Á¸ÀçÇß´ø ¿ø·¡ ³ëµå¸¦ ÀÌÁø°Ë»öÆ®¸® ³í¸®·Î Ã£¾Æ ÃßÀûÇØ »èÁ¦ÇÏµµ·Ï Àç±Í»èÁ¦¹® ÀÛ¼º
+                if (temp == left_close_value) {
                     t->left = removeNode(t->left, temp->value);
                 }
-                //     -> 'ì˜¤ë¥¸ìª½ì—ì„œ ê°€ìž¥ ìž‘ì€ê°’'ì„ ì´ì£¼í–ˆìœ¼ë©´, ì‚­ì œê°’ì´ ìœ„ì¹˜í•œ ë…¸ë“œì˜ ì˜¤ë¥¸íŽ¸ ë…¸ë“œë¥¼ ì‹œìž‘ìœ¼ë¡œ ì˜¤ë¥¸ìª½ ê°€ìž¥ ìž‘ì€ ê°’ì´ ì¡´ìž¬í–ˆë˜ ì›ëž˜ ë…¸ë“œë¥¼ ì´ì§„ê²€ìƒ‰íŠ¸ë¦¬ ë…¼ë¦¬ë¡œ ì°¾ì•„ ì¶”ì í•´ ì‚­ì œí•˜ë„ë¡ ìž¬ê·€ì‚­ì œë¬¸ ìž‘ì„±
+                //     -> '¿À¸¥ÂÊ¿¡¼­ °¡Àå ÀÛÀº°ª'À» ÀÌÁÖÇßÀ¸¸é, »èÁ¦°ªÀÌ À§Ä¡ÇÑ ³ëµåÀÇ ¿À¸¥Æí ³ëµå¸¦ ½ÃÀÛÀ¸·Î ¿À¸¥ÂÊ °¡Àå ÀÛÀº °ªÀÌ Á¸ÀçÇß´ø ¿ø·¡ ³ëµå¸¦ ÀÌÁø°Ë»öÆ®¸® ³í¸®·Î Ã£¾Æ ÃßÀûÇØ »èÁ¦ÇÏµµ·Ï Àç±Í»èÁ¦¹® ÀÛ¼º
                 else {
                     t->right = removeNode(t->right, temp->value);
                 }
@@ -475,10 +468,10 @@ treeNode* removeNode(treeNode* t, element data) {
 
             }
         }
-        // ë£¨íŠ¸ì— ê°’ì´ ì—†ìœ¼ë©´, ìž¬ê·€ë¥¼ í†µí•´ dfsë°©ì‹ìœ¼ë¡œ íƒìƒ‰í•´ì„œ ì§„í–‰
+        // ·çÆ®¿¡ °ªÀÌ ¾øÀ¸¸é, Àç±Í¸¦ ÅëÇØ dfs¹æ½ÄÀ¸·Î Å½»öÇØ¼­ ÁøÇà
         else {
 
-            // í•´ë‹¹ ë…¸ë“œì˜ ê°’ì´ ê²€ìƒ‰ê°’ë³´ë‹¤ í¬ëƒ? ìž‘ëƒì— ë”°ë¼ left, rightë¡œ ë…¸ë“œì´ë™
+            // ÇØ´ç ³ëµåÀÇ °ªÀÌ °Ë»ö°ªº¸´Ù Å©³Ä? ÀÛ³Ä¿¡ µû¶ó left, right·Î ³ëµåÀÌµ¿
             if (data < t->value) {
                 t->left = removeNode(t->left, data);
             }
@@ -488,68 +481,104 @@ treeNode* removeNode(treeNode* t, element data) {
         }
     }
 
-    // ì‚­ì œë¥¼ í•˜ê²Œë˜ë©´, ì‚­ì œí•œ ë…¸ë“œì˜ ì£¼ì†Œ ë¦¬í„´.. ì•„ë‹ˆë©´ NULL ë¦¬í„´
+    // »èÁ¦¸¦ ÇÏ°ÔµÇ¸é, »èÁ¦ÇÑ ³ëµåÀÇ ÁÖ¼Ò ¸®ÅÏ.. ¾Æ´Ï¸é NULL ¸®ÅÏ
     return t;
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-
 int main() {
 
     srand((unsigned int)time(NULL));
 
-    // ë™ì ë°°ì—´ì˜ ìœ„ì¹˜ë¥¼ ë°›ì•„ë‚¼ í¬ì¸í„°
+    // µ¿Àû¹è¿­ÀÇ À§Ä¡¸¦ ¹Þ¾Æ³¾ Æ÷ÀÎÅÍ
     int* array_address = NULL;
-    // ë™ì ë°°ì—´ì˜ ê¸¸ì´ê°’
+    // µ¿Àû¹è¿­ÀÇ ±æÀÌ°ª
     int array_num = 0;
 
+    // ÀÌÁø°Ë»öÆ®¸®°¡ ½ÃÀÛµÉ ·çÆ®³ëÆ®ÀÇ ÁÖ¼Ò°ªÀ» ÀúÀåÇÒ º¯¼ö root
     treeNode* root = NULL;
 
     printf("----------------------------------------------------------------------------\n");
-    printf("[ì´ì§„ê²€ìƒ‰íŠ¸ë¦¬]ë¥¼ ë§Œë“¤ê³  ê´€ë ¨ ê¸°ëŠ¥ì„ ìˆ˜í–‰í•´ë´…ë‹ˆë‹¤. ë°°ì—´ í¬ê¸°ì— í•´ë‹¹í•˜ëŠ” ê°’ì„ ìž…ë ¥í•˜ë©´,\n ë°°ì—´ì˜ ê°’ì€ 1~ ë°°ì—´í¬ê¸° * 3 ì¤‘ ëžœë¤ ìƒì„± ë©ë‹ˆë‹¤.");
+    printf("[ÀÌÁø°Ë»öÆ®¸®]¸¦ ¸¸µé°í °ü·Ã ±â´ÉÀ» ¼öÇàÇØº¾´Ï´Ù. ¹è¿­ Å©±â¿¡ ÇØ´çÇÏ´Â °ªÀ» ÀÔ·ÂÇÏ¸é,\n ¹è¿­ÀÇ °ªÀº 1~ ¹è¿­Å©±â * 3 Áß ·£´ý »ý¼º µË´Ï´Ù.");
     printf("----------------------------------------------------------------------------\n\n");
 
-    printf("ê²€ìƒ‰ì˜ ëŒ€ìƒì´ ë˜ëŠ” ë°°ì—´ì˜ í¬ê¸°ë¥¼ ìž…ë ¥í•˜ì„¸ìš” (0ì´ì™¸ì˜ ê°’ì„ ì¢€ ë¶€íƒë“œë ¤ìš©~) : ");
+    printf("°Ë»öÀÇ ´ë»óÀÌ µÇ´Â ¹è¿­ÀÇ Å©±â¸¦ ÀÔ·ÂÇÏ¼¼¿ä (0ÀÌ¿ÜÀÇ °ªÀ» Á» ºÎÅ¹µå·Á¿ë~) : ");
     scanf_s("%d", &array_num);
 
     if (array_num == 0) {
-        printf("ë°°ì—´ì˜ í¬ê¸°ê°€ 0ì´ë¯€ë¡œ ì‹œìŠ¤í…œì„ ì¢…ë£Œí•©ë‹ˆë‹¤\n");
+        printf("¹è¿­ÀÇ Å©±â°¡ 0ÀÌ¹Ç·Î ½Ã½ºÅÛÀ» Á¾·áÇÕ´Ï´Ù\n");
         exit(0);
     }
 
-    // ë™ì í• ë‹¹ ì‹œí–‰
+    // µ¿ÀûÇÒ´ç ½ÃÇà
     array_address = (int*)calloc(array_num, sizeof(int));
 
-    // ë™ì í• ë‹¹í•œ ë©”ëª¨ë¦¬ ê°ê°ì˜ ê°’ì´ ì •ë ¬ëœ íš¨ê³¼ë¥¼ ë‚³ê²Œ, ëžœë¤í•œ ê°’ì´ ë“¤ì–´ê°ˆìˆ˜ ìžˆê²Œí•˜ë˜, ë¬´ì¡°ê±´ ìžê¸° ì´ì „ì˜ ê°’ì— ì¶”ê°€ê°’ì„ ë”í•˜ëŠ” ì‹ìœ¼ë¡œ ì„¤ê³„
+    // µ¿ÀûÇÒ´çÇÑ ¸Þ¸ð¸® °¢°¢ÀÇ °ªÀÌ Á¤·ÄµÈ È¿°ú¸¦ ³º°Ô, ·£´ýÇÑ °ªÀÌ µé¾î°¥¼ö ÀÖ°ÔÇÏµÇ, ¹«Á¶°Ç ÀÚ±â ÀÌÀüÀÇ °ª¿¡ Ãß°¡°ªÀ» ´õÇÏ´Â ½ÄÀ¸·Î ¼³°è
     for (int i = 0; i < array_num; i++) {
 
         *(array_address + i) = rand() % (array_num * 3) + 1;
 
         printf("%d ", *(array_address + i));
+
+        // (Áß¿ä) °¢ °ªÀ» ÀÌÁø°Ë»öÆ®¸®¿¡ ¹èÄ¡ÇÏ°í, ±× ¸®ÅÏ°ªÀ» ÀÌÁø°Ë»öÆ®¸®ÀÇ ·çÆ®ÁÖ¼Ò°ªÀÎ root¿¡ ´ëÀÔÇØµµ ¹®Á¦¾øÀ½
+        // -> ·çÆ® ÇÏÀ§³ëµåµéÀÇ °ª ´ëÀÔÀº Àç±Í¸¦ ÅëÇØ ÀÌ¹Ì ·çÆ®ºÎÅÍ °¢ ³ëµåÀÇ left, right¿¡ µé¾î°¨
         root = addNode(root, *(array_address + i));
     }
 
-    printf("\n\nê°’ ìž…ë ¥ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.\n");
-    printf("hint : ê°€ìž¥ ìž‘ì€ ê°’ = %d, ê°€ìž¥ ë†’ì€ ê°’ = %d)\n\n", *(array_address), *(array_address + array_num - 1));
+    printf("\n\n°ª ÀÔ·ÂÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.\n");
+    printf("hint : °¡Àå ÀÛÀº °ª = %d, °¡Àå ³ôÀº °ª = %d)\n\n", *(array_address), *(array_address + array_num - 1));
 
+    // ÀÌÁøÆ®¸®³ëµåÀÇ ÁÖ¼Ò°ªÀ» ¿ä¼Ò·Î ¹Þ´Â Queue¹è¿­ÀÇ µ¿ÀûÇÒ´ç ¸Þ¸ð¸® ÁÖ¼Ò¸¦ ¹Þ±âÀ§ÇÑ LinkedQueueType ±¸Á¶Ã¼º¯¼ö
     LinkedQueueType* queue_BFS = NULL;
+
+    // ÀÌÁøÆ®¸®³ëµåÀÇ ÁÖ¼Ò°ªÀ» ¿ä¼Ò·Î ¹Þ´Â Queue¹è¿­À» À§ÇÑ ¸Þ¸ð¸®¸¦ ÇÒ´çÇÏ¿© ÃÊ±âÈ­ÇÑ µÚ, QueueÀÇ ½ÃÀÛÁÖ¼Ò ´ëÀÔ
     queue_BFS = QueueInit1(queue_BFS);
 
+    // ÀÌÁøÆ®¸®³ëµåÀÇ ÁÖ¼Ò°ªÀ» ¿ä¼Ò·Î ¹Þ´Â Queue¿¡ ·çÆ®°ªÀ» ³Ö¾îÁÜ
     Enqueue(queue_BFS, root);
 
-    printf("\nBFS(ë„ˆë¹„ìš°ì„ íƒìƒ‰)\n");
+    printf("\nBFS(³Êºñ¿ì¼±Å½»ö)\n");
     displayBFS(queue_BFS);
 
-    printf("\nì „ìœ„ ìˆœíšŒ\n");
+    printf("\nÀüÀ§ ¼øÈ¸\n");
     displayPreOrder(root);
 
-    printf("\n\nì¤‘ìœ„ ìˆœíšŒ\n");
+    printf("\n\nÁßÀ§ ¼øÈ¸\n");
     displayInOrder(root);
 
-    printf("\n\ní›„ìœ„ ìˆœíšŒ\n");
+    printf("\n\nÈÄÀ§ ¼øÈ¸\n");
     displayPostOrder(root);
+
+    printf("\n");
+
+    // ¹è¿­¿¡ ÀÖ´Â °ª Áß ·£´ýÇÏ°Ô ÂïÀº ¸Þ¸ð¸®ÀÇ ÁÖ¼ÒÀÇ °ªÀ» ¿ªÂüÁ¶ÇÑ °ªÀ» Ãâ·ÂÇÏµµ·Ï ÇÔ
+    treeNode* search_address = searchNode(root, *(array_address + rand() % (array_num) ) );
+    printf("\n\n°Ë»öÇÑ ¹è¿­°ª %d´Â Æ®¸®³ëµå index %d¹ø¿¡ À§Ä¡ÇÏ¸ç, ¸Þ¸ð¸® ÁÖ¼Ò°¡ %d¿¡ À§Ä¡ÇÏ¿© ÀÖ½À´Ï´Ù.\n", search_address->value, search_address->node_num, search_address);
+
+    int delete_value = *(array_address + rand() % (array_num));
+
+    printf("\n\n»èÁ¦ÇÒ ¹è¿­°ª %d´Â Æ®¸®³ëµå index %d¹ø¿¡ À§Ä¡ÇÏ¸ç, ¸Þ¸ð¸® ÁÖ¼Ò°¡ %d¿¡ À§Ä¡ÇÏ¿© ÀÖ¾ú½À´Ï´Ù.\n", delete_value, searchNode(root, delete_value)->node_num, searchNode(root, delete_value));
+
+    root = removeNode(root, delete_value);
+
+    // ÀÌÁøÆ®¸®³ëµåÀÇ ÁÖ¼Ò°ªÀ» ¿ä¼Ò·Î ¹Þ´Â Queue¿¡ ·çÆ®°ªÀ» ³Ö¾îÁÜ
+    Enqueue(queue_BFS, root);
+
+    printf("\nBFS(³Êºñ¿ì¼±Å½»ö)\n");
+    displayBFS(queue_BFS);
+
+    printf("\nÀüÀ§ ¼øÈ¸\n");
+    displayPreOrder(root);
+
+    printf("\n\nÁßÀ§ ¼øÈ¸\n");
+    displayInOrder(root);
+
+    printf("\n\nÈÄÀ§ ¼øÈ¸\n");
+    displayPostOrder(root);
+
+    printf("\n");
 
     freeTree(root);
 
