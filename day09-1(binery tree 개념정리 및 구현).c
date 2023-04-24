@@ -83,7 +83,7 @@
 //     - 앞선 원칙을 지킨다면, 부모노드 순서를 끼워넣을 때 다음과 같이 3가지 순서가 정해지는데, 이 순서는 부모노드를 몇번째(전 - 중 - 후)로 조회하는지에 따라 명칭을 부여
 //        -> 부모를 타고 올라갈때도, 결국 루트노드를 보게 되는것도 원래의 원칙에서 기인
 //        -> 재귀적인 특성을 가지며, 실제로도 재귀적으로 코드를 구성함
-//     - 값의 출력은 노드 - 노드를 타고 i아가다 최종적으로 도달된 노드에 값이 없을 때 이를 출력하는게 원래의 논리
+//     - 값의 출력은 노드 - 노드를 타고 나아가다 최종적으로 도달된 노드에 값이 없을 때 이를 출력하는게 원래의 논리
 //       (= 원칙적으로는 부모, 왼쪽, 오른쪽 노드가 NULL일시 그 노드의 값을 찍으라고 코드를 짜야하나.. )
 //          -> 굉장히 논리적으로나 성능적으로나 번거롭기 그지없으므로, 부모노드를 보는 대신 자신의 값을 찍는거로 대체
 
@@ -110,7 +110,7 @@
 //                   1   2 4   5   순서
 
 
-// 이진트리 (<-> 이진검색트리)의 조회 기능 구현 코드
+// 이진트리 (<-> 이진검색트리)의 깊이우선탐색(DFS)조회 기능 3종세트 구현 코드
 #include <stdio.h>
 #include <stdlib.h>       //	srand(), rand() 함수 사용 가능하게 함
 #include <time.h>
@@ -120,8 +120,8 @@ typedef int element;
 // 트리 구현 구조체
 typedef struct treeNode {
     element value;               // 값
-    struct treeNode* left;   // (현재 노드기준) 왼쪽 노드의 주소값 
-    struct treeNode* right;  // (현재 노드기준) 오른쪽 노드의 주소값 
+    struct treeNode* left;       // (현재 노드기준) 왼쪽 노드의 주소값 
+    struct treeNode* right;      // (현재 노드기준) 오른쪽 노드의 주소값 
 }treeNode;
 
 // 정적배열 -> 이진트리형식으로 옮기기 (배열의 시작주소, 배열크기, 배열공간 번호)
@@ -142,6 +142,7 @@ treeNode* setBinTreeNode(int* arr, int count, int idx) {
     int left_from_array_num, right_from_array_num;
 
     // 해당 노드의 left, right에 해당하는 값이 위치한 배열의 공간번호를 계산
+    // (= 자신의 위치값 * 2 = 왼쪽자식노드 위치, 자신의 위치값 * 2 + 1 = 오른쪽 자식노드 위치) <-> (부모노드 위치값 = 자신/2)
     left_from_array_num = idx * 2 + 1;
     right_from_array_num = idx * 2 + 2;
 
@@ -249,11 +250,12 @@ int main() {
 
     // 해당 배열은 이진검색트리에 맞게 배열이 끝난 상태... (이에 맞도록 배열을 입력하는건 이진검색트리에서 다룸)
     int arr[] = { 6, 4, 8, 2, 5, 7, 9, 1, 3 };
-    treeNode* root = setBinTreeNode(array_address, array_num, 0);
+    treeNode* root = setBinTreeNode(arr, 9, 0);
 
     printf("\n전위 순회\n");
     displayPreOrder(root);
 
+    // 이진검색트리의 원칙으로 배열이 정렬되었으면 오름차순으로 출력
     printf("\n중위 순회\n");
     displayInOrder(root);
 
