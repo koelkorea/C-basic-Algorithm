@@ -11,10 +11,20 @@
 // 그래프 구조체
 typedef struct graph {
 
-    //정점의 개수
+    // 정점의 개수
     int verCount;
 
-    //동적 할당 된 2차원 배열의 주소 저장
+    // 동적 할당 된 2차원 배열의 주소 저장할 2중 int 포인터변수 arr
+    //  -> 배열도 일종의 포인터라는 점 기억 + int형식 배열의 위치를 저장해 둔 int포인터 형식 변수들로 이뤄진 배열의 위치를 저장할 수 있는 변수 타입 = 2중 int 포인터 형식의 변수 arr
+    //     -> *arr = int 형식 포인터의 동적배열 시작점 (= *(arr + i)로  int 형식 포인터의 동적배열의 각 행에 접근 가능!)
+    //         -> *(arr + i) = int 배열명[i][0] 메모리 위치에 접근효과
+    //            -> *(arr + i) + k = int 배열명[i][k] 메모리 위치에 접근효과 
+    //            -> *( *(arr + i) + k ) = int 배열명[i][k] 값
+    //  -> 그런데 이녀석이 graph 구조체의 일부다? = 역참조를 더 손쉽게 할 옵션이 늘어남 (->를 가르치면 그냥 끝까지 역참조 간다는 의미)
+    //     -> (결론) graph->arr[i][k] = *(graph->arr[i] + k) 의미 
+    //         -> *(arr + i) = graph->arr[i]의 메모리 위치 = graph->arr[i][0]의 메모리 위치
+    //            -> *(arr + i) + k = graph->arr[i] + k = graph->arr[i][k]의 메모리 위치
+    //            -> (중요!) *( *(arr + i) + k ) = *(graph->arr[i] + k) = graph->arr[i][k] 성립 
     int** arr;
 
 }graph;
@@ -61,6 +71,7 @@ void display(graph* p) {
 
         for (int j = 0; j < p->verCount; j++) {
 
+            // (결론) graph->arr[i][k] = *(graph->arr[i] + k) 의미 (->를 가르치면 그냥 끝까지 역참조 간다는 의미)
             printf("%d ", p->arr[i][j]);
         }
 
@@ -97,6 +108,3 @@ int main() {
 
     return 0;
 }
-
-
-
