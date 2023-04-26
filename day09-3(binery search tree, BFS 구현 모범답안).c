@@ -1,14 +1,14 @@
 #include <stdio.h>  
 #include <stdlib.h> // malloc(), rand() srand()
 #include <time.h> // time()
-/////////////////////////////Æ®¸® ³ëµå  ////////////////////////
+/////////////////////////////íŠ¸ë¦¬ ë…¸ë“œ  ////////////////////////
 typedef int element;
 typedef enum {
     TERMINATE, ADD, REMOVE, SEARCH, PRINT, MIN, MAX
 }menu;
 typedef struct tNode {
     element value;
-    int level;   // level ¸â¹ö ³ëµå Æ÷ÇÔ
+    int level;   // level ë©¤ë²„ ë…¸ë“œ í¬í•¨
     struct tNode* left;
     struct tNode* right;
 }treeNode;
@@ -19,7 +19,7 @@ int displayInOrder(treeNode* t);
 treeNode* findMin(treeNode* t);
 treeNode* findMax(treeNode* t);
 void freeTree(treeNode* t);
-/////////////////////////////Æ®¸® ³ëµå Å¥////////////////////////
+/////////////////////////////íŠ¸ë¦¬ ë…¸ë“œ í////////////////////////
 typedef struct QueueNode {
     treeNode* item;
     struct QueueNode* link;
@@ -58,34 +58,34 @@ int main() {
         scanf_s("%d", &select);
         switch (select) {
         case ADD:
-            printf("\n\nÁ¤¼ö ÀÔ·Â : ");
+            printf("\n\nì •ìˆ˜ ì…ë ¥ : ");
             scanf_s("%d", &val);
             root = addNode(root, val);
             break;
         case REMOVE:
-            printf("\n\n\t\t»èÁ¦ÇÒ Á¤¼ö ÀÔ·Â : ");
+            printf("\n\n\t\tì‚­ì œí•  ì •ìˆ˜ ì…ë ¥ : ");
             scanf_s("%d", &val);
             root = removeNode(root, val);
             break;
         case SEARCH:
-            printf("\n\n\t\t°Ë»öÇÒ Á¤¼ö ÀÔ·Â : ");
+            printf("\n\n\t\tê²€ìƒ‰í•  ì •ìˆ˜ ì…ë ¥ : ");
             scanf_s("%d", &val);
             findNode = searchNode(root, val);
-            if (!findNode) printf("\n\n\t\t°Ë»öÇÑ Á¤¼ö´Â Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.\n");
+            if (!findNode) printf("\n\n\t\tê²€ìƒ‰í•œ ì •ìˆ˜ëŠ” ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.\n");
             else {
-                printf("\n\n\t\t°Ë»öÇÑ Á¤¼ö %d´Â ÀÖ½À´Ï´Ù\n", findNode->value);
-                printf("\n\n\t\t°Ë»öÇÑ °ªÀÇ ·¹º§Àº %d ÀÔ´Ï´Ù\n", findNode->level);
+                printf("\n\n\t\tê²€ìƒ‰í•œ ì •ìˆ˜ %dëŠ” ìˆìŠµë‹ˆë‹¤\n", findNode->value);
+                printf("\n\n\t\tê²€ìƒ‰í•œ ê°’ì˜ ë ˆë²¨ì€ %d ì…ë‹ˆë‹¤\n", findNode->level);
             }
             break;
         case MIN:
             findNode = findMin(root);
-            if (!findNode) printf("\n\n\t\t³ëµå°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.\n");
-            else printf("\n\n\t\tÃÖ¼Ú°ªÀº %dÀÔ´Ï´Ù.\n", findNode->value);
+            if (!findNode) printf("\n\n\t\të…¸ë“œê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.\n");
+            else printf("\n\n\t\tìµœì†Ÿê°’ì€ %dì…ë‹ˆë‹¤.\n", findNode->value);
             break;
         case MAX:
             findNode = findMax(root);
-            if (!findNode) printf("\n\n\t\t³ëµå°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.\n");
-            else printf("\n\n\t\tÃÖ´ñ°ªÀº %dÀÔ´Ï´Ù.\n", findNode->value);
+            if (!findNode) printf("\n\n\t\të…¸ë“œê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.\n");
+            else printf("\n\n\t\tìµœëŒ“ê°’ì€ %dì…ë‹ˆë‹¤.\n", findNode->value);
             break;
         case PRINT:
             displayInOrder(root);
@@ -93,7 +93,7 @@ int main() {
             break;
         case TERMINATE:
             freeTree(root);
-            exit(0); //ÇÁ·Î±×·¥ °­Á¦ Á¾·á
+            exit(0); //í”„ë¡œê·¸ë¨ ê°•ì œ ì¢…ë£Œ
             break;
         }
         printf("\n\n");
@@ -102,14 +102,14 @@ int main() {
     return 0;
 }
 treeNode* addNode(treeNode* t, element data) {
-    if (!t) {//ÀÌÁøÅ½»ö ½ÇÆĞ À§Ä¡°¡ »ğÀÔ À§Ä¡ & ³ëµå°¡ ¾øÀ» ¶§
+    if (!t) {//ì´ì§„íƒìƒ‰ ì‹¤íŒ¨ ìœ„ì¹˜ê°€ ì‚½ì… ìœ„ì¹˜ & ë…¸ë“œê°€ ì—†ì„ ë•Œ
         t = (treeNode*)malloc(sizeof(treeNode));
         t->value = data;
         t->level = 0;
         t->left = NULL;
         t->right = NULL;
     }
-    else if (data == t->value) printf("\n\n\t\t%d´Â ÀÌ¹Ì µî·Ï µÈ °ª ÀÔ´Ï´Ù.\n", data);
+    else if (data == t->value) printf("\n\n\t\t%dëŠ” ì´ë¯¸ ë“±ë¡ ëœ ê°’ ì…ë‹ˆë‹¤.\n", data);
     else if (data < t->value) t->left = addNode(t->left, data);
     else /* data > t->value */t->right = addNode(t->right, data);
     return t;
@@ -117,28 +117,28 @@ treeNode* addNode(treeNode* t, element data) {
 treeNode* removeNode(treeNode* t, element data) {
     treeNode* temp = NULL;
     if (t) {
-        if (data == t->value) {// »èÁ¦ÇÒ °ª ³ëµå Ã£±â
-            if (t->left == NULL && t->right == NULL) {//³ëµå°¡ ¸®ÇÁÀÎ °æ¿ì
+        if (data == t->value) {// ì‚­ì œí•  ê°’ ë…¸ë“œ ì°¾ê¸°
+            if (t->left == NULL && t->right == NULL) {//ë…¸ë“œê°€ ë¦¬í”„ì¸ ê²½ìš°
                 free(t);
                 return NULL;
             }
             else {
-                if (t->left == NULL) {//¿À¸¥ÂÊ ÀÚ½Ä¸¸ ÀÖ´Ù.
+                if (t->left == NULL) {//ì˜¤ë¥¸ìª½ ìì‹ë§Œ ìˆë‹¤.
                     temp = t->right;
                     free(t);
                     return temp;
                 }
-                if (t->right == NULL) {//¿ŞÂÊ ÀÚ½Ä¸¸ ÀÖ´Ù.
+                if (t->right == NULL) {//ì™¼ìª½ ìì‹ë§Œ ìˆë‹¤.
                     temp = t->left;
                     free(t);
                     return temp;
                 }
-                temp = findMax(t->left);//¿À¸¥ÂÊ & ¿ŞÂÊ ¸ğµÎ ÀÚ½ÄÀÌ ÀÖ¾î, ¿ŞÂÊ °¡Àå Å« °ª È£Ãâ
-                t->value = temp->value;//¿ŞÂÊ °¡Àå Å« °ª ÀúÀå
-                t->left = removeNode(t->left, temp->value);//¿ŞÂÊ °¡Àå Å« °ª »èÁ¦ Àç±Í
+                temp = findMax(t->left);//ì˜¤ë¥¸ìª½ & ì™¼ìª½ ëª¨ë‘ ìì‹ì´ ìˆì–´, ì™¼ìª½ ê°€ì¥ í° ê°’ í˜¸ì¶œ
+                t->value = temp->value;//ì™¼ìª½ ê°€ì¥ í° ê°’ ì €ì¥
+                t->left = removeNode(t->left, temp->value);//ì™¼ìª½ ê°€ì¥ í° ê°’ ì‚­ì œ ì¬ê·€
             }
         }
-        else {// °ª Ã£±â, Àç±Í¾Ë°í¸®Áò
+        else {// ê°’ ì°¾ê¸°, ì¬ê·€ì•Œê³ ë¦¬ì¦˜
             if (data < t->value) t->left = removeNode(t->left, data);
             else/* data > t->value */t->right = removeNode(t->right, data);
         }
@@ -149,52 +149,52 @@ treeNode* searchNode(treeNode* t, element data) {
     static int level_search;
     if (!t) {
         level_search = 0;
-        return NULL; //Å½»ö ½ÇÆĞ
+        return NULL; //íƒìƒ‰ ì‹¤íŒ¨
     }
     if (data == t->value) {
         t->level = level_search;
         level_search = 0;
-        return t; //Å½»ö ¼º°ø
+        return t; //íƒìƒ‰ ì„±ê³µ
     }
     if (data < t->value) {
         level_search++;
-        return searchNode(t->left, data); // data°ªÀÌ ÀÛ¾Æ ¿ŞÂÊ Å½»ö
+        return searchNode(t->left, data); // dataê°’ì´ ì‘ì•„ ì™¼ìª½ íƒìƒ‰
     }
     else {
         level_search++;
-        return searchNode(t->right, data); // data°ªÀÌ Ä¿ ¿À¸¥ÂÊ Å½»ö
+        return searchNode(t->right, data); // dataê°’ì´ ì»¤ ì˜¤ë¥¸ìª½ íƒìƒ‰
     }
 }
-int displayInOrder(treeNode* t) {//ÁßÀ§ ¼øÈ¸ : ¿ŞÂÊ - ºÎ¸ğ - ¿À¸¥ÂÊ
+int displayInOrder(treeNode* t) {//ì¤‘ìœ„ ìˆœíšŒ : ì™¼ìª½ - ë¶€ëª¨ - ì˜¤ë¥¸ìª½
     static int level_InOrder;
     ++level_InOrder;
     if (t) {
-        displayInOrder(t->left); // ¿ŞÂÊ
+        displayInOrder(t->left); // ì™¼ìª½
         t->level = level_InOrder - 1;
-        printf("Value : %5d , Level : %5d\n", t->value, t->level); // ºÎ¸ğ
-        displayInOrder(t->right); // ¿À¸¥ÂÊ
+        printf("Value : %5d , Level : %5d\n", t->value, t->level); // ë¶€ëª¨
+        displayInOrder(t->right); // ì˜¤ë¥¸ìª½
     }
     return --level_InOrder;
 }
-treeNode* findMin(treeNode* t) { // °¡Àå ¿ŞÂÊÀÌ ÃÖ¼Ò°ª
+treeNode* findMin(treeNode* t) { // ê°€ì¥ ì™¼ìª½ì´ ìµœì†Œê°’
     if (t) while (t->left) t = t->left;
     return t;
 }
-treeNode* findMax(treeNode* t) { // °¡Àå ¿À¸¥ÂÊÀÌ Å« °ª
+treeNode* findMax(treeNode* t) { // ê°€ì¥ ì˜¤ë¥¸ìª½ì´ í° ê°’
     if (t) while (t->right) t = t->right;
     return t;
 }
-void freeTree(treeNode* t) { // ÈÄÀ§ ¼øÈ¸ : ¿ŞÂÊ - ¿À¸¥ÂÊ - ºÎ¸ğ
+void freeTree(treeNode* t) { // í›„ìœ„ ìˆœíšŒ : ì™¼ìª½ - ì˜¤ë¥¸ìª½ - ë¶€ëª¨
     if (t) {
-        freeTree(t->left); // ¿ŞÂÊ
-        freeTree(t->right); // ¿À¸¥ÂÊ
-        printf("%d³ëµå »èÁ¦\n", t->value); // ºÎ¸ğ
-        free(t); // ¸Ş¸ğ¸® ÇØÁ¦ (·çÆ® ³ëµå °¡Àå ¸¶Áö¸·¿¡ ÇØÁ¦)
+        freeTree(t->left); // ì™¼ìª½
+        freeTree(t->right); // ì˜¤ë¥¸ìª½
+        printf("%dë…¸ë“œ ì‚­ì œ\n", t->value); // ë¶€ëª¨
+        free(t); // ë©”ëª¨ë¦¬ í•´ì œ (ë£¨íŠ¸ ë…¸ë“œ ê°€ì¥ ë§ˆì§€ë§‰ì— í•´ì œ)
     }
 }
 void enqueue(QueueType* q, treeNode* item) {
     QueueNode* temp = (QueueNode*)malloc(sizeof(QueueNode));
-    if (temp == NULL) printf("¸Ş¸ğ¸®¸¦ ÇÒ´çÇÒ ¼ö ¾ø½À´Ï´Ù");
+    if (temp == NULL) printf("ë©”ëª¨ë¦¬ë¥¼ í• ë‹¹í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤");
     else {
         temp->item = item;
         temp->link = NULL;
@@ -211,7 +211,7 @@ void enqueue(QueueType* q, treeNode* item) {
 treeNode* dequeue(QueueType* q) {
     QueueNode* temp = q->front;
     treeNode* item;
-    if (is_empty(q)) printf("Å¥°¡ ºñ¾î ÀÖÀ¾´Ï´Ù");
+    if (is_empty(q)) printf("íê°€ ë¹„ì–´ ìˆìë‹ˆë‹¤");
     else {
         item = temp->item;
         q->front = q->front->link;
